@@ -1,0 +1,6 @@
+ 
+- Attribute interface should be exposed as a Python tuple (at least partly)
+- Streams in job package need to be exposed as Python file(-like) objects
+- RPC and Streams package are still missing
+- File.read/write should expose buffer oriented interface
+- Pickle support for SAGA objects

@@ -1,0 +1,73 @@
+# Copyright (c) 2005-2007 Andre Merzky (andre@merzky.net)
+# Copyright (c)      2008 Ole Weidner (oweidner@cct.lsu.ed)
+# 
+# Distributed under the Boost Software License, Version 1.0. 
+# (See accompanying Afile LICENSE_1_0.txt or copy at 
+#  http://www.boost.org/LICENSE_1_0.txt)
+
+# find saga.m4
+
+m4_include([saga.m4])
+m4_include([saga_boost.m4])
+
+m4_include([config/saga_python.m4])
+
+AC_INIT()
+
+AX_SAGA_CONFIG()
+
+AX_SAGA_CHECK_PYTHON(2.2)
+
+if test "x$HAVE_PYTHON" == "xyes"; then
+  old_ldflags=$LDFLAGS
+  old_cppflags=$CPPFLAGS
+
+  export LDFLAGS="$LDFLAGS $PYTHON_LDFLAGS"
+  export CPPFLAGS="$LDFLAGS $PYTHON_CPPFLAGS"
+
+  BOOST_PYTHON # defines BOOST_PYTHON_LIBS
+
+  LDFLAGS=$old_ldflags
+  CPPFLAGS=$old_cppflags
+fi
+
+
+AC_CONFIG_FILES([config/saga.python.mk])
+AC_CONFIG_FILES([config/saga.config.python.c.mk])
+AC_CONFIG_FILES([engine/__init__.py])
+
+
+# create output files
+AC_CONFIG_FILES([config/make.cfg])
+
+AC_OUTPUT()
+
+OUT=config.summary
+rm -f $OUT
+TEE="tee -a"
+
+echo "                                                                       " | $TEE $OUT
+echo " ========================================================              " | $TEE $OUT
+echo " SAGA Python BINDINGS - Configuration Summary                          " | $TEE $OUT
+echo " ========================================================              " | $TEE $OUT
+echo "                                                                       " | $TEE $OUT
+echo " Using SAGA from       : $TMP_SAGA_LOCATION ($TMP_SAGA_INSTTYPE)       " | $TEE $OUT
+echo "                                                                       " | $TEE $OUT
+echo " Python Found          : $HAVE_PYTHON                                  " | $TEE $OUT
+echo " Python Version        : $PYTHON_VERSION                               " | $TEE $OUT
+echo " Python Location       : $PYTHON_LOCATION                              " | $TEE $OUT
+echo " Python Interpreter    : $PYTHON                                       " | $TEE $OUT
+echo " Python Package Path   : $PYTHON_PACKAGE_PATH/$PYTHON_SAGA_MODULE_BASE " | $TEE $OUT
+echo " Python Lib            : $PYTHON_LDFLAGS                               " | $TEE $OUT
+echo "                                                                       " | $TEE $OUT
+echo " Boost Python Found    : $BOOST_HAVE_LIB_PYTHON                        " | $TEE $OUT
+echo " Boost Python Libdir   : $BOOST_PYTHON_LDFLAGS                         " | $TEE $OUT
+echo " Boost Python Libs     : $BOOST_PYTHON_LIBS                            " | $TEE $OUT
+echo "                                                                       " | $TEE $OUT
+echo " ========================================================              " | $TEE $OUT
+echo "                                                                       " | $TEE $OUT
+
+if test "$SAGA_RECURSIVE_CONFIG" = "yes" ; then
+  cat $OUT >> $SAGA_ROOT/$OUT
+fi
+

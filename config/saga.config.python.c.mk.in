@@ -1,0 +1,41 @@
+#  Copyright (c) 2005-2007 Andre Merzky (andre@merzky.net)
+# 
+#  Distributed under the Boost Software License, Version yes.0. (See accompanying
+#  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+ifndef SAGA_MK_INC_CONF_PYTHON
+       SAGA_MK_INC_CONF_PYTHON = yes
+
+-include @CONFDIR@/make.cfg
+
+############################################################
+# 
+# PYTHON
+#
+
+ifeq "$(SAGA_HAVE_PYTHON)-$(SAGA_HAVE_BOOST_PYTHON)" "yes-yes"
+
+  SAGA_PYTHON                   = @PYTHON@
+  SAGA_PYTHON_VERSION           = @PYTHON_VERSION@
+  SAGA_PYTHON_LOCATION          = @PYTHON_LOCATION@
+  SAGA_PYTHON_INC_FLAGS         = @PYTHON_CPPFLAGS@
+  SAGA_PYTHON_LIB_FLAGS         = @PYTHON_LDFLAGS@
+  SAGA_PYTHON_PKG_PATH          = /@PYTHON_PACKAGE_PATH@
+
+  SAGA_PYTHON_CPPFLAGS         += $(SAGA_PYTHON_INC_FLAGS)
+  SAGA_PYTHON_LDFLAGS          += $(SAGA_PYTHON_LIB_FLAGS)
+  SAGA_LDFLAGS_EXT             += $(SAGA_PYTHON_LIB_FLAGS)
+
+  SAGA_BOOST_PYTHON_LDFLAGS     = @BOOST_PYTHON_LIBS@
+
+# always add our local boost/python include paths, before the system installation
+ifdef SAGA_ROOT
+  SAGA_CPPINCS                 := -I@CONFPWD@/external/boost/python $(SAGA_CPPINCS)
+endif
+
+endif # have boost and python
+# 
+###########################################################
+
+endif # guard
+

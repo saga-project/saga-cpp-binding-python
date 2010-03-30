@@ -1,0 +1,214 @@
+#  Copyright (c) 2005-2009 Hartmut Kaiser
+# 
+#  Distributed under the Boost Software License, Version 1.0. (See accompanying
+#  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+# This file must be located inside a directory named SAGA which in turn should 
+# be located in a directory listed in your PYTHON_PATH
+
+from _engine import *         # import all classes from SAGA.engine
+
+###############################################################################
+# try to load all the different packages, one at a time, and ignoring any errors
+import os
+SAGA_LOG = 0
+try:
+    SAGA_LOG = long(os.getenv("SAGA_VERBOSE", "0"))
+except:
+    pass
+
+# load namespace package
+try:
+    import @PYTHON_SAGA_MODULE_BASE@.name_space
+    if (SAGA_LOG != 0):
+        print "Successfully loaded Python namespace package bindings"
+except:
+    if (SAGA_LOG != 0):
+        print "Failed loading Python namespace package bindings"
+
+# load filesystem package
+try:
+    import @PYTHON_SAGA_MODULE_BASE@.filesystem
+    if (SAGA_LOG != 0):
+        print "Successfully loaded Python filesystem package bindings"
+except:
+    if (SAGA_LOG != 0):
+        print "Failed loading Python filesystem package bindings"
+
+# load advert package
+try:
+    import @PYTHON_SAGA_MODULE_BASE@.advert
+    if (SAGA_LOG != 0):
+        print "Successfully loaded Python advert package bindings"
+except:
+    if (SAGA_LOG != 0):
+        print "Failed loading Python advert package bindings"
+
+# load job package
+try:
+    import @PYTHON_SAGA_MODULE_BASE@.job
+    if (SAGA_LOG != 0):
+        print "Successfully loaded Python job package bindings"
+except:
+    if (SAGA_LOG != 0):
+        print "Failed loading Python job package bindings"
+
+# load replica package
+try:
+    import @PYTHON_SAGA_MODULE_BASE@.replica
+    if (SAGA_LOG != 0):
+        print "Successfully loaded Python replica package bindings"
+except:
+    if (SAGA_LOG != 0):
+        print "Failed loading Python replica package bindings"
+
+# load cpr package
+try:
+    import @PYTHON_SAGA_MODULE_BASE@.cpr
+    if (SAGA_LOG != 0):
+        print "Successfully loaded Python cpr package bindings"
+except: 
+    if (SAGA_LOG != 0):
+        print "Failed loading Python cpr package bindings"
+
+# load sd package
+try:
+    import @PYTHON_SAGA_MODULE_BASE@.sd
+    if (SAGA_LOG != 0):
+        print "Successfully loaded Python sd package bindings"
+except: 
+    if (SAGA_LOG != 0):
+        print "Failed loading Python sd package bindings"
+
+# load stream package
+try:
+    import @PYTHON_SAGA_MODULE_BASE@.stream
+    if (SAGA_LOG != 0):
+        print "Successfully loaded Python stream package bindings"
+except: 
+    if (SAGA_LOG != 0):
+        print "Failed loading Python stream package bindings"
+
+###############################################################################
+# define classes needed for proper exception translation
+###############################################################################
+class exception(Exception):
+    def __init__(self, error):
+        Exception.__init__(self)
+        self._pimpl = error
+    
+    def __str__(self):
+        return self._pimpl.get_message()
+
+    def get_full_message(self):
+        return self._pimpl.get_full_message()
+
+    def get_message(self):
+        return self._pimpl.get_message()
+        
+    def get_error(self):
+        return self._pimpl.get_error()
+        
+    def get_object(self):
+        return self._pimpl.get_object()
+        
+    def get_all_exceptions(self):
+        return self._pimpl.get_all_exceptions()
+        
+    def get_all_messages(self):
+        return self._pimpl.get_all_messages()
+        
+    def __getattribute__(self, attr):
+        my_pimpl = super(exception, self).__getattribute__("_pimpl")
+        try:
+            return getattr(my_pimpl, attr)
+        except AttributeError:
+            return super(exception, self).__getattribute__(attr)
+
+_engine.exception = exception
+_engine._exception.py_err_class = exception
+
+###############################################################################
+class not_implemented(exception): pass
+    
+_engine.not_implemented = not_implemented
+_engine._not_implemented.py_err_class = not_implemented
+
+###############################################################################
+class parameter_exception(exception): pass
+    
+_engine.parameter_exception = parameter_exception
+_engine._parameter_exception.py_err_class = parameter_exception
+
+###############################################################################
+class incorrect_url(parameter_exception): pass
+    
+_engine.incorrect_url = incorrect_url
+_engine._incorrect_url.py_err_class = incorrect_url
+
+###############################################################################
+class bad_parameter(parameter_exception): pass
+    
+_engine.bad_parameter = bad_parameter
+_engine._bad_parameter.py_err_class = bad_parameter
+
+###############################################################################
+class state_exception(exception): pass
+
+_engine.state_exception = state_exception
+_engine._state_exception.py_err_class = state_exception
+
+###############################################################################
+class already_exists(state_exception): pass
+    
+_engine.already_exists = already_exists
+_engine._already_exists.py_err_class = already_exists
+
+###############################################################################
+class does_not_exist(state_exception): pass
+    
+_engine.does_not_exist = does_not_exist
+_engine._does_not_exist.py_err_class = does_not_exist
+
+###############################################################################
+class incorrect_state(state_exception): pass
+    
+_engine.incorrect_state = incorrect_state
+_engine._incorrect_state.py_err_class = incorrect_state
+
+###############################################################################
+class timeout(state_exception): pass
+    
+_engine.timeout = timeout
+_engine._timeout.py_err_class = timeout
+
+###############################################################################
+class security_exception(exception): pass
+    
+_engine.security_exception = security_exception
+_engine._security_exception.py_err_class = security_exception
+
+###############################################################################
+class permission_denied(security_exception): pass
+    
+_engine.permission_denied = permission_denied
+_engine._permission_denied.py_err_class = permission_denied
+
+###############################################################################
+class authorization_failed(security_exception): pass
+    
+_engine.authorization_failed = authorization_failed
+_engine._authorization_failed.py_err_class = authorization_failed
+
+###############################################################################
+class authentication_failed(security_exception): pass
+    
+_engine.authentication_failed = authentication_failed
+_engine._authentication_failed.py_err_class = authentication_failed
+
+###############################################################################
+class no_success(exception): pass
+    
+_engine.no_success = no_success
+_engine._no_success.py_err_class = no_success
+

@@ -1,0 +1,94 @@
+#  Copyright (c) 2005-2007 Andre Merzky (andre@merzky.net)
+# 
+#  Distributed under the Boost Software License, Version 1.0. (See accompanying
+#  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+# vim: ft=make
+
+ifndef SAGA_MK_INC_PYTHON
+       SAGA_MK_INC_PYTHON = yes
+
+###########################################################
+# 
+# make configuration for python builds
+# 
+
+include $(SAGA_MAKE_INCLUDE_ROOT)/saga.util.mk
+include @CONFDIR@/saga.config.python.c.mk
+
+ifdef SAGA_ROOT
+  SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.package.*.i.mk)
+  SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.engine*.i.mk)
+else
+  SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.package.*.mk)
+  SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.engine*.mk)
+endif
+
+ifdef SAGA_TMP_MINCS
+  ifndef SAGA_IS_CLEANING
+    include $(SAGA_TMP_MINCS)
+  endif
+endif
+
+SAGA_LDFLAGS += $(SAGA_BOOST_LDFLAGS) $(SAGA_BOOST_LIBS)
+
+# check if that package types are enabled
+HAVE_PACKAGES=$(foreach p,$(SAGA_REQUIRE_PACKAGES),$(SAGA_HAVE_PACKAGE_$(call saga_uc,$p)))
+HAVE_PACKAGES_INCLUDES=$(foreach p,$(SAGA_REQUIRE_PACKAGES),$(SAGA_MAKE_INCLUDE_ROOT)/saga.package.$(call saga_lc,$p).i.mk )
+TMP_CHECK=$(strip $(patsubst yes,,$(HAVE_PACKAGES)))
+
+ifneq "x$(TMP_CHECK)" "x"
+
+  include $(SAGA_MAKE_INCLUDE_ROOT)/saga.nothing.mk
+  
+  nothing:
+	  @$(ECHO) "      ======================================================"
+		@$(ECHO) "      disabled packages: $(SAGA_REQUIRE_PACKAGES)"
+	  @$(ECHO) "      ======================================================"
+
+else
+  
+  # additional defines for build and install
+  SAGA_PY_SCRIPT_ROOT = share/saga/python/
+  SAGA_PY_MODULE_ROOT = $(SAGA_PYTHON_PKG_PATH)/@PYTHON_SAGA_MODULE_BASE@/
+  
+  SAGA_CPPINCS       += $(SAGA_PYTHON_CPPFLAGS) $(BOOST_CXXFLAGS)
+  SAGA_LDFLAGS       += $(SAGA_PYTHON_LDFLAGS)  $(SAGA_BOOST_LDFLAGS) 
+  SAGA_LDFLAGS       += $(SAGA_BOOST_PYTHON_LDFLAGS) 
+
+  SAGA_LIBNAME       += $(SAGA_PY_MODULE)
+  SAGA_LIB_OBJ       += $(SAGA_PY_MODULE_OBJ) $(SAGA_PY_OBJ)
+
+
+  # we manage install ourself
+  SAGA_DONT_INSTALL   = yes
+  
+  include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
+
+  # include packge make deps
+  ifneq "x$(HAVE_PACKAGES_INCLUDES)" "x"
+   ifndef SAGA_IS_CLEANING
+    include $(HAVE_PACKAGES_INCLUDES)
+   endif
+  endif
+
+# additional install targets
+install:: all
+ ifdef SAGA_PY_SCRIPT
+	@$(ECHO) "      installing python scripts"
+	@$(INSTALL) $(SAGA_PY_SCRIPT) $(SAGA_PY_SCRIPT_ROOT)/$(SAGA_PY_SCRIPT_DIR)
+ endif
+ ifdef SAGA_PY_MODULE
+	@$(ECHO) "      installing python modules"
+	@$(INSTALL) $(SAGA_PY_MODULE) $(SAGA_PY_MODULE_ROOT)/$(SAGA_PY_MODULE_DIR)
+	@$(INSTALL) __init__.py       $(SAGA_PY_MODULE_ROOT)/$(SAGA_PY_MODULE_DIR)
+ endif
+
+clean::
+	@rm -f $(SAGA_PY_MODULE_OBJ)
+	@rm -f $(SAGA_PY_MODULE)
+
+endif # enabled
+
+endif # guard
+
