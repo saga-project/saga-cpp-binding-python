@@ -656,6 +656,7 @@ SAGA_LOCATION
 SAGA_CONFIG
 TMP_SAGA_LOCATION
 TMP_SAGA_INSTTYPE
+EXTDIR
 PYTHON_LOCATION
 CXX
 CXXFLAGS
@@ -1843,6 +1844,10 @@ echo "${ECHO_T}$TMP_SAGA_LOCATION ($TMP_SAGA_INSTTYPE)" >&6; }
 
   source "$SAGA_CONFIG_DIR/saga-config.cache"
 
+
+
+pwd=`pwd`
+EXTDIR=$pwd/external
 
 
 ac_ext=cpp
@@ -4770,6 +4775,7 @@ SAGA_LOCATION!$SAGA_LOCATION$ac_delim
 SAGA_CONFIG!$SAGA_CONFIG$ac_delim
 TMP_SAGA_LOCATION!$TMP_SAGA_LOCATION$ac_delim
 TMP_SAGA_INSTTYPE!$TMP_SAGA_INSTTYPE$ac_delim
+EXTDIR!$EXTDIR$ac_delim
 PYTHON_LOCATION!$PYTHON_LOCATION$ac_delim
 CXX!$CXX$ac_delim
 CXXFLAGS!$CXXFLAGS$ac_delim
@@ -4800,7 +4806,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 72; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 73; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
@@ -5152,8 +5158,4 @@ echo " Boost Python Libs     : $BOOST_PYTHON_LIBS                            " |
 echo "                                                                       " | $TEE $OUT
 echo " ========================================================              " | $TEE $OUT
 echo "                                                                       " | $TEE $OUT
-
-if test "$SAGA_RECURSIVE_CONFIG" = "yes" ; then
-  cat $OUT >> $SAGA_ROOT/$OUT
-fi
 
