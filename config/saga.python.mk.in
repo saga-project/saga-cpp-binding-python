@@ -29,7 +29,7 @@ SAGA_LDFLAGS += $(SAGA_BOOST_LDFLAGS) $(SAGA_BOOST_LIBS)
 
 # check if that package types are enabled
 HAVE_PACKAGES=$(foreach p,$(SAGA_REQUIRE_PACKAGES),$(SAGA_HAVE_PACKAGE_$(call saga_uc,$p)))
-HAVE_PACKAGES_INCLUDES=$(foreach p,$(SAGA_REQUIRE_PACKAGES),$(SAGA_MAKE_INCLUDE_ROOT)/saga.package.$(call saga_lc,$p).i.mk )
+HAVE_PACKAGES_INCLUDES=$(foreach p,$(SAGA_REQUIRE_PACKAGES),$(SAGA_MAKE_INCLUDE_ROOT)/saga.package.$(call saga_lc,$p).mk )
 TMP_CHECK=$(strip $(patsubst yes,,$(HAVE_PACKAGES)))
 
 ifneq "x$(TMP_CHECK)" "x"
