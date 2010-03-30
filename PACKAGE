@@ -1,0 +1,21 @@
+
+PACKAGE:
+  saga-bindings-python
+
+DEPENDENCIES:
+  saga-core
+  boost-python
+
+DIRS:
+  config/
+  engine/
+  external/
+  packages/
+
+FILES:
+  VERSION
+  PACKAGE
+  Makefile
+  configure
+  configure.in
+
