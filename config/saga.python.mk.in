@@ -16,13 +16,8 @@ ifndef SAGA_MK_INC_PYTHON
 include $(SAGA_MAKE_INCLUDE_ROOT)/saga.util.mk
 include @CONFDIR@/saga.config.python.c.mk
 
-ifdef SAGA_ROOT
-  SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.package.*.i.mk)
-  SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.engine*.i.mk)
-else
-  SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.package.*.mk)
-  SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.engine*.mk)
-endif
+SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.package.*.mk)
+SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.engine*.mk)
 
 ifdef SAGA_TMP_MINCS
   ifndef SAGA_IS_CLEANING
