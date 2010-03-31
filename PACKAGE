@@ -1,6 +1,6 @@
 
-PACKAGE:
-  saga-bindings-python
+PACKAGE: saga-bindings-python
+VERSION: 0.8.0
 
 DEPENDENCIES:
   saga-core
@@ -13,7 +13,6 @@ DIRS:
   packages/
 
 FILES:
-  VERSION
   PACKAGE
   Makefile
   configure
