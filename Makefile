@@ -17,6 +17,6 @@ endif
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
 
 # directory dependencies
-engine::   external
-packages:: external
+engine:   external
+packages: external
 
