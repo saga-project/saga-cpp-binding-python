@@ -35,6 +35,8 @@ config.summary:
 	@$(ECHO) ""
 	@$(FALSE)
 
+distclean::
+	@$(FIND) . -name \*.pyc -exec $(RM) {} \;
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
