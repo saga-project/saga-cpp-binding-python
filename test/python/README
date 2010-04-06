@@ -1,0 +1,34 @@
+                    
+                    SAGA C++ (Reference) Implementation
+                       <http://saga.cct.lsu.edu/cpp>
+                     - Python API Bindings UNIT TESTS -
+
+
+  The unit tests require an installed version of SAGA. For informations on how 
+  to install SAGA, please refer to the INSTALL file.
+
+  Make sure you have installed the Python language bindings and that your python
+  path is set properly. It should be something like this:
+
+    export PYTHONPATH=$SAGA_LOCATION/lib/python2.5/site-packages/
+  
+  
+  To run the unit tests, simply type:
+  
+    $python saga_pyhton_tests.py
+    
+  
+  The result should look somewhat similar to this:
+  
+    test_file_copy (suite.packages.file.file.FilePackageTests) ... ok
+    test_file_get_size (suite.packages.file.file.FilePackageTests) ... ok
+
+    ----------------------------------------------------------------------
+    Ran 2 tests in 0.225s
+ 
+    OK
+
+
+  Please help us to improve the quality of SAGA and file a bug report if you 
+  have encountered any problems with the unit tests. Our bug-tracking system 
+  can be found at: http://saga.cct.lsu.edu/cpp/dev/ 
