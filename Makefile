@@ -10,11 +10,35 @@
 -include config/saga.config.python.c.mk
 
 ifeq "$(SAGA_HAVE_PYTHON)-$(SAGA_HAVE_BOOST_PYTHON)" "yes-yes"
-  SAGA_SUBDIRS = config external engine packages
+ SAGA_SUBDIRS = config external engine packages
+
+ ifeq "$(SAGA_BOOST_HAVE_TEST)" "yes"
+  ifdef SAGA_IS_CHECKING
+   SAGA_SUBDIRS += test
+  endif
+ else
+  ifdef SAGA_IS_CLEANING
+    SAGA_SUBDIRS += test
+  else
+    # $(warning "skipping tests - BOOST_TEST is missing")
+  endif
+ endif
 endif
+
+all:: config.summary
+
+config.summary:
+	@$(ECHO) ""
+	@$(ECHO) " ================================= "
+	@$(ECHO) "  you need to run configure first  "
+	@$(ECHO) " ================================= "
+	@$(ECHO) ""
+	@$(FALSE)
+
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
+
 
 # directory dependencies
 engine:   external

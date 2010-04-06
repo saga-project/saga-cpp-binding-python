@@ -12,7 +12,7 @@ import unittest
 #
 class FilePackageTests(unittest.TestCase):
     """
-    Tests for the saga.file API package 
+    Tests for the saga.filesystem API package 
     http://saga.cct.lsu.edu/python/apidoc/saga.filesystem._file.html    
     """
     def setUp(self):

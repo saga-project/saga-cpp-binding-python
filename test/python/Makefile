@@ -5,14 +5,14 @@
 #   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 
-SAGA_ROOT         = ../../
+include ../../config/make.cfg
+include ../../config/saga.config.python.c.mk
+
 SAGA_DONT_INSTALL = yes
 SCRIPT            = saga_python_tests.py
 
-include $(SAGA_ROOT)/make/saga.test.mk
-include $(SAGA_ROOT)/bindings/saga/python/config/saga.config.python.c.mk
+include $(SAGA_MAKE_INCLUDE_ROOT)/saga.test.mk
 
-ifeq "$(SAGA_HAVE_PYTHON)-$(SAGA_HAVE_BOOST_PYTHON)" "yes-yes"
 check:: $(SCRIPT).run
 $(SCRIPT).run: $(SCRIPT)
 	@$(ECHO)  "===================================="; \
@@ -23,7 +23,7 @@ $(SCRIPT).run: $(SCRIPT)
    $(ECHO)  "===================================="; \
    $(ECHO)  "=== TEST OUTPUT  ==================="; \
    $(ECHO)  "===================================="; \
-   $(ENV) $(SAGA_ENVIRON) PYTHONPATH=$(SAGA_LOCATION)/$(SAGA_PYTHON_PKG_PATH) $(SAGA_PYTHON) ./$< \
+   $(ENV) $(SAGA_ENVIRON) PYTHONPATH=../../ $(SAGA_PYTHON) ./$< \
             && $(TOUCH) $@ \
             || $(TOUCH) $(SAGA_ROOT)/.saga_check_failed; \
    $(ECHO)  ""; \
@@ -37,5 +37,4 @@ $(SCRIPT).run: $(SCRIPT)
 
 clean::
 	@$(RM) $(SCRIPT).run
-endif
 
