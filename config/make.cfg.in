@@ -26,5 +26,8 @@ SAGA_HAVE_PYTHON       = @HAVE_PYTHON@
 SAGA_HAVE_BOOST_PYTHON = @BOOST_HAVE_LIB_PYTHON@
 
 
+include $(SAGA_MAKE_INCLUDE_ROOT)/saga.util.mk
+
+
 endif # guard
 

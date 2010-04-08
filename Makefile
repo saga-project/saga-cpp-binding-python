@@ -4,23 +4,18 @@
 #  License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 #  http://www.boost.org/LICENSE_1_0.txt)
 
-
--include $(SAGA_LOCATION)/share/saga/make/saga.util.mk
 -include config/make.cfg
 -include config/saga.config.python.c.mk
 
+SAGA_SUBDIRS     = config
+
 ifeq "$(SAGA_HAVE_PYTHON)-$(SAGA_HAVE_BOOST_PYTHON)" "yes-yes"
- SAGA_SUBDIRS = config external engine packages
+
+ SAGA_SUBDIRS   += external engine packages
 
  ifeq "$(SAGA_BOOST_HAVE_TEST)" "yes"
   ifdef SAGA_IS_CHECKING
    SAGA_SUBDIRS += test
-  endif
- else
-  ifdef SAGA_IS_CLEANING
-    SAGA_SUBDIRS += test
-  else
-    # $(warning "skipping tests - BOOST_TEST is missing")
   endif
  endif
 endif
@@ -28,15 +23,18 @@ endif
 all:: config.summary
 
 config.summary:
-	@$(ECHO) ""
-	@$(ECHO) " ================================= "
-	@$(ECHO) "  you need to run configure first  "
-	@$(ECHO) " ================================= "
-	@$(ECHO) ""
-	@$(FALSE)
+	@echo ""
+	@echo " ================================= "
+	@echo "  you need to run configure first  "
+	@echo " ================================= "
+	@echo ""
+	@false
 
 distclean::
-	@$(FIND) . -name \*.pyc -exec $(RM) {} \;
+	@find . -name \*.pyc -exec rm -f {} \;
+	@rm -f config.log
+	@rm -f config.status
+	@rm -f config.summary
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
@@ -45,4 +43,6 @@ distclean::
 # directory dependencies
 engine:   external
 packages: external
+test:     engine
+test:     packages
 
