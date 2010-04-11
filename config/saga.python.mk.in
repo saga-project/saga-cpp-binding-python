@@ -17,7 +17,7 @@ include $(SAGA_MAKE_INCLUDE_ROOT)/saga.util.mk
 include @CONFDIR@/saga.config.python.c.mk
 
 SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.package.*.mk)
-SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.engine*.mk)
+SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.core.mk)
 
 ifdef SAGA_TMP_MINCS
   ifndef SAGA_IS_CLEANING
