@@ -68,8 +68,14 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
   if test "x$want_python" = "xyes"; then
     
     packages=`ls /usr/local/package/python-* 2>>/dev/null`
+
+    if "$tmp_location-$PYTHON_LOCATION" = "-"; then
+      paths="/usr /usr/local /opt $packages"
+    else
+      paths="$tmp_location $PYTHON_LOCATION"
+    fi
     
-    for tmp_path in $tmp_location $PYTHON_LOCATION /usr /usr/local /opt $packages; do
+    for tmp_path in $ $paths; do
       
       PYTHON=$tmp_path/bin/python
 
