@@ -25,7 +25,7 @@ $(SCRIPT).run: $(SCRIPT)
    $(ECHO)  "===================================="; \
    $(ENV) $(SAGA_ENVIRON) PYTHONPATH=../../ $(SAGA_PYTHON) ./$< \
             && $(TOUCH) $@ \
-            || $(TOUCH) $(SAGA_ROOT)/.saga_check_failed; \
+            || $(TOUCH) $@.nok; \
    $(ECHO)  ""; \
    $(ECHO)  "===================================="; \
    $(ECHO)  "=== TEST_RESULT  ==================="; \
