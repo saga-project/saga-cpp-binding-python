@@ -7,11 +7,11 @@
 -include config/make.cfg
 -include config/saga.config.python.c.mk
 
-SAGA_SUBDIRS     = config
+SAGA_SUBDIRS     = config  
 
 ifeq "$(SAGA_HAVE_PYTHON)-$(SAGA_HAVE_BOOST_PYTHON)" "yes-yes"
 
- SAGA_SUBDIRS   += external engine packages
+ SAGA_SUBDIRS   += external engine packages 
 
  ifeq "$(SAGA_BOOST_HAVE_TEST)" "yes"
   ifdef SAGA_IS_CHECKING
@@ -35,6 +35,10 @@ distclean::
 	@rm -f config.log
 	@rm -f config.status
 	@rm -f config.summary
+
+.PHONY: apidoc
+apidoc:
+	@$(MAKE) -C docs apidoc
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 -include $(SAGA_LOCATION)/share/saga/make/saga.dist.mk
