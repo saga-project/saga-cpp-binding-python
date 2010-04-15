@@ -6,17 +6,8 @@
 
 SAGA_PYTHON_ROOT = ../
 
-# keep empty default target
-all::
+SAGA_SUBDIRS     = apidocs
 
 -include $(SAGA_PYTHON_ROOT)/config/make.cfg
--include $(SAGA_PYTHON_ROOT)/config/saga.config.python.c.mk
-
-.PHONY: apidoc 
-apidoc:
-	@$(MAKE) -C apidocs apidoc
-
-.PHONY: install
-install:
-	@$(MAKE) -C apidocs install
+-include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 

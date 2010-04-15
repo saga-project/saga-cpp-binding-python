@@ -7,7 +7,7 @@
 -include config/make.cfg
 -include config/saga.config.python.c.mk
 
-SAGA_SUBDIRS     = config  
+SAGA_SUBDIRS     = config docs
 
 ifeq "$(SAGA_HAVE_PYTHON)-$(SAGA_HAVE_BOOST_PYTHON)" "yes-yes"
 
@@ -30,18 +30,15 @@ config.summary:
 	@echo ""
 	@false
 
-distclean::
-	@find . -name \*.pyc -exec rm -f {} \;
-	@rm -f config.log
-	@rm -f config.status
-	@rm -f config.summary
-
-.PHONY: apidoc
-apidoc:
-	@$(MAKE) -C docs apidoc
-
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 -include $(SAGA_LOCATION)/share/saga/make/saga.dist.mk
+
+distclean::
+	@$(FIND) . -name \*.pyc -exec $(RM) {} \;
+	@$(RM) config.log
+	@$(RM) config.status
+	@$(RM) config.summary
+	@$(RM) -r tmp_install/
 
 
 # directory dependencies
