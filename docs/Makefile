@@ -6,6 +6,8 @@
 
 SAGA_PYTHON_ROOT = ../
 
+# keep empty default target
+all::
 
 -include $(SAGA_PYTHON_ROOT)/config/make.cfg
 -include $(SAGA_PYTHON_ROOT)/config/saga.config.python.c.mk
