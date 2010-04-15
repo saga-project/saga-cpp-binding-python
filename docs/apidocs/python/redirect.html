@@ -1,0 +1,38 @@
+<html><head><title>Epydoc Redirect Page</title>
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="pragma" content="no-cache" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+<!--
+var pages = ["saga.filesystem._filesystem.file.seek_mode-c", "saga.filesystem._filesystem.directory-c", "saga.name_space._name_space.directory-c", "saga._engine._authentication_failed-c", "saga._engine._authorization_failed-c", "saga._engine._parameter_exception-c", "saga.filesystem._filesystem.flags-c", "saga.name_space._name_space.entry-c", "saga.name_space._name_space.flags-c", "saga._engine._security_exception-c", "saga.filesystem._filesystem.file-c", "saga._engine._permission_denied-c", "saga._engine.object.object_type-c", "saga.replica._replica.directory-c", "saga._engine.task.routine_type-c", "saga._engine._incorrect_state-c", "saga._engine._not_implemented-c", "saga._engine._state_exception-c", "saga._engine.metric.frequency-c", "saga.advert._advert.directory-c", "saga._engine._already_exists-c", "saga._engine._does_not_exist-c", "saga._engine.task.task_state-c", "saga.filesystem._filesystem-m", "saga.name_space._name_space-m", "saga._engine._bad_parameter-c", "saga._engine._incorrect_url-c", "saga._engine.task_container-c", "saga.replica._replica.entry-c", "saga.replica._replica.flags-c", "saga.authentication_failed-c", "saga.advert._advert.entry-c", "saga.advert._advert.flags-c", "saga.authorization_failed-c", "saga.job._job.description-c", "saga._engine._no_success-c", "saga.parameter_exception-c", "saga._engine._exception-c", "saga._engine.permission-c", "saga.job._job.job_state-c", "saga.security_exception-c", "saga.permission_denied-c", "saga.replica._replica-m", "saga._engine._timeout-c", "saga.job._job.service-c", "saga._engine.context-c", "saga._engine.session-c", "saga.incorrect_state-c", "saga.not_implemented-c", "saga.state_exception-c", "saga.advert._advert-m", "saga._engine.metric-c", "saga._engine.object-c", "saga.already_exists-c", "saga.does_not_exist-c", "saga._engine.error-c", "saga.bad_parameter-c", "saga.incorrect_url-c", "saga.job._job.self-c", "saga._engine.task-c", "saga._engine.uuid-c", "saga.job._job.job-c", "saga._engine.url-c", "saga.filesystem-m", "saga.name_space-m", "saga.no_success-c", "saga.exception-c", "saga.job._job-m", "saga._engine-m", "saga.replica-m", "saga.timeout-c", "saga.advert-m", "saga.job-m", "saga-m"];
+var dottedName = get_anchor();
+if (dottedName) {
+    var target = redirect_url(dottedName);
+    if (target) window.location.replace(target);
+}
+// -->
+</script>
+
+<h3>Epydoc Auto-redirect page</h3>
+
+<p>When javascript is enabled, this page will redirect URLs of
+the form <tt>redirect.html#<i>dotted.name</i></tt> to the
+documentation for the object with the given fully-qualified
+dotted name.</p>
+<p><a id="message"> &nbsp; </a></p>
+
+<script type="text/javascript">
+<!--
+if (dottedName) {
+    var msg = document.getElementById("message");
+    msg.innerHTML = "No documentation found for <tt>"+
+                    dottedName+"</tt>";
+}
+// -->
+</script>
+
+</body>
+</html>
