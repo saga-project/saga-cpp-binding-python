@@ -1,0 +1,44 @@
+                         SAGA C++ Python Bindings
+                  - The Simple API for Grid Applications -
+                 <http://saga.cct.lsu.edu/software/python> 
+
+
+  WHAT IS THIS?
+
+  These are the Python API bindings for the SAGA C++ reference 
+  implementation. It provides a thin Python wrapper on top of
+  the native SAGA C++ API. This allows you to use saga and all
+  of its middleware adaptors with Python! 
+
+
+  LATEST VERSION
+
+  Details of the latest version can be found on the project page:
+
+  http://saga.cct.lsu.edu/software/python
+
+
+  DOCUMENTATION
+
+  The documentation available as of the date of this release is included
+  in HTML format in the docs/apidoc directory. The most up-to-date
+  documentation for the current release can be found on the project page:
+
+  http://saga.cct.lsu.edu/software/python/documentation
+
+
+  INSTALLATION - Read the INSTALL file
+
+
+  LICENSING
+
+  The Pyton Bindings are released under the Boost Software License 1.0.
+  Please see the LICENSE file for details.
+
+
+  CONTACT
+
+  If you want to be informed about new code releases, bug fixes,
+  security fixes, general news and information about SAGA, subscribe 
+  to the saga-users mailing list at http://saga.cct.lsu.edu/software/cpp/.
+
