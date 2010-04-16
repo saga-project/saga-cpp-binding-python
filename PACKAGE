@@ -8,6 +8,7 @@ DEPENDENCIES:
 
 DIRS:
   config/
+  docs/
   engine/
   external/
   packages/
