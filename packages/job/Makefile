@@ -13,3 +13,7 @@ SAGA_REQUIRE_PACKAGES  = job
 -include ../../config/make.cfg
 -include ../../config/saga.python.mk
 
+check::
+	@$(MKDIR) ../../tmp_install/saga/job/
+	@$(CP) $(SAGA_PY_MODULE) __init__.py ../../tmp_install/saga/job/
+

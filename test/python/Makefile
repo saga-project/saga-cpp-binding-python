@@ -23,7 +23,7 @@ $(SCRIPT).run: $(SCRIPT)
    $(ECHO)  "===================================="; \
    $(ECHO)  "=== TEST OUTPUT  ==================="; \
    $(ECHO)  "===================================="; \
-   $(ENV) $(SAGA_ENVIRON) PYTHONPATH=../../ $(SAGA_PYTHON) ./$< \
+   $(ENV) $(SAGA_ENVIRON) PYTHONPATH=`$(PWD)`/../../tmp_install/ $(SAGA_PYTHON) ./$< \
             && $(TOUCH) $@ \
             || $(TOUCH) $@.nok; \
    $(ECHO)  ""; \

@@ -13,3 +13,7 @@ SAGA_REQUIRE_PACKAGES  = replica
 -include ../../config/make.cfg
 -include ../../config/saga.python.mk
 
+check::
+	@$(MKDIR) ../../tmp_install/saga/replica/
+	@$(CP) $(SAGA_PY_MODULE) __init__.py ../../tmp_install/saga/replica/
+

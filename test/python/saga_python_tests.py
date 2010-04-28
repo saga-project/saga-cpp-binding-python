@@ -12,7 +12,7 @@ from suite import *
 
 if __name__ == '__main__':
     suite_file =    unittest.TestLoader().loadTestsFromTestCase(FilePackageTests)
-#    suite_context = unittest.TestLoader().loadTestsFromTestCase(ContextTests)
+#   suite_context = unittest.TestLoader().loadTestsFromTestCase(ContextTests)
     suite_job =     unittest.TestLoader().loadTestsFromTestCase(JobTests)
 
     alltests = unittest.TestSuite([suite_file, 

@@ -11,6 +11,10 @@ SAGA_PY_MODULE     = _engine.so
 include ../config/make.cfg
 include ../config/saga.python.mk
 
+check::
+	@$(MKDIR) ../tmp_install/saga/
+	@$(CP) $(SAGA_PY_MODULE) __init__.py ../tmp_install/saga/
+
 distclean::
-	@$(RM) __init__.py
+	@$(RM) __init__.py saga
 
