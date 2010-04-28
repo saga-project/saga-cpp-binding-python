@@ -16,7 +16,7 @@ all::
 
 -include $(SAGA_PYTHON_ROOT)/config/make.cfg
 -include $(SAGA_PYTHON_ROOT)/config/saga.config.python.c.mk
--include $(SAGA_MAKE_INCLUDE_ROOT)/share/saga/make/saga.mk
+-include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 
 
 .PHONY: apidoc
