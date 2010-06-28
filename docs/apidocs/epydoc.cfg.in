@@ -40,7 +40,8 @@ introspect: yes
 
 # Don't examine in any way the modules whose dotted name match this
 # regular expression pattern.
-#exclude
+#exclude: saga.advert._advert, saga.filesystem._filesystem, saga.job._job,
+#         saga.name_space._name_space, saga.replica._replica
 
 # Don't perform introspection on the modules whose dotted name match this
 # regular expression pattern.
@@ -52,11 +53,11 @@ introspect: yes
 
 # The format for showing inheritance objects.
 # It should be one of: 'grouped', 'listed', 'included'.
-inheritance: listed
+inheritance: included
 
 # Whether or not to inclue private variables.  (Even if included,
 # private variables will be hidden by default.)
-private: yes
+private: no
 
 # Whether or not to list each module's imports.
 imports: no

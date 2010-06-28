@@ -1,4 +1,5 @@
 #  Copyright (c) 2005-2009 Hartmut Kaiser
+#  Copyright (c) 2010 Ole Weidner
 # 
 #  Use, modification and distribution is subject to the Boost Software
 #  License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -9,3 +10,12 @@
 
 from _replica import *   # import logicalfile package
 
+class directory(_replica.directory):
+  pass
+  
+class entry(_replica.entry):
+  pass
+  
+class flags(_replica.flags):
+  pass
+  

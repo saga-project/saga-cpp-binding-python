@@ -1,12 +1,12 @@
                     
-                   SAGA C++ Python Bindings - Installation
+                     SAGA Python Bindings - Installation
                   <http://saga.cct.lsu.edu/software/python>
 
 
-  For detailed informations on how to install the Python bindings, please refer 
-  to the docuemtnation section on the website:
+  For detailed informations on how to install SAGA, please refer to the 
+  documentation section on the SAGA website:
 
-    http://saga.cct.lsu.edu/software/python/documentation 
+  http://saga.cct.lsu.edu/software/cpp/documentation  
 
 
   PREREQUISISTES:
@@ -31,8 +31,8 @@
  
   BUILDING AND INSTALLING THE PYTHON BINDINGS
  
-  The Python bindings comes with a configure/make-based buildsystem. There are 
-  two important options to ./configure:
+  o The Python bindings comes with a configure/make-based buildsystem. There are 
+    two important options to ./configure:
 
     --boost-location= The location of your Boost installation
                       (e.g. /usr/local/packages/boost-1.42). You only
@@ -42,23 +42,30 @@
                       only need this option if boost is *not* installed 
                       in the defaul path (/usr/ or /usr/local)
 
-  For a complete list of configure options, you can typ
+  o For a complete list of configure options, you can typ
 
     ./configure --help
  
 
-  To configure, build and install the Python Bindings, make sure that 
-  $SAGA_LOCATION points to your SAGA Core Components installation and
-  execute ./configure and make:
+  o To configure, build and install the Python Bindings, make sure that 
+    $SAGA_LOCATION points to your SAGA Core Components installation and
+    execute ./configure and make:
 
     $> export SAGA_LOCATION=/PATH/TO/SAGA_CORE_INSTALLATION
     $> ./configure --with-boost=/BOOST/DIR/ 
     $> make
     $> make install
-
+    
+    
+  API DOCUMENTATION
+  
+  You can find the API documentation for the SAGA C++ Core Components 
+  either in $SAGA_LOCATION/share/saga/doc/ or online at:
+  
+  http://static.saga.cct.lsu.edu/apidoc/python/latest/
 
 
   Please help us to improve the quality of SAGA and file a bug report if you 
   have encountered any problems with the build system. Our bug-tracking system 
   can be found at: http://saga.cct.lsu.edu/software/cpp/dev/ 
-
+  
