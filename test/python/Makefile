@@ -23,6 +23,7 @@ $(SCRIPT).run: $(SCRIPT)
    $(ECHO)  "===================================="; \
    $(ECHO)  "=== TEST OUTPUT  ==================="; \
    $(ECHO)  "===================================="; \
+   $(RM)    "$@.nok"; \
    $(ENV) $(SAGA_ENVIRON) PYTHONPATH=`$(PWD)`/../../tmp_install/ $(SAGA_PYTHON) ./$< \
             && $(TOUCH) $@ \
             || $(TOUCH) $@.nok; \
@@ -34,6 +35,8 @@ $(SCRIPT).run: $(SCRIPT)
    $(TEST) -e $@ || $(ECHO)  "FAILURE"; \
    $(ECHO)  ""; \
    $(ECHO)  "===================================="; \
+   test -e $@.nok && $(FALSE); \
+   test -e $@     && $(TRUE);
 
 clean::
 	@$(RM) $(SCRIPT).run
