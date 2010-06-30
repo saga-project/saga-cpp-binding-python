@@ -19,18 +19,22 @@ all::
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 
 
-.PHONY: apidoc
+.PHONY: apidoc python
 apidoc:: python
 
 python:
 ifeq "x$(EPYDOC_BIN)" "x"
 	@$(ECHO) "      Cannot generate Python API docs - epydoc is not installed"
 else
-	@$(ECHO) "      generating Python API docs (saga modules must be in PYTHONPATH)"
-#	@$(ECHO) 		$(SAGA_LOCATION)
-#	@sed "s/###PROJECT_NUMBER###/$(SAGA_PY_VERSION)/g" epydoc.cfg.in > epydoc.cfg
-	@/usr/local/bin/epydoc		--html --config=epydoc.cfg.in
+	@if test -d python; then echo "python subdir already exists - skip doc generation"; \
+  else \
+  $(ECHO) "      generating Python API docs (saga modules must be in PYTHONPATH)"; \
+  $(EPYDOC_BIN) --html --config=epydoc.cfg.in; \
+  fi
 endif
+
+#	$(ECHO) $(SAGA_LOCATION) ;\
+#	sed "s/###PROJECT_NUMBER###/$(SAGA_PY_VERSION)/g" epydoc.cfg.in > epydoc.cfg
 
 
 .PHONY: install
