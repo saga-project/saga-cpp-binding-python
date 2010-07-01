@@ -169,7 +169,8 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
               
           if test "x$link_python" = "xno"; then
         
-            AC_MSG_RESULT(no (could not compile/link test program))
+            AC_MSG_RESULT(no (could not compile/link test program.  
+                              Maybe Python was compiled without the '--shared' flag?))
 
           else
 
