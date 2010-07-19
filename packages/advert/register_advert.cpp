@@ -63,6 +63,22 @@ DEFINE_PYTHON_WRAPPERS_0(std::string, saga::advert::entry, retrieve_string)
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
+static saga::monitorable::cookie_handle 
+add_advert_entry_cb(saga::advert::entry e, std::string name, 
+    boost::python::object f)
+{
+    return e.add_callback(name, saga::python::python_callback(f));
+}
+
+///////////////////////////////////////////////////////////////////////////////
+static saga::monitorable::cookie_handle 
+add_advert_entry_cb_obj(saga::advert::entry e, std::string name, 
+    boost::python::object s, boost::python::object f)
+{
+    return e.add_callback(name, saga::python::python_callback_obj(s, f));
+}
+
+///////////////////////////////////////////////////////////////////////////////
 void register_advert()
 {
     {
@@ -91,6 +107,18 @@ void register_advert()
             INSERT_PYTHON_WRAPPER_1(attribute_is_writable, "tests if the given attribute is writable")
             INSERT_PYTHON_WRAPPER_1(attribute_is_vector, "tests if the given attribute is a vector attribute")
             INSERT_PYTHON_WRAPPER_1(attribute_is_removable, "tests if the given attribute is removable")
+
+            // monitorable interface
+            .def("list_metrics", &saga::advert::entry::list_metrics, 
+                "returns the list of metrics associated with this advert entry instance")
+            .def("get_metric", &saga::advert::entry::get_metric, 
+                "returns a specific metric associated with this advert entry instance")
+            .def("add_callback", &add_advert_entry_cb, 
+                "add a new callback to this advert entry instance")
+            .def("add_callback", &add_advert_entry_cb_obj, 
+                "add a new callback to this advert entry instance")
+            .def("remove_callback", &saga::advert::entry::remove_callback,
+                "remove the given callback from this advert entry instance")
 
             // saga::advert::entry interface
             INSERT_PYTHON_WRAPPER_1(store_object, "store the given saga object as the data of this advert entry")

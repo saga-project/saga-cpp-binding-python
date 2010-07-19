@@ -42,6 +42,22 @@ DEFINE_PYTHON_WRAPPERS_3_DEF_1(std::vector<saga::url>, saga::advert::directory,
     find, std::string, std::vector<std::string>, int, saga::advert::Recursive)
 
 ///////////////////////////////////////////////////////////////////////////////
+static saga::monitorable::cookie_handle 
+add_advert_dir_cb(saga::advert::directory d, std::string name, 
+    boost::python::object f)
+{
+    return d.add_callback(name, saga::python::python_callback(f));
+}
+
+///////////////////////////////////////////////////////////////////////////////
+static saga::monitorable::cookie_handle 
+add_advert_dir_cb_obj(saga::advert::directory d, std::string name, 
+    boost::python::object s, boost::python::object f)
+{
+    return d.add_callback(name, saga::python::python_callback_obj(s, f));
+}
+
+///////////////////////////////////////////////////////////////////////////////
 void register_advert_directory()
 {
     {
@@ -70,6 +86,18 @@ void register_advert_directory()
             INSERT_PYTHON_WRAPPER_1(attribute_is_writable, "tests if the given attribute is writable")
             INSERT_PYTHON_WRAPPER_1(attribute_is_vector, "tests if the given attribute is a vector attribute")
             INSERT_PYTHON_WRAPPER_1(attribute_is_removable, "tests if the given attribute is removable")
+
+            // monitorable interface
+            .def("list_metrics", &saga::advert::directory::list_metrics, 
+                "returns the list of metrics associated with this advert directory instance")
+            .def("get_metric", &saga::advert::directory::get_metric, 
+                "returns a specific metric associated with this advert directory instance")
+            .def("add_callback", &add_advert_dir_cb, 
+                "add a new callback to this advert directory instance")
+            .def("add_callback", &add_advert_dir_cb_obj, 
+                "add a new callback to this advert directory instance")
+            .def("remove_callback", &saga::advert::directory::remove_callback,
+                "remove the given callback from this advert directory instance")
 
             // saga::advert::directory interface
             INSERT_PYTHON_WRAPPER_2_OVERLOADS(open, 
