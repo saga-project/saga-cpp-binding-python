@@ -12,7 +12,7 @@ ifeq "x$(SAGA_HAVE_PACKAGE_JOB)" "xyes"
 endif
 
 ifeq "x$(SAGA_HAVE_PACKAGE_NAMESPACE)" "xyes"
-  SAGA_SUBDIRS += namespace
+  SAGA_SUBDIRS += name_space
 endif
 
 ifeq "x$(SAGA_HAVE_PACKAGE_FILESYSTEM)" "xyes"
