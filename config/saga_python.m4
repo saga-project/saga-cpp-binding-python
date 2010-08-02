@@ -52,6 +52,7 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
               [
               if test "$withval" = "no"; then
                 want_python="no"
+                tmp_location=""
               elif test "$withval" = "yes"; then
                 want_python="yes"
                 tmp_location=""
@@ -69,7 +70,7 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
     
     packages=`ls /usr/local/package/python-* 2>>/dev/null`
 
-    if "$tmp_location-$PYTHON_LOCATION" = "-"; then
+    if test "$tmp_location-$PYTHON_LOCATION" = "-"; then
       paths="/usr /usr/local /opt $packages"
     else
       paths="$tmp_location $PYTHON_LOCATION"
