@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+    <Import Project="python_saga-lite.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30128.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <CustomBuildStep>
+      <Command>if not exist "$(PYTHON_ROOT)\lib\saga" mkdir "$(PYTHON_ROOT)\lib\saga"
+if not exist "$(PYTHON_ROOT)\lib\saga\%(Filename)" mkdir "$(PYTHON_ROOT)\lib\saga\%(Filename)"
+xcopy /Y/F "$(TargetPath)" "$(PYTHON_ROOT)\lib\saga\%(Filename)"
+xcopy /Y/F "$(TargetDir)\$(TargetName).pdb" "$(PYTHON_ROOT)\lib\saga\%(Filename)"
+</Command>
+      <Outputs>$(PYTHON_ROOT)\lib\saga\%(Filename)\$(TargetFileName);%(Outputs)</Outputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>

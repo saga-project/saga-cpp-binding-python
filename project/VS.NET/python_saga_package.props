@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+    <Import Project="python_saga.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30128.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <CustomBuildStep>
+      <Command>if not exist "$(PYTHON_ROOT)\lib\saga" mkdir "$(PYTHON_ROOT)\lib\saga"
+if not exist "$(PYTHON_ROOT)\lib\saga\$(RootNamespace)" mkdir "$(PYTHON_ROOT)\lib\saga\$(RootNamespace)"
+xcopy /Y/F "$(TargetPath)" "$(PYTHON_ROOT)\lib\saga\$(RootNamespace)"
+xcopy /Y/F "$(TargetDir)\$(TargetName).pdb" "$(PYTHON_ROOT)\lib\saga\$(RootNamespace)"
+xcopy /Y/F "$(ProjectDir)\..\..\..\packages\$(RootNamespace)\__init__.py" "$(PYTHON_ROOT)\lib\saga\$(RootNamespace)"</Command>
+      <Outputs>$(PYTHON_ROOT)\lib\saga\$(RootNamespace)\$(TargetFileName);$(PYTHON_ROOT)\lib\saga\$(RootNamespace)\__init__.py;%(Outputs)</Outputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>
