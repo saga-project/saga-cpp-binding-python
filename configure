@@ -2041,8 +2041,37 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
   TMP_SAGA_LOCATION=""
   TMP_SAGA_INSTTYPE=""
 
-  # check saga-config
-  # Extract the first word of "saga-config", so it can be a program name with args.
+  # check SAGA_ROOT - prefer over SAGA_LOCATION and saga-config
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking SAGA sources" >&5
+$as_echo_n "checking SAGA sources... " >&6; }
+  if test "x$SAGA_ROOT" != "x"; then
+    TMP_SAGA_LOCATION=$SAGA_ROOT
+    TMP_SAGA_INSTTYPE="source"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $TMP_SAGA_LOCATION" >&5
+$as_echo "$TMP_SAGA_LOCATION" >&6; }
+  else
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: not found" >&5
+$as_echo "not found" >&6; }
+  fi
+
+
+  # check SAGA_LOCATION - prefer over saga-config
+  if test "x$TMP_SAGA_LOCATION" = "x"; then
+   { $as_echo "$as_me:${as_lineno-$LINENO}: checking SAGA installation" >&5
+$as_echo_n "checking SAGA installation... " >&6; }
+   if test "x$SAGA_LOCATION"    != "x"; then
+     TMP_SAGA_LOCATION=$SAGA_LOCATION
+     TMP_SAGA_INSTTYPE="install"
+     { $as_echo "$as_me:${as_lineno-$LINENO}: result: $TMP_SAGA_LOCATION" >&5
+$as_echo "$TMP_SAGA_LOCATION" >&6; }
+   else
+     { $as_echo "$as_me:${as_lineno-$LINENO}: result: not found" >&5
+$as_echo "not found" >&6; }
+   fi
+  fi
+
+  if test "x$TMP_SAGA_LOCATION" = "x"; then
+   # Extract the first word of "saga-config", so it can be a program name with args.
 set dummy saga-config; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
@@ -2082,37 +2111,25 @@ $as_echo "no" >&6; }
 fi
 
 
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking SAGA installation/sources" >&5
-$as_echo_n "checking SAGA installation/sources... " >&6; }
-
-  if test "x$SAGA_CONFIG" != "x"; then
-    TMP_SAGA_LOCATION=`$SAGA_CONFIG --prefix`
-    TMP_SAGA_INSTTYPE="install"
+   { $as_echo "$as_me:${as_lineno-$LINENO}: checking saga-config prefix" >&5
+$as_echo_n "checking saga-config prefix... " >&6; }
+   if test "x$SAGA_CONFIG" != "x"; then
+     TMP_SAGA_LOCATION=`$SAGA_CONFIG --prefix`
+     TMP_SAGA_INSTTYPE="install"
+     { $as_echo "$as_me:${as_lineno-$LINENO}: result: $TMP_SAGA_LOCATION" >&5
+$as_echo "$TMP_SAGA_LOCATION" >&6; }
+   else
+     { $as_echo "$as_me:${as_lineno-$LINENO}: result: invalid" >&5
+$as_echo "invalid" >&6; }
+   fi
   fi
 
-
-  # check SAGA_LOCATION - prefer over saga-config
-  if test "x$SAGA_LOCATION"    != "x"; then
-    TMP_SAGA_LOCATION=$SAGA_LOCATION
-    TMP_SAGA_INSTTYPE="install"
-  fi
-
-
-  # check SAGA_ROOT - prefer over SAGA_LOCATION and saga-config
-  if test "x$SAGA_ROOT" != "x"; then
-    TMP_SAGA_LOCATION=$SAGA_ROOT
-    TMP_SAGA_INSTTYPE="source"
-  fi
 
 
   # found anything?
   if test "x$TMP_SAGA_LOCATION" = "x"; then
     as_fn_error "Could find neither SAGA source tree nor installation." "$LINENO" 5
   fi
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $TMP_SAGA_LOCATION ($TMP_SAGA_INSTTYPE)" >&5
-$as_echo "$TMP_SAGA_LOCATION ($TMP_SAGA_INSTTYPE)" >&6; }
 
 
 
