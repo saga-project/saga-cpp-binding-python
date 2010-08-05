@@ -47,6 +47,12 @@ else
   SAGA_PY_SCRIPT_ROOT = share/saga/python/
   SAGA_PY_MODULE_ROOT = $(SAGA_PYTHON_PKG_PATH)/@PYTHON_SAGA_MODULE_BASE@/
   
+	# the following line is a TEMPORARY fix for ticket #622, which will work with
+	# SAGA releases 1.5.1 and earlier.  Once later, updated SAGA releases become
+	# prevalent, this temporary fix will disappear again.
+  SAGA_CXXFLAGS      := -I@TMP_SAGA_LOCATION@/include/saga -I@EXTDIR@/boost/python $(SAGA_CXXFLAGS)
+	# end of fix
+	#
   SAGA_CPPINCS       := $(SAGA_PYTHON_CPPFLAGS) $(BOOST_CXXFLAGS) $(SAGA_CPPINCS)
   SAGA_LDFLAGS       += $(SAGA_PYTHON_LDFLAGS)  $(SAGA_BOOST_LDFLAGS) 
   SAGA_LDFLAGS       += $(SAGA_BOOST_PYTHON_LDFLAGS) 
