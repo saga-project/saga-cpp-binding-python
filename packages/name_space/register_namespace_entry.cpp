@@ -90,7 +90,7 @@ void register_namespace_entry()
                 "moves this item to the given name (string)")
             INSERT_PYTHON_WRAPPER_0(remove, "removes this entry")
             INSERT_PYTHON_WRAPPER_0(close, "closes this entry")
-            
+
             // saga::permissions
             INSERT_PYTHON_WRAPPER_2(permissions_allow, 
                 "generically enable a permission on this namespace entry")

@@ -101,6 +101,21 @@ DEFINE_PYTHON_WRAPPERS_4_DEF_1_EX(void, saga::name_space::directory,
     int, saga::name_space::None)
 
 ///////////////////////////////////////////////////////////////////////////////
+// name_space overloads
+DEFINE_PYTHON_WRAPPERS_2_DEF_1_EX(void, saga::name_space::directory, 
+    copy_ns, copy, saga::url, int, saga::name_space::None)
+DEFINE_PYTHON_WRAPPERS_2_DEF_1_EX(void, saga::name_space::directory, 
+    copy_string_ns, copy, std::string, int, saga::name_space::None)
+DEFINE_PYTHON_WRAPPERS_2_DEF_1_EX(void, saga::name_space::directory, 
+    link_ns, link, saga::url, int, saga::name_space::None)
+DEFINE_PYTHON_WRAPPERS_2_DEF_1_EX(void, saga::name_space::directory, 
+    link_string_ns, link, std::string, int, saga::name_space::None)
+DEFINE_PYTHON_WRAPPERS_2_DEF_1_EX(void, saga::name_space::directory, 
+    move_ns, move, saga::url, int, saga::name_space::None)
+DEFINE_PYTHON_WRAPPERS_2_DEF_1_EX(void, saga::name_space::directory, 
+    move_string_ns, move, std::string, int, saga::name_space::None)
+
+///////////////////////////////////////////////////////////////////////////////
 void register_namespace_directory()
 {
     {
@@ -206,6 +221,20 @@ void register_namespace_directory()
                 "enable a permission on a given namespace entry")
             INSERT_PYTHON_WRAPPER_4_OVERLOADS(permissions_deny, 
                 "disable a permissionon a given this namespace entry")
+
+            // name_space overloads
+            INSERT_PYTHON_WRAPPER_2_EX_OVERLOADS(copy_ns, copy, 
+                "copies this item to the given name (url)")
+            INSERT_PYTHON_WRAPPER_2_EX_OVERLOADS(copy_string_ns, copy, 
+                "copies this item to the given name (string)")
+            INSERT_PYTHON_WRAPPER_2_EX_OVERLOADS(link_ns, link, 
+                "links this item to the given item (url)")
+            INSERT_PYTHON_WRAPPER_2_EX_OVERLOADS(link_string_ns, link, 
+                "links this item to the given item (string)")
+            INSERT_PYTHON_WRAPPER_2_EX_OVERLOADS(move_ns, move,
+                "moves this item to the given name (url)")
+            INSERT_PYTHON_WRAPPER_2_EX_OVERLOADS(move_string_ns, move, 
+                "moves this item to the given name (string)")
         ;
     }
 }
