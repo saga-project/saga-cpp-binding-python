@@ -41,7 +41,7 @@ endif
 install::
 	@if test -d python/ ; \
 	then $(ECHO) "      installing Python API documentation"; \
-	$(INSTALL) -d python share/saga/doc/apidoc-python/; \
+	$(INSTALL) -d python share/saga/doc/html/; \
 	else $(ECHO) "      Cannot find Python API documentation - call 'make apidoc' to generate it"; fi
 	
 
