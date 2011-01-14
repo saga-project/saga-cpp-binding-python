@@ -211,7 +211,7 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
 
   if  test "$HAVE_PYTHON" != "yes"; then
 
-    AC_MSG_WARN([no python (devel) found])
+    AC_MSG_ERROR([no python (devel) found])
 
   else
 
