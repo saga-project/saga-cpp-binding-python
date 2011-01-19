@@ -18,6 +18,9 @@
   http://saga.cct.lsu.edu/software/python
 
 
+  INSTALLATION - Read the INSTALL file
+
+
   DOCUMENTATION
 
   The documentation available as of the date of this release is included
@@ -27,7 +30,35 @@
   http://saga.cct.lsu.edu/software/python/documentation
 
 
-  INSTALLATION - Read the INSTALL file
+  QUICKSTART
+
+    install python bindings: see INSTALL for details
+    > export SAGA_LOCATION=/path/to/saga/core/installation
+    > ./configure
+    > make
+    > make install
+    
+    using python bindings in python interpreter 
+    (attention: python version depending on your system)
+    > export PYTHONPATH=$SAGA_LOCATION/lib/python2.6.5/site-packages
+    > python
+    >>> import saga
+    >>> my_jd = saga.job.description()
+    >>> my_jd.executable = "/bin/hostname"
+    >>> my_jd.output     = "stdout.txt"
+    >>> my_js            = saga.job.service("ssh://amerzky@cyder.cct.lsu.edu/")
+    >>> my_job           = my_js.create_job(my_jd)
+    >>> my_job.run()
+    >>> my_job.wait(-1)
+    >>> quit()
+    > cat stdout.txt
+    boskop
+
+    using python bindings in scripts
+    > export PYTHONPATH=$SAGA_LOCATION/lib/python2.6.5/site-packages
+    > python examples/job/simple_example.py
+    > cat stdout.txt
+    boskop
 
 
   LICENSING
