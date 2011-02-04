@@ -287,8 +287,8 @@ void register_job()
             INSERT_PYTHON_WRAPPER_1(migrate, "migrate this job")
             INSERT_PYTHON_WRAPPER_1(signal, "send a signal to this job")
 
-            INSERT_PYTHON_WRAPPER_1(cancel, "cancel this job")
-            INSERT_PYTHON_WRAPPER_1(wait, "wait for this job")
+            INSERT_PYTHON_WRAPPER_1_OVERLOADS(cancel, "cancel this job")
+            INSERT_PYTHON_WRAPPER_1_OVERLOADS(wait, "wait for this job")
         ;
     }
 
