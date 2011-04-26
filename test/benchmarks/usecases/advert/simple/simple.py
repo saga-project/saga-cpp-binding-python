@@ -10,19 +10,19 @@ import unittest
 
 ###############################################################################
 #
-class AdvertBigjobBenchmark(unittest.TestCase):
+class AdvertSimpleBenchmark(unittest.TestCase):
     """
-    BigJob benchmark for the advert service
+    Simple Example benchmark for the advert service
     """
     @classmethod
     def name(self):
         # Return the name of the benchmark
-        return "advert.bigjob"
+        return "advert.simple"
         
     @classmethod
     def description(self):
         # Return the name of the benchmark
-        return "Runs a pattern that simulates the bigjob framework"
+        return "Simple example benchmark"
         
     def setUp(self):
         # Fixture:
