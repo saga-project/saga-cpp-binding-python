@@ -4,6 +4,8 @@
 # License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt)
 
+from repex.repex import * 
+from mapreduce.mapreduce import * 
 from bigjob.bigjob import * 
 from simple.simple import * 
 

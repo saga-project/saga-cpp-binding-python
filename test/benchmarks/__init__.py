@@ -5,3 +5,6 @@
 # http://www.boost.org/LICENSE_1_0.txt)
 
 from usecases.advert.bigjob.bigjob import * 
+from usecases.advert.mapreduce.mapreduce import * 
+from usecases.advert.repex.repex import * 
+from usecases.advert.simple.simple import * 

@@ -18,6 +18,8 @@ if __name__ == '__main__':
     all_benchmarks = {}
     all_benchmarks[AdvertBigjobBenchmark.name()] = AdvertBigjobBenchmark
     all_benchmarks[AdvertSimpleBenchmark.name()] = AdvertSimpleBenchmark
+    all_benchmarks[AdvertRepexBenchmark.name()] = AdvertRepexBenchmark
+    all_benchmarks[AdvertMapreduceBenchmark.name()] = AdvertMapreduceBenchmark
     # ... add yours
     ##
     ####
@@ -35,7 +37,7 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     if options.list:
-        print("Available benchmarks:\n")
+        print("\nAvailable benchmarks:\n")
         for k, v in all_benchmarks.iteritems():
           print ("  " + k + " (" + v.description() + ")")
         print(" ")

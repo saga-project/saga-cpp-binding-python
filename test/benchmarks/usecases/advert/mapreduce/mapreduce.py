@@ -9,20 +9,20 @@ import os.path
 import unittest
 
 ###############################################################################
-
-class AdvertBigjobBenchmark(unittest.TestCase):
+#
+class AdvertMapreduceBenchmark(unittest.TestCase):
     """
     DESCRIPTION
     """
     @classmethod
     def name(self):
         # Return the name of the benchmark
-        return "advert.bigjob"
+        return "advert.mapreduce"
         
     @classmethod
     def description(self):
         # Return the name of the benchmark
-        return "Benchmark that simulates the 'SAGA Big-Job' advert service access pattern."
+        return "Benchmark that simulates the 'SAGA Map-Reduce' advert service access pattern."
         
     def setUp(self):
         # Fixture:
@@ -38,4 +38,3 @@ class AdvertBigjobBenchmark(unittest.TestCase):
     #
     def test_benchmark(self):
         print "Running benchmark..."
-        i = 0
