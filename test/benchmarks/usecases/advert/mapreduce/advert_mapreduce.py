@@ -97,6 +97,7 @@ def conf_check_init():
 
 def init():
     global i_fsize , c_size , s_out, e_time, nbr_maps, nbr_reduces, app_url, app_dir, qtimes,b_uuid
+    global database_host
     # input file size
     i_fsize = 2 * 1024 * 1024 * 1024
     # number of chunks
@@ -106,6 +107,7 @@ def init():
     nbr_reduces = 8
     qtimes.append(10)
     qtimes.append(10)
+    database_host = "advert.cct.lsu.edu"
     
 
 ####################################################################################
