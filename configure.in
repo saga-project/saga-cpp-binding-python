@@ -31,6 +31,10 @@ if test "x$HAVE_PYTHON" == "xyes"; then
 
   BOOST_PYTHON # defines BOOST_PYTHON_LIBS
 
+  if test "$BOOST_HAVE_LIB_PYTHON" = "no"; then
+    AC_MSG_ERROR([abort])
+  fi
+
   LDFLAGS=$old_ldflags
   CPPFLAGS=$old_cppflags
 fi
