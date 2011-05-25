@@ -2699,13 +2699,15 @@ fi
 
     packages=`ls /usr/local/package/python-* 2>>/dev/null`
 
+    which_python=`which python | sed -e 's/\/bin\/python//'`
+
     if test "$tmp_location-$PYTHON_LOCATION" = "-"; then
-      paths="/usr /usr/local /opt $packages"
+      paths="$which_python /usr /usr/local /opt $packages"
     else
       paths="$tmp_location $PYTHON_LOCATION"
     fi
 
-    for tmp_path in $ $paths; do
+    for tmp_path in $paths; do
 
       PYTHON=$tmp_path/bin/python
 
