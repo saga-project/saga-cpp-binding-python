@@ -8,8 +8,8 @@ import saga
 try:
   # create an "echo 'hello, world' job"
   jd = saga.job.description()
-  jd.executable = "/bin/echo"
-  jd.arguments  = ["Hello, World!"]
+  jd.set_attribute("Executable", "/bin/echo")
+  jd.set_vector_attribute("Arguments", ["Hello, World!"])
   jd.set_attribute("Interactive", "True")
 
   
