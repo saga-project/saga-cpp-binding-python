@@ -1,8 +1,7 @@
 ## Copyright (c) 2011 Ole Weidner, Louisiana State University
 ##
-## This is an example of how to submit an MPI job through Globus GRAM. 
-## A detailed description can be found at 
-## http://saga.cct.lsu.edu/software/cpp/documentation/faq
+##  This is part of the code examples on the SAGA website:
+##  http://saga.cct.lsu.edu/documentation/writing_applications/hello-world
 
 import saga
 
@@ -11,7 +10,7 @@ try:
   jd = saga.job.description()
   jd.executable = "/bin/echo"
   jd.arguments  = ["Hello, World!"]
-  jd.interactive  = True
+  jd.set_attribute("Interactive", "True")
 
   
   # connect to the local job service
@@ -25,9 +24,9 @@ try:
   job.wait(-1)
   
   # print the job's output
-  print job.get_stdout()
+  output = job.get_stdout()
+  print output.read()
   
 except saga.exception, e:
-  print "ERROR: " 
   for err in e.get_all_messages():
     print err

@@ -1,6 +1,7 @@
 ## Copyright (c) 2011 Ole Weidner, Louisiana State University
 ##
-## This is an example of ...
+##  This is part of the code examples on the SAGA website:
+##  http://saga.cct.lsu.edu/documentation/writing_applications/hello-world
 
 import saga
 
@@ -23,7 +24,6 @@ try:
   f_copy.remove()
 
 except saga.exception, e:
-  print "ERROR: " 
   for err in e.get_all_messages():
     print err
 
