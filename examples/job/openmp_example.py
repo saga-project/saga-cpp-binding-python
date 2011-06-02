@@ -27,4 +27,5 @@ try:
   job.run()
   
 except saga.exception, e:
-  print e.get_all_messages()
+  for err in e.get_all_messages():
+    print err

@@ -29,4 +29,5 @@ try:
   
 except saga.exception, e:
   print "ERROR: " 
-  print e.get_all_messages()
+  for err in e.get_all_messages():
+    print err
