@@ -54,8 +54,8 @@ void register_url()
         .def("clone", &saga::url::clone, 
             "returns a new (deep) copy of the saga::url instance")
 
-        .add_property("authority", &saga::url::get_authority, 
-            "returns the authority contained in this saga::url instance")
+        .add_property("authority", &saga::url::get_authority, &saga::url::set_authority, 
+            "returns or modifies the authority contained in this saga::url instance")
         .add_property("query", &saga::url::get_query, &saga::url::set_query, 
             "returns or modifies the query contained in this saga::url instance")
         .add_property("username", &saga::url::get_username, &saga::url::set_username, 
