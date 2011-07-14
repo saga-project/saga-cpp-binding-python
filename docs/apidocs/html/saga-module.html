@@ -58,6 +58,18 @@
 </table>
 <!-- ==================== PACKAGE DESCRIPTION ==================== -->
 <h1 class="epydoc">Package saga</h1><p class="nomargin-top"><span class="codelink"><a href="saga-pysrc.html">source&nbsp;code</a></span></p>
+<p>This is the documentation for the Python API bindings for the SAGA C++
+  reference implementation (<a href="http://saga.cct.lsu.edu" 
+  target="_top">http://saga.cct.lsu.edu</a>). They provide a thin Python 
+  wrapper on top of the native SAGA C++ API. This allows you to use SAGA 
+  and all of its middleware adaptors within your Python code.</p>
+  <p>The bindings are mostly auto-generated from the C++ code, that's why 
+  the documentation is rather minimalistic. If you're looking for more 
+  details on a specific class or method, you should refer to the C++ API 
+  documentation which can be found here: <a 
+  href="http://apidoc.saga.cct.lsu.edu/saga-cpp/latest/" 
+  target="_top">http://apidoc.saga.cct.lsu.edu/saga-cpp/latest/</a></p>
+
 <!-- ==================== SUBMODULES ==================== -->
 <a name="section-Submodules"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -69,7 +81,7 @@
   <tr><td class="summary">
   <ul class="nomargin">
     <li class="private"> <strong class="uidlink"><a href="saga._engine-module.html" onclick="show_private();">saga._engine</a></strong>    </li>
-    <li> <strong class="uidlink"><a href="saga.advert-module.html">saga.advert</a></strong>
+    <li> <strong class="uidlink"><a href="saga.advert-module.html">saga.advert</a></strong>: <em class="summary">The SAGA Advert Service API package.</em>
     <ul>
     <li class="private"> <strong class="uidlink"><a href="saga.advert._advert-module.html" onclick="show_private();">saga.advert._advert</a></strong>    </li>
     </ul>
@@ -79,27 +91,27 @@
     <li class="private"> <strong class="uidlink"><a href="saga.cpr._cpr-module.html" onclick="show_private();">saga.cpr._cpr</a></strong>    </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="saga.filesystem-module.html">saga.filesystem</a></strong>
+    <li> <strong class="uidlink"><a href="saga.filesystem-module.html">saga.filesystem</a></strong>: <em class="summary">The SAGA Filesystem API package.</em>
     <ul>
     <li class="private"> <strong class="uidlink"><a href="saga.filesystem._filesystem-module.html" onclick="show_private();">saga.filesystem._filesystem</a></strong>    </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="saga.job-module.html">saga.job</a></strong>
+    <li> <strong class="uidlink"><a href="saga.job-module.html">saga.job</a></strong>: <em class="summary">The SAGA Job API package.</em>
     <ul>
     <li class="private"> <strong class="uidlink"><a href="saga.job._job-module.html" onclick="show_private();">saga.job._job</a></strong>    </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="saga.name_space-module.html">saga.name_space</a></strong>
+    <li> <strong class="uidlink"><a href="saga.name_space-module.html">saga.name_space</a></strong>: <em class="summary">The SAGA Namespace API package.</em>
     <ul>
     <li class="private"> <strong class="uidlink"><a href="saga.name_space._name_space-module.html" onclick="show_private();">saga.name_space._name_space</a></strong>    </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="saga.replica-module.html">saga.replica</a></strong>
+    <li> <strong class="uidlink"><a href="saga.replica-module.html">saga.replica</a></strong>: <em class="summary">The SAGA Replica API package.</em>
     <ul>
     <li class="private"> <strong class="uidlink"><a href="saga.replica._replica-module.html" onclick="show_private();">saga.replica._replica</a></strong>    </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="saga.sd-module.html">saga.sd</a></strong>
+    <li> <strong class="uidlink"><a href="saga.sd-module.html">saga.sd</a></strong>: <em class="summary">The SAGA SD (Service Discovery) API package.</em>
     <ul>
     <li class="private"> <strong class="uidlink"><a href="saga.sd._sd-module.html" onclick="show_private();">saga.sd._sd</a></strong>    </li>
     </ul>
@@ -121,6 +133,79 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="saga.exception-class.html" class="summary-name">exception</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="saga.context-class.html" class="summary-name">context</a><br />
+      <b>saga.context</b> represents a saga security context.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="saga.error-class.html" class="summary-name">error</a><br />
+      <b>saga.permission</b> represents a saga error.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="saga.metric-class.html" class="summary-name">metric</a><br />
+      <b>saga.permission</b> the saga metric interface.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="saga.object-class.html" class="summary-name">object</a><br />
+      <b>saga.object</b> the saga base object.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="saga.permission-class.html" class="summary-name">permission</a><br />
+      <b>saga.permission</b> the saga permission interface.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="saga.task-class.html" class="summary-name">task</a><br />
+      <b>saga.task</b> represents a saga tasks.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="saga.task_container-class.html" class="summary-name">task_container</a><br />
+      <b>saga.taks_container</b> represents a collection of saga tasks.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="saga.url-class.html" class="summary-name">url</a><br />
+      <b>saga.url</b> is used to create and modify URL objects.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="saga.uuid-class.html" class="summary-name">uuid</a><br />
+      <b>saga.uuid</b> is used to create and modify unique identifier 
+        strings.
     </td>
   </tr>
 <tr>
@@ -326,7 +411,7 @@
   <tr>
     <td align="left" class="footer">
     <a href="epydoc-log.html">Generated by Epydoc
-    3.0.1 on Thu Jul 14 11:03:24 2011</a>
+    3.0.1 on Thu Jul 14 12:27:04 2011</a>
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

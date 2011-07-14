@@ -20,6 +20,7 @@ static bool compare_uuids(saga::uuid const& lhs, saga::uuid const& rhs)
 ///////////////////////////////////////////////////////////////////////////////
 void register_uuid()
 {
+
     // saga::url
     class_<saga::uuid>("uuid", "saga::uuid type")
         .def(init<char const*>())
