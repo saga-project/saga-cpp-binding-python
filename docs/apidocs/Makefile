@@ -26,11 +26,18 @@ python:
 ifeq "x$(EPYDOC_BIN)" "x"
 	@$(ECHO) "      Cannot generate Python API docs - epydoc is not installed"
 else
-	@if test -d python; then echo "python subdir already exists - skip doc generation"; \
-  else \
-  $(ECHO) "      generating Python API docs (saga modules must be in PYTHONPATH)"; \
-  $(EPYDOC_BIN) --html --config=epydoc.cfg.in; \
-  fi
+	@$(ECHO) "      generating C++ API docs"
+	@if ! test -d html/ ; \
+	then $(MKDIR) 	html ; fi
+#	@$(CP) 		 saga-api.png html
+	@sed "s/###PROJECT_VERSION###/$(SAGA_PY_VERSION)/g" epydoc.cfg.in > epydoc.cfg
+	$(EPYDOC_BIN) --html --config=epydoc.cfg
+
+#	@if test -d python; then echo "python subdir already exists - skip doc generation"; \
+#  else \
+#  $(ECHO) "      generating Python API docs (saga modules must be in PYTHONPATH)"; \
+#  $(EPYDOC_BIN) --html --config=epydoc.cfg.in; \
+#  fi
 endif
 
 #	$(ECHO) $(SAGA_LOCATION) ;\
@@ -46,6 +53,4 @@ install::
 	
 
 distclean::
-	@$(RM)    epydoc.cfg
-	@$(RM) -r python
-
+	@$(RM) epydoc.cfg

@@ -7,6 +7,15 @@
 # This file must be located inside a directory named SAGA/file which in turn 
 # should be located in a directory listed in your PYTHON_PATH
 
+"""
+The SAGA Filesystem API package. 
+
+The SAGA filesystem API is used to operate on local and remote filesystems. 
+
+More on the concepts of the SAGA API can be found here:
+U{http://www.gridforum.org/documents/GFD.90.pdf}
+"""
+
 from _filesystem import *           # import file package
 
 class directory(_filesystem.directory):

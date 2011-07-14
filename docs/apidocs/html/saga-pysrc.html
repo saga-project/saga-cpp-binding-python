@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>saga</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://saga.cct.lsu.edu/">SAGA Python Bindings 1.0-pre1</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;saga
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="saga-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="saga-module.html">Package saga</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#  Copyright (c) 2005-2009 Hartmut Kaiser</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#  Distributed under the Boost Software License, Version 1.0. (See accompanying</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># This file must be located inside a directory named SAGA which in turn should </tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># be located in a directory listed in your PYTHON_PATH</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">""" </tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">This is the documentation for the Python API bindings for the SAGA C++</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">reference implementation (U{http://saga.cct.lsu.edu}). They provide a thin</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">Python wrapper on top of the native SAGA C++ API. This allows you to use SAGA</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">and all of its middleware adaptors within your Python code.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring">B{Here's a simple example how to submit a job using SAGA and Python}::</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring">  import saga</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-docstring">  try:</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">    # create an "echo 'hello, world' job"</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">    jd = saga.job.description()</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">    jd.set_attribute("Executable", "/bin/echo")</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">    jd.set_vector_attribute("Arguments", ["Hello, World!"])</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-docstring">    jd.set_attribute("Interactive", "True")</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-docstring">    # connect to the local job service</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-docstring">    js = saga.job.service("fork://localhost");</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-docstring">    # submit the job</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-docstring">    job = js.create_job(jd)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">    job.run()</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">    # wait for the job to complete</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">    job.wait(-1)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">    # print the job's output</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">    output = job.get_stdout()</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">    print output.read()</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-docstring">  except saga.exception, e:</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">    print "ERROR: " </tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">    for err in e.get_all_messages():</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">      print err</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring">Unfortunately, the bindings are mostly auto-generated from the C++ code, that's</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-docstring">why the documentation is rather minimalistic. If you're looking for more</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring">details on a specific class or method, you should refer to the C++ API</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">documentation which can be found here:</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">U{http://apidoc.saga.cct.lsu.edu/saga-cpp/latest/}</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module saga._engine=saga._engine-module.html"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-0', '_engine', 'link-0');">_engine</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt>         <tt class="py-comment"># import all classes from SAGA.engine</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-comment"># try to load all the different packages, one at a time, and ignoring any errors</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable saga.SAGA_LOG=saga-module.html#SAGA_LOG"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-1', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">    <tt id="link-2" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-2', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">=</tt> <tt class="py-name">long</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">getenv</tt><tt class="py-op">(</tt><tt class="py-string">"SAGA_VERBOSE"</tt><tt class="py-op">,</tt> <tt class="py-string">"0"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-comment"># load namespace package</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Package saga=saga-module.html"><a title="saga" class="py-name" href="#" onclick="return doclink('link-3', 'saga', 'link-3');">saga</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Package saga.name_space=saga.name_space-module.html"><a title="saga.name_space" class="py-name" href="#" onclick="return doclink('link-4', 'name_space', 'link-4');">name_space</a></tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-5" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-5', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Successfully loaded Python namespace package bindings"</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-6" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-6', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Failed loading Python namespace package bindings"</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-comment"># load filesystem package</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-7" class="py-name"><a title="saga" class="py-name" href="#" onclick="return doclink('link-7', 'saga', 'link-3');">saga</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Package saga.filesystem=saga.filesystem-module.html"><a title="saga.filesystem" class="py-name" href="#" onclick="return doclink('link-8', 'filesystem', 'link-8');">filesystem</a></tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-9" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-9', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Successfully loaded Python filesystem package bindings"</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-10" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-10', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Failed loading Python filesystem package bindings"</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-comment"># load advert package</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-11" class="py-name"><a title="saga" class="py-name" href="#" onclick="return doclink('link-11', 'saga', 'link-3');">saga</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Package saga.advert=saga.advert-module.html"><a title="saga.advert" class="py-name" href="#" onclick="return doclink('link-12', 'advert', 'link-12');">advert</a></tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-13" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-13', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Successfully loaded Python advert package bindings"</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-14" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-14', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Failed loading Python advert package bindings"</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-comment"># load job package</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-15" class="py-name"><a title="saga" class="py-name" href="#" onclick="return doclink('link-15', 'saga', 'link-3');">saga</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Class saga.cpr._cpr.job=saga.cpr._cpr.job-class.html,Package saga.job=saga.job-module.html,Class saga.job._job.job=saga.job._job.job-class.html,Class saga.job.job=saga.job.job-class.html"><a title="saga.cpr._cpr.job
+saga.job
+saga.job._job.job
+saga.job.job" class="py-name" href="#" onclick="return doclink('link-16', 'job', 'link-16');">job</a></tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-17" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-17', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Successfully loaded Python job package bindings"</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-18" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-18', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Failed loading Python job package bindings"</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-comment"># load replica package</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-19" class="py-name"><a title="saga" class="py-name" href="#" onclick="return doclink('link-19', 'saga', 'link-3');">saga</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Package saga.replica=saga.replica-module.html"><a title="saga.replica" class="py-name" href="#" onclick="return doclink('link-20', 'replica', 'link-20');">replica</a></tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-21" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-21', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Successfully loaded Python replica package bindings"</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-22" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-22', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Failed loading Python replica package bindings"</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-comment"># load cpr package</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-23" class="py-name"><a title="saga" class="py-name" href="#" onclick="return doclink('link-23', 'saga', 'link-3');">saga</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Package saga.cpr=saga.cpr-module.html"><a title="saga.cpr" class="py-name" href="#" onclick="return doclink('link-24', 'cpr', 'link-24');">cpr</a></tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-25" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-25', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Successfully loaded Python cpr package bindings"</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt>  </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-26" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-26', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Failed loading Python cpr package bindings"</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-comment"># load sd package</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-27" class="py-name"><a title="saga" class="py-name" href="#" onclick="return doclink('link-27', 'saga', 'link-3');">saga</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Package saga.sd=saga.sd-module.html"><a title="saga.sd" class="py-name" href="#" onclick="return doclink('link-28', 'sd', 'link-28');">sd</a></tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-29" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-29', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Successfully loaded Python sd package bindings"</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt>  </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-30" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-30', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Failed loading Python sd package bindings"</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"><tt class="py-comment"># load stream package</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-31" class="py-name"><a title="saga" class="py-name" href="#" onclick="return doclink('link-31', 'saga', 'link-3');">saga</a></tt><tt class="py-op">.</tt><tt class="py-name">stream</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-32" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-32', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Successfully loaded Python stream package bindings"</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt>  </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt id="link-33" class="py-name"><a title="saga.SAGA_LOG" class="py-name" href="#" onclick="return doclink('link-33', 'SAGA_LOG', 'link-1');">SAGA_LOG</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Failed loading Python stream package bindings"</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-comment"># define classes needed for proper exception translation</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="exception"></a><div id="exception-def"><a name="L138"></a><tt class="py-lineno">138</tt> <a class="py-toggle" href="#" id="exception-toggle" onclick="return toggle('exception');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.exception-class.html">exception</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="exception-expanded"><a name="exception.__init__"></a><div id="exception.__init__-def"><a name="L139"></a><tt class="py-lineno">139</tt> <a class="py-toggle" href="#" id="exception.__init__-toggle" onclick="return toggle('exception.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="saga.exception-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">error</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="exception.__init__-expanded"><a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt id="link-34" class="py-name" targets="Variable saga._engine.object.Exception=saga._engine.object-class.html#Exception,Variable saga._engine.object.object_type.Exception=saga._engine.object.object_type-class.html#Exception"><a title="saga._engine.object.Exception
+saga._engine.object.object_type.Exception" class="py-name" href="#" onclick="return doclink('link-34', 'Exception', 'link-34');">Exception</a></tt><tt class="py-op">.</tt><tt id="link-35" class="py-name" targets="Method saga._engine.context.__init__()=saga._engine.context-class.html#__init__,Method saga._engine.metric.__init__()=saga._engine.metric-class.html#__init__,Method saga._engine.object.__init__()=saga._engine.object-class.html#__init__,Method saga._engine.session.__init__()=saga._engine.session-class.html#__init__,Method saga._engine.task.__init__()=saga._engine.task-class.html#__init__,Method saga._engine.task_container.__init__()=saga._engine.task_container-class.html#__init__,Method saga._engine.url.__init__()=saga._engine.url-class.html#__init__,Method saga._engine.uuid.__init__()=saga._engine.uuid-class.html#__init__,Method saga.advert._advert.directory.__init__()=saga.advert._advert.directory-class.html#__init__,Method saga.advert._advert.entry.__init__()=saga.advert._advert.entry-class.html#__init__,Method saga.cpr._cpr.checkpoint.__init__()=saga.cpr._cpr.checkpoint-class.html#__init__,Method saga.cpr._cpr.description.__init__()=saga.cpr._cpr.description-class.html#__init__,Method saga.cpr._cpr.directory.__init__()=saga.cpr._cpr.directory-class.html#__init__,Method saga.cpr._cpr.service.__init__()=saga.cpr._cpr.service-class.html#__init__,Method saga.exception.__init__()=saga.exception-class.html#__init__,Method saga.filesystem._filesystem.directory.__init__()=saga.filesystem._filesystem.directory-class.html#__init__,Method saga.filesystem._filesystem.file.__init__()=saga.filesystem._filesystem.file-class.html#__init__,Method saga.job._job.description.__init__()=saga.job._job.description-class.html#__init__,Method saga.job._job.job.__init__()=saga.job._job.job-class.html#__init__,Method saga.job._job.service.__init__()=saga.job._job.service-class.html#__init__,Method saga.name_space._name_space.directory.__init__()=saga.name_space._name_space.directory-class.html#__init__,Method saga.name_space._name_space.entry.__init__()=saga.name_space._name_space.entry-class.html#__init__,Method saga.replica._replica.directory.__init__()=saga.replica._replica.directory-class.html#__init__,Method saga.replica._replica.entry.__init__()=saga.replica._replica.entry-class.html#__init__,Method saga.sd._sd.discoverer.__init__()=saga.sd._sd.discoverer-class.html#__init__,Method saga.sd._sd.service_data.__init__()=saga.sd._sd.service_data-class.html#__init__,Method saga.sd._sd.service_description.__init__()=saga.sd._sd.service_description-class.html#__init__"><a title="saga._engine.context.__init__
+saga._engine.metric.__init__
+saga._engine.object.__init__
+saga._engine.session.__init__
+saga._engine.task.__init__
+saga._engine.task_container.__init__
+saga._engine.url.__init__
+saga._engine.uuid.__init__
+saga.advert._advert.directory.__init__
+saga.advert._advert.entry.__init__
+saga.cpr._cpr.checkpoint.__init__
+saga.cpr._cpr.description.__init__
+saga.cpr._cpr.directory.__init__
+saga.cpr._cpr.service.__init__
+saga.exception.__init__
+saga.filesystem._filesystem.directory.__init__
+saga.filesystem._filesystem.file.__init__
+saga.job._job.description.__init__
+saga.job._job.job.__init__
+saga.job._job.service.__init__
+saga.name_space._name_space.directory.__init__
+saga.name_space._name_space.entry.__init__
+saga.replica._replica.directory.__init__
+saga.replica._replica.entry.__init__
+saga.sd._sd.discoverer.__init__
+saga.sd._sd.service_data.__init__
+saga.sd._sd.service_description.__init__" class="py-name" href="#" onclick="return doclink('link-35', '__init__', 'link-35');">__init__</a></tt><tt class="py-op">(</tt><tt id="link-36" class="py-name" targets="Class saga.cpr._cpr.self=saga.cpr._cpr.self-class.html,Class saga.job._job.self=saga.job._job.self-class.html,Class saga.job.self=saga.job.self-class.html"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-36', 'self', 'link-36');">self</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt id="link-37" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-37', 'self', 'link-36');">self</a></tt><tt class="py-op">.</tt><tt class="py-name">_pimpl</tt> <tt class="py-op">=</tt> <tt id="link-38" class="py-name" targets="Class saga._engine.error=saga._engine.error-class.html,Class saga.error=saga.error-class.html,Variable saga.job._job.description.error=saga.job._job.description-class.html#error"><a title="saga._engine.error
+saga.error
+saga.job._job.description.error" class="py-name" href="#" onclick="return doclink('link-38', 'error', 'link-38');">error</a></tt> </tt>
+</div><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">     </tt>
+<a name="exception.__str__"></a><div id="exception.__str__-def"><a name="L143"></a><tt class="py-lineno">143</tt> <a class="py-toggle" href="#" id="exception.__str__-toggle" onclick="return toggle('exception.__str__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="saga.exception-class.html#__str__">__str__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception.__str__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="exception.__str__-expanded"><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-39" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-39', 'self', 'link-36');">self</a></tt><tt class="py-op">.</tt><tt class="py-name">_pimpl</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Method saga.exception.get_message()=saga.exception-class.html#get_message"><a title="saga.exception.get_message" class="py-name" href="#" onclick="return doclink('link-40', 'get_message', 'link-40');">get_message</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="exception.get_full_message"></a><div id="exception.get_full_message-def"><a name="L146"></a><tt class="py-lineno">146</tt> <a class="py-toggle" href="#" id="exception.get_full_message-toggle" onclick="return toggle('exception.get_full_message');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="saga.exception-class.html#get_full_message">get_full_message</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception.get_full_message-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="exception.get_full_message-expanded"><a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-41" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-41', 'self', 'link-36');">self</a></tt><tt class="py-op">.</tt><tt class="py-name">_pimpl</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name" targets="Method saga.exception.get_full_message()=saga.exception-class.html#get_full_message"><a title="saga.exception.get_full_message" class="py-name" href="#" onclick="return doclink('link-42', 'get_full_message', 'link-42');">get_full_message</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"> </tt>
+<a name="exception.get_message"></a><div id="exception.get_message-def"><a name="L149"></a><tt class="py-lineno">149</tt> <a class="py-toggle" href="#" id="exception.get_message-toggle" onclick="return toggle('exception.get_message');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="saga.exception-class.html#get_message">get_message</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception.get_message-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="exception.get_message-expanded"><a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-43" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-43', 'self', 'link-36');">self</a></tt><tt class="py-op">.</tt><tt class="py-name">_pimpl</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="saga.exception.get_message" class="py-name" href="#" onclick="return doclink('link-44', 'get_message', 'link-40');">get_message</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">         </tt>
+<a name="exception.get_error"></a><div id="exception.get_error-def"><a name="L152"></a><tt class="py-lineno">152</tt> <a class="py-toggle" href="#" id="exception.get_error-toggle" onclick="return toggle('exception.get_error');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="saga.exception-class.html#get_error">get_error</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception.get_error-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="exception.get_error-expanded"><a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-45" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-45', 'self', 'link-36');">self</a></tt><tt class="py-op">.</tt><tt class="py-name">_pimpl</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name" targets="Method saga.exception.get_error()=saga.exception-class.html#get_error"><a title="saga.exception.get_error" class="py-name" href="#" onclick="return doclink('link-46', 'get_error', 'link-46');">get_error</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">         </tt>
+<a name="exception.get_object"></a><div id="exception.get_object-def"><a name="L155"></a><tt class="py-lineno">155</tt> <a class="py-toggle" href="#" id="exception.get_object-toggle" onclick="return toggle('exception.get_object');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="saga.exception-class.html#get_object">get_object</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception.get_object-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="exception.get_object-expanded"><a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-47" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-47', 'self', 'link-36');">self</a></tt><tt class="py-op">.</tt><tt class="py-name">_pimpl</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Method saga._engine.task.get_object()=saga._engine.task-class.html#get_object,Method saga.exception.get_object()=saga.exception-class.html#get_object"><a title="saga._engine.task.get_object
+saga.exception.get_object" class="py-name" href="#" onclick="return doclink('link-48', 'get_object', 'link-48');">get_object</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">         </tt>
+<a name="exception.get_all_exceptions"></a><div id="exception.get_all_exceptions-def"><a name="L158"></a><tt class="py-lineno">158</tt> <a class="py-toggle" href="#" id="exception.get_all_exceptions-toggle" onclick="return toggle('exception.get_all_exceptions');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="saga.exception-class.html#get_all_exceptions">get_all_exceptions</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception.get_all_exceptions-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="exception.get_all_exceptions-expanded"><a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-49" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-49', 'self', 'link-36');">self</a></tt><tt class="py-op">.</tt><tt class="py-name">_pimpl</tt><tt class="py-op">.</tt><tt id="link-50" class="py-name" targets="Method saga.exception.get_all_exceptions()=saga.exception-class.html#get_all_exceptions"><a title="saga.exception.get_all_exceptions" class="py-name" href="#" onclick="return doclink('link-50', 'get_all_exceptions', 'link-50');">get_all_exceptions</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">         </tt>
+<a name="exception.get_all_messages"></a><div id="exception.get_all_messages-def"><a name="L161"></a><tt class="py-lineno">161</tt> <a class="py-toggle" href="#" id="exception.get_all_messages-toggle" onclick="return toggle('exception.get_all_messages');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="saga.exception-class.html#get_all_messages">get_all_messages</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception.get_all_messages-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="exception.get_all_messages-expanded"><a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-51" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-51', 'self', 'link-36');">self</a></tt><tt class="py-op">.</tt><tt class="py-name">_pimpl</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name" targets="Method saga.exception.get_all_messages()=saga.exception-class.html#get_all_messages"><a title="saga.exception.get_all_messages" class="py-name" href="#" onclick="return doclink('link-52', 'get_all_messages', 'link-52');">get_all_messages</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">         </tt>
+<a name="exception.__getattribute__"></a><div id="exception.__getattribute__-def"><a name="L164"></a><tt class="py-lineno">164</tt> <a class="py-toggle" href="#" id="exception.__getattribute__-toggle" onclick="return toggle('exception.__getattribute__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="saga.exception-class.html#__getattribute__">__getattribute__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">attr</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="exception.__getattribute__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="exception.__getattribute__-expanded"><a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-name">my_pimpl</tt> <tt class="py-op">=</tt> <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-53" class="py-name" targets="Class saga.exception=saga.exception-class.html"><a title="saga.exception" class="py-name" href="#" onclick="return doclink('link-53', 'exception', 'link-53');">exception</a></tt><tt class="py-op">,</tt> <tt id="link-54" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-54', 'self', 'link-36');">self</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name" targets="Method saga.exception.__getattribute__()=saga.exception-class.html#__getattribute__"><a title="saga.exception.__getattribute__" class="py-name" href="#" onclick="return doclink('link-55', '__getattribute__', 'link-55');">__getattribute__</a></tt><tt class="py-op">(</tt><tt class="py-string">"_pimpl"</tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">my_pimpl</tt><tt class="py-op">,</tt> <tt class="py-name">attr</tt><tt class="py-op">)</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">:</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-56" class="py-name"><a title="saga.exception" class="py-name" href="#" onclick="return doclink('link-56', 'exception', 'link-53');">exception</a></tt><tt class="py-op">,</tt> <tt id="link-57" class="py-name"><a title="saga.cpr._cpr.self
+saga.job._job.self
+saga.job.self" class="py-name" href="#" onclick="return doclink('link-57', 'self', 'link-36');">self</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-58" class="py-name"><a title="saga.exception.__getattribute__" class="py-name" href="#" onclick="return doclink('link-58', '__getattribute__', 'link-55');">__getattribute__</a></tt><tt class="py-op">(</tt><tt class="py-name">attr</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt id="link-59" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-59', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="saga.exception" class="py-name" href="#" onclick="return doclink('link-60', 'exception', 'link-53');">exception</a></tt> <tt class="py-op">=</tt> <tt id="link-61" class="py-name"><a title="saga.exception" class="py-name" href="#" onclick="return doclink('link-61', 'exception', 'link-53');">exception</a></tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt id="link-62" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-62', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_exception</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-63" class="py-name"><a title="saga.exception" class="py-name" href="#" onclick="return doclink('link-63', 'exception', 'link-53');">exception</a></tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="context"></a><div id="context-def"><a name="L175"></a><tt class="py-lineno">175</tt> <a class="py-toggle" href="#" id="context-toggle" onclick="return toggle('context');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.context-class.html">context</a><tt class="py-op">(</tt><tt class="py-base-class">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"><tt class="py-string">"""B{saga.context} represents a saga security context."""</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="error"></a><div id="error-def"><a name="L179"></a><tt class="py-lineno">179</tt> <a class="py-toggle" href="#" id="error-toggle" onclick="return toggle('error');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.error-class.html">error</a><tt class="py-op">(</tt><tt class="py-base-class">error</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"><tt class="py-string">"""B{saga.permission} represents a saga error."""</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="metric"></a><div id="metric-def"><a name="L183"></a><tt class="py-lineno">183</tt> <a class="py-toggle" href="#" id="metric-toggle" onclick="return toggle('metric');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.metric-class.html">metric</a><tt class="py-op">(</tt><tt class="py-base-class">metric</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"><tt class="py-string">"""B{saga.permission} the saga metric interface."""</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="object"></a><div id="object-def"><a name="L187"></a><tt class="py-lineno">187</tt> <a class="py-toggle" href="#" id="object-toggle" onclick="return toggle('object');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.object-class.html">object</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"><tt class="py-string">"""B{saga.object} the saga base object. Everything else inherits from it."""</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="permission"></a><div id="permission-def"><a name="L191"></a><tt class="py-lineno">191</tt> <a class="py-toggle" href="#" id="permission-toggle" onclick="return toggle('permission');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.permission-class.html">permission</a><tt class="py-op">(</tt><tt class="py-base-class">permission</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"><tt class="py-string">"""B{saga.permission} the saga permission interface."""</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="task"></a><div id="task-def"><a name="L195"></a><tt class="py-lineno">195</tt> <a class="py-toggle" href="#" id="task-toggle" onclick="return toggle('task');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.task-class.html">task</a><tt class="py-op">(</tt><tt class="py-base-class">task</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"><tt class="py-string">"""B{saga.task} represents a saga tasks."""</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="task_container"></a><div id="task_container-def"><a name="L199"></a><tt class="py-lineno">199</tt> <a class="py-toggle" href="#" id="task_container-toggle" onclick="return toggle('task_container');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.task_container-class.html">task_container</a><tt class="py-op">(</tt><tt class="py-base-class">task_container</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line"><tt class="py-string">"""B{saga.taks_container} represents a collection of saga tasks."""</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="url"></a><div id="url-def"><a name="L203"></a><tt class="py-lineno">203</tt> <a class="py-toggle" href="#" id="url-toggle" onclick="return toggle('url');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.url-class.html">url</a><tt class="py-op">(</tt><tt class="py-base-class">url</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line"><tt class="py-string">"""B{saga.url} is used to create and modify URL objects."""</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line"> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="uuid"></a><div id="uuid-def"><a name="L207"></a><tt class="py-lineno">207</tt> <a class="py-toggle" href="#" id="uuid-toggle" onclick="return toggle('uuid');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.uuid-class.html">uuid</a><tt class="py-op">(</tt><tt class="py-base-class">uuid</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"><tt class="py-string">"""B{saga.uuid} is used to create and modify unique identifier strings."""</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line"> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="not_implemented"></a><div id="not_implemented-def"><a name="L212"></a><tt class="py-lineno">212</tt> <a class="py-toggle" href="#" id="not_implemented-toggle" onclick="return toggle('not_implemented');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.not_implemented-class.html">not_implemented</a><tt class="py-op">(</tt><tt class="py-base-class">exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">     </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line"><tt id="link-64" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-64', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-65" class="py-name" targets="Class saga.not_implemented=saga.not_implemented-class.html"><a title="saga.not_implemented" class="py-name" href="#" onclick="return doclink('link-65', 'not_implemented', 'link-65');">not_implemented</a></tt> <tt class="py-op">=</tt> <tt id="link-66" class="py-name"><a title="saga.not_implemented" class="py-name" href="#" onclick="return doclink('link-66', 'not_implemented', 'link-65');">not_implemented</a></tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"><tt id="link-67" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-67', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_not_implemented</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-68" class="py-name"><a title="saga.not_implemented" class="py-name" href="#" onclick="return doclink('link-68', 'not_implemented', 'link-65');">not_implemented</a></tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="parameter_exception"></a><div id="parameter_exception-def"><a name="L218"></a><tt class="py-lineno">218</tt> <a class="py-toggle" href="#" id="parameter_exception-toggle" onclick="return toggle('parameter_exception');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.parameter_exception-class.html">parameter_exception</a><tt class="py-op">(</tt><tt class="py-base-class">exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">     </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line"><tt id="link-69" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-69', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-70" class="py-name" targets="Class saga.parameter_exception=saga.parameter_exception-class.html"><a title="saga.parameter_exception" class="py-name" href="#" onclick="return doclink('link-70', 'parameter_exception', 'link-70');">parameter_exception</a></tt> <tt class="py-op">=</tt> <tt id="link-71" class="py-name"><a title="saga.parameter_exception" class="py-name" href="#" onclick="return doclink('link-71', 'parameter_exception', 'link-70');">parameter_exception</a></tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line"><tt id="link-72" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-72', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_parameter_exception</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-73" class="py-name"><a title="saga.parameter_exception" class="py-name" href="#" onclick="return doclink('link-73', 'parameter_exception', 'link-70');">parameter_exception</a></tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line"> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="incorrect_url"></a><div id="incorrect_url-def"><a name="L224"></a><tt class="py-lineno">224</tt> <a class="py-toggle" href="#" id="incorrect_url-toggle" onclick="return toggle('incorrect_url');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.incorrect_url-class.html">incorrect_url</a><tt class="py-op">(</tt><tt class="py-base-class">parameter_exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">     </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line"><tt id="link-74" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-74', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-75" class="py-name" targets="Class saga.incorrect_url=saga.incorrect_url-class.html"><a title="saga.incorrect_url" class="py-name" href="#" onclick="return doclink('link-75', 'incorrect_url', 'link-75');">incorrect_url</a></tt> <tt class="py-op">=</tt> <tt id="link-76" class="py-name"><a title="saga.incorrect_url" class="py-name" href="#" onclick="return doclink('link-76', 'incorrect_url', 'link-75');">incorrect_url</a></tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line"><tt id="link-77" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-77', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_incorrect_url</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-78" class="py-name"><a title="saga.incorrect_url" class="py-name" href="#" onclick="return doclink('link-78', 'incorrect_url', 'link-75');">incorrect_url</a></tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line"> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="bad_parameter"></a><div id="bad_parameter-def"><a name="L230"></a><tt class="py-lineno">230</tt> <a class="py-toggle" href="#" id="bad_parameter-toggle" onclick="return toggle('bad_parameter');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.bad_parameter-class.html">bad_parameter</a><tt class="py-op">(</tt><tt class="py-base-class">parameter_exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">     </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line"><tt id="link-79" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-79', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-80" class="py-name" targets="Class saga.bad_parameter=saga.bad_parameter-class.html"><a title="saga.bad_parameter" class="py-name" href="#" onclick="return doclink('link-80', 'bad_parameter', 'link-80');">bad_parameter</a></tt> <tt class="py-op">=</tt> <tt id="link-81" class="py-name"><a title="saga.bad_parameter" class="py-name" href="#" onclick="return doclink('link-81', 'bad_parameter', 'link-80');">bad_parameter</a></tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line"><tt id="link-82" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-82', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_bad_parameter</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-83" class="py-name"><a title="saga.bad_parameter" class="py-name" href="#" onclick="return doclink('link-83', 'bad_parameter', 'link-80');">bad_parameter</a></tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line"> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="state_exception"></a><div id="state_exception-def"><a name="L236"></a><tt class="py-lineno">236</tt> <a class="py-toggle" href="#" id="state_exception-toggle" onclick="return toggle('state_exception');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.state_exception-class.html">state_exception</a><tt class="py-op">(</tt><tt class="py-base-class">exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line"> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line"><tt id="link-84" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-84', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-85" class="py-name" targets="Class saga.state_exception=saga.state_exception-class.html"><a title="saga.state_exception" class="py-name" href="#" onclick="return doclink('link-85', 'state_exception', 'link-85');">state_exception</a></tt> <tt class="py-op">=</tt> <tt id="link-86" class="py-name"><a title="saga.state_exception" class="py-name" href="#" onclick="return doclink('link-86', 'state_exception', 'link-85');">state_exception</a></tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line"><tt id="link-87" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-87', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_state_exception</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-88" class="py-name"><a title="saga.state_exception" class="py-name" href="#" onclick="return doclink('link-88', 'state_exception', 'link-85');">state_exception</a></tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line"> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="already_exists"></a><div id="already_exists-def"><a name="L242"></a><tt class="py-lineno">242</tt> <a class="py-toggle" href="#" id="already_exists-toggle" onclick="return toggle('already_exists');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.already_exists-class.html">already_exists</a><tt class="py-op">(</tt><tt class="py-base-class">state_exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line">     </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line"><tt id="link-89" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-89', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-90" class="py-name" targets="Class saga.already_exists=saga.already_exists-class.html"><a title="saga.already_exists" class="py-name" href="#" onclick="return doclink('link-90', 'already_exists', 'link-90');">already_exists</a></tt> <tt class="py-op">=</tt> <tt id="link-91" class="py-name"><a title="saga.already_exists" class="py-name" href="#" onclick="return doclink('link-91', 'already_exists', 'link-90');">already_exists</a></tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line"><tt id="link-92" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-92', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_already_exists</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-93" class="py-name"><a title="saga.already_exists" class="py-name" href="#" onclick="return doclink('link-93', 'already_exists', 'link-90');">already_exists</a></tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line"> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="does_not_exist"></a><div id="does_not_exist-def"><a name="L248"></a><tt class="py-lineno">248</tt> <a class="py-toggle" href="#" id="does_not_exist-toggle" onclick="return toggle('does_not_exist');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.does_not_exist-class.html">does_not_exist</a><tt class="py-op">(</tt><tt class="py-base-class">state_exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">     </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line"><tt id="link-94" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-94', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-95" class="py-name" targets="Class saga.does_not_exist=saga.does_not_exist-class.html"><a title="saga.does_not_exist" class="py-name" href="#" onclick="return doclink('link-95', 'does_not_exist', 'link-95');">does_not_exist</a></tt> <tt class="py-op">=</tt> <tt id="link-96" class="py-name"><a title="saga.does_not_exist" class="py-name" href="#" onclick="return doclink('link-96', 'does_not_exist', 'link-95');">does_not_exist</a></tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"><tt id="link-97" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-97', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_does_not_exist</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-98" class="py-name"><a title="saga.does_not_exist" class="py-name" href="#" onclick="return doclink('link-98', 'does_not_exist', 'link-95');">does_not_exist</a></tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line"> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="incorrect_state"></a><div id="incorrect_state-def"><a name="L254"></a><tt class="py-lineno">254</tt> <a class="py-toggle" href="#" id="incorrect_state-toggle" onclick="return toggle('incorrect_state');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.incorrect_state-class.html">incorrect_state</a><tt class="py-op">(</tt><tt class="py-base-class">state_exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">     </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line"><tt id="link-99" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-99', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-100" class="py-name" targets="Class saga.incorrect_state=saga.incorrect_state-class.html"><a title="saga.incorrect_state" class="py-name" href="#" onclick="return doclink('link-100', 'incorrect_state', 'link-100');">incorrect_state</a></tt> <tt class="py-op">=</tt> <tt id="link-101" class="py-name"><a title="saga.incorrect_state" class="py-name" href="#" onclick="return doclink('link-101', 'incorrect_state', 'link-100');">incorrect_state</a></tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line"><tt id="link-102" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-102', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_incorrect_state</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-103" class="py-name"><a title="saga.incorrect_state" class="py-name" href="#" onclick="return doclink('link-103', 'incorrect_state', 'link-100');">incorrect_state</a></tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line"> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="timeout"></a><div id="timeout-def"><a name="L260"></a><tt class="py-lineno">260</tt> <a class="py-toggle" href="#" id="timeout-toggle" onclick="return toggle('timeout');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.timeout-class.html">timeout</a><tt class="py-op">(</tt><tt class="py-base-class">state_exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line">     </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line"><tt id="link-104" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-104', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-105" class="py-name" targets="Class saga.timeout=saga.timeout-class.html"><a title="saga.timeout" class="py-name" href="#" onclick="return doclink('link-105', 'timeout', 'link-105');">timeout</a></tt> <tt class="py-op">=</tt> <tt id="link-106" class="py-name"><a title="saga.timeout" class="py-name" href="#" onclick="return doclink('link-106', 'timeout', 'link-105');">timeout</a></tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line"><tt id="link-107" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-107', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_timeout</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-108" class="py-name"><a title="saga.timeout" class="py-name" href="#" onclick="return doclink('link-108', 'timeout', 'link-105');">timeout</a></tt> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line"> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="security_exception"></a><div id="security_exception-def"><a name="L266"></a><tt class="py-lineno">266</tt> <a class="py-toggle" href="#" id="security_exception-toggle" onclick="return toggle('security_exception');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.security_exception-class.html">security_exception</a><tt class="py-op">(</tt><tt class="py-base-class">exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line">     </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line"><tt id="link-109" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-109', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-110" class="py-name" targets="Class saga.security_exception=saga.security_exception-class.html"><a title="saga.security_exception" class="py-name" href="#" onclick="return doclink('link-110', 'security_exception', 'link-110');">security_exception</a></tt> <tt class="py-op">=</tt> <tt id="link-111" class="py-name"><a title="saga.security_exception" class="py-name" href="#" onclick="return doclink('link-111', 'security_exception', 'link-110');">security_exception</a></tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line"><tt id="link-112" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-112', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_security_exception</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-113" class="py-name"><a title="saga.security_exception" class="py-name" href="#" onclick="return doclink('link-113', 'security_exception', 'link-110');">security_exception</a></tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line"> </tt>
+<a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="permission_denied"></a><div id="permission_denied-def"><a name="L272"></a><tt class="py-lineno">272</tt> <a class="py-toggle" href="#" id="permission_denied-toggle" onclick="return toggle('permission_denied');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.permission_denied-class.html">permission_denied</a><tt class="py-op">(</tt><tt class="py-base-class">security_exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line">     </tt>
+<a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line"><tt id="link-114" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-114', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-115" class="py-name" targets="Class saga.permission_denied=saga.permission_denied-class.html"><a title="saga.permission_denied" class="py-name" href="#" onclick="return doclink('link-115', 'permission_denied', 'link-115');">permission_denied</a></tt> <tt class="py-op">=</tt> <tt id="link-116" class="py-name"><a title="saga.permission_denied" class="py-name" href="#" onclick="return doclink('link-116', 'permission_denied', 'link-115');">permission_denied</a></tt> </tt>
+<a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line"><tt id="link-117" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-117', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_permission_denied</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-118" class="py-name"><a title="saga.permission_denied" class="py-name" href="#" onclick="return doclink('link-118', 'permission_denied', 'link-115');">permission_denied</a></tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line"> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="authorization_failed"></a><div id="authorization_failed-def"><a name="L278"></a><tt class="py-lineno">278</tt> <a class="py-toggle" href="#" id="authorization_failed-toggle" onclick="return toggle('authorization_failed');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.authorization_failed-class.html">authorization_failed</a><tt class="py-op">(</tt><tt class="py-base-class">security_exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line">     </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line"><tt id="link-119" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-119', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-120" class="py-name" targets="Class saga.authorization_failed=saga.authorization_failed-class.html"><a title="saga.authorization_failed" class="py-name" href="#" onclick="return doclink('link-120', 'authorization_failed', 'link-120');">authorization_failed</a></tt> <tt class="py-op">=</tt> <tt id="link-121" class="py-name"><a title="saga.authorization_failed" class="py-name" href="#" onclick="return doclink('link-121', 'authorization_failed', 'link-120');">authorization_failed</a></tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line"><tt id="link-122" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-122', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_authorization_failed</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-123" class="py-name"><a title="saga.authorization_failed" class="py-name" href="#" onclick="return doclink('link-123', 'authorization_failed', 'link-120');">authorization_failed</a></tt> </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line"> </tt>
+<a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="authentication_failed"></a><div id="authentication_failed-def"><a name="L284"></a><tt class="py-lineno">284</tt> <a class="py-toggle" href="#" id="authentication_failed-toggle" onclick="return toggle('authentication_failed');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.authentication_failed-class.html">authentication_failed</a><tt class="py-op">(</tt><tt class="py-base-class">security_exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line">     </tt>
+<a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line"><tt id="link-124" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-124', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-125" class="py-name" targets="Class saga.authentication_failed=saga.authentication_failed-class.html"><a title="saga.authentication_failed" class="py-name" href="#" onclick="return doclink('link-125', 'authentication_failed', 'link-125');">authentication_failed</a></tt> <tt class="py-op">=</tt> <tt id="link-126" class="py-name"><a title="saga.authentication_failed" class="py-name" href="#" onclick="return doclink('link-126', 'authentication_failed', 'link-125');">authentication_failed</a></tt> </tt>
+<a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line"><tt id="link-127" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-127', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_authentication_failed</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-128" class="py-name"><a title="saga.authentication_failed" class="py-name" href="#" onclick="return doclink('link-128', 'authentication_failed', 'link-125');">authentication_failed</a></tt> </tt>
+<a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line"> </tt>
+<a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="no_success"></a><div id="no_success-def"><a name="L290"></a><tt class="py-lineno">290</tt> <a class="py-toggle" href="#" id="no_success-toggle" onclick="return toggle('no_success');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="saga.no_success-class.html">no_success</a><tt class="py-op">(</tt><tt class="py-base-class">exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line">     </tt>
+<a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line"><tt id="link-129" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-129', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt id="link-130" class="py-name" targets="Class saga.no_success=saga.no_success-class.html"><a title="saga.no_success" class="py-name" href="#" onclick="return doclink('link-130', 'no_success', 'link-130');">no_success</a></tt> <tt class="py-op">=</tt> <tt id="link-131" class="py-name"><a title="saga.no_success" class="py-name" href="#" onclick="return doclink('link-131', 'no_success', 'link-130');">no_success</a></tt> </tt>
+<a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line"><tt id="link-132" class="py-name"><a title="saga._engine" class="py-name" href="#" onclick="return doclink('link-132', '_engine', 'link-0');">_engine</a></tt><tt class="py-op">.</tt><tt class="py-name">_no_success</tt><tt class="py-op">.</tt><tt class="py-name">py_err_class</tt> <tt class="py-op">=</tt> <tt id="link-133" class="py-name"><a title="saga.no_success" class="py-name" href="#" onclick="return doclink('link-133', 'no_success', 'link-130');">no_success</a></tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://saga.cct.lsu.edu/">SAGA Python Bindings 1.0-pre1</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    <a href="epydoc-log.html">Generated by Epydoc
+    3.0.1 on Thu Jul 14 12:34:09 2011</a>
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
