@@ -9,7 +9,7 @@
 -include ../config/saga.config.python.c.mk
 
 SAGA_SUBDIRS  += unit_tests
-SAGA_SUBDIRS  += benchmarks
+#SAGA_SUBDIRS  += benchmarks
 
 include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 
