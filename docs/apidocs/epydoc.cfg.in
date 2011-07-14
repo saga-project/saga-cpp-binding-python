@@ -53,7 +53,7 @@ introspect: yes
 
 # The format for showing inheritance objects.
 # It should be one of: 'grouped', 'listed', 'included'.
-inheritance: grouped
+inheritance: included
 
 # Whether or not to inclue private variables.  (Even if included,
 # private variables will be hidden by default.)

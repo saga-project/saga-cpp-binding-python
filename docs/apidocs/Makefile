@@ -30,7 +30,7 @@ else
 	@if ! test -d html/ ; \
 	then $(MKDIR) 	html ; fi
 #	@$(CP) 		 saga-api.png html
-	@sed "s/###PROJECT_VERSION###/$(SAGA_VERSION)/g" epydoc.cfg.in > epydoc.cfg
+	@sed "s/###PROJECT_VERSION###/$(SAGA_PY_VERSION)/g" epydoc.cfg.in > epydoc.cfg
 	$(EPYDOC_BIN) --html --config=epydoc.cfg
 
 #	@if test -d python; then echo "python subdir already exists - skip doc generation"; \

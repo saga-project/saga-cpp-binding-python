@@ -10,19 +10,11 @@
 from _advert import *         # import advert package
 
 class directory(_advert.directory):
-"""
-An advert directory. It can contain other advert directories or entries.
-"""
   pass
   
 class entry(_advert.entry):
   pass
-"""
-An advert entry.
-"""
+
   
 class flags(_advert.flags):
-"""
-Flags that can be used with the saga advert package. 
-"""
   pass

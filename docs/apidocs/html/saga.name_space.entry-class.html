@@ -34,7 +34,7 @@
       <th class="navbar" align="right" width="100%">
         <table border="0" cellpadding="0" cellspacing="0">
           <tr><th class="navbar" align="center"
-            ><a class="navbar" target="_top" href="http://saga.cct.lsu.edu/">SAGA Python Bindings 1.6-pre1</a></th>
+            ><a class="navbar" target="_top" href="http://saga.cct.lsu.edu/">SAGA Python Bindings 1.0-pre1</a></th>
           </tr></table></th>
   </tr>
 </table>
@@ -81,14 +81,12 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Nested Classes</span></td>
 </tr>
-<tr bgcolor="#e8f0f8" >
-  <th colspan="2" class="group-header"
-    >&nbsp;&nbsp;&nbsp;&nbsp;Inherited from <a href="saga._engine.object-class.html">_engine.object</a></th></tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="saga._engine.object.object_type-class.html" class="summary-name">object_type</a>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 </table>
@@ -100,6 +98,460 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Instance Methods</span></td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      __init__( (object)arg1, (url)arg2) -&gt; None :
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga._engine.object-class.html#__reduce__" class="summary-sig-name">__reduce__</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      helper for pickle
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga._engine.object-class.html#clone" class="summary-sig-name">clone</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      clone( (object)arg1) -&gt; object :
+    create a deep copy of the object
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#close" class="summary-sig-name">close</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      close( (entry)arg1) -&gt; None :
+    closes this entry (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#copy" class="summary-sig-name">copy</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      copy( (entry)arg1, (url)arg2 [, (int)arg3]) -&gt; None :
+    copies this item to the given name (url) (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_cwd" class="summary-sig-name">get_cwd</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      get_cwd( (entry)arg1) -&gt; url :
+    returns the directory name this item is located in (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_group" class="summary-sig-name">get_group</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      get_group( (entry)arg1) -&gt; str :
+    returns the group of the owner of this object instance (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga._engine.object-class.html#get_id" class="summary-sig-name">get_id</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      get_id( (object)arg1) -&gt; uuid :
+    returns the id of this instance
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_name" class="summary-sig-name">get_name</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      get_name( (entry)arg1) -&gt; url :
+    returns the name of this item (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga._engine.object-class.html#get_object_type_name" class="summary-sig-name">get_object_type_name</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      get_object_type_name( (object_type)arg1) -&gt; str :
+    return the name of a given object type
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_owner" class="summary-sig-name">get_owner</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      get_owner( (entry)arg1) -&gt; str :
+    returns the owner of this object instance (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga._engine.object-class.html#get_session" class="summary-sig-name">get_session</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      get_session( (object)arg1) -&gt; session :
+    return the session associated with this object instance
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga._engine.object-class.html#get_type" class="summary-sig-name">get_type</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      get_type( (object)arg1) -&gt; object_type :
+    returns the type of this instance
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_url" class="summary-sig-name">get_url</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      get_url( (entry)arg1) -&gt; url :
+    returns the full url of this item (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#is_dir" class="summary-sig-name">is_dir</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      is_dir( (entry)arg1) -&gt; bool :
+    returns, whether this item refers to a directory (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#is_entry" class="summary-sig-name">is_entry</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      is_entry( (entry)arg1) -&gt; bool :
+    returns, whether this item refers to a simple entry (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#is_link" class="summary-sig-name">is_link</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      is_link( (entry)arg1) -&gt; bool :
+    returns, whether this item is a link to another entry (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#link" class="summary-sig-name">link</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      link( (entry)arg1, (url)arg2 [, (int)arg3]) -&gt; None :
+    links this item to the given item (url) (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#move" class="summary-sig-name">move</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      move( (entry)arg1, (url)arg2 [, (int)arg3]) -&gt; None :
+    moves this item to the given name (url) (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#permissions_allow" class="summary-sig-name">permissions_allow</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      permissions_allow( (entry)arg1, (str)arg2, (int)arg3) -&gt; None :
+    generically enable a permission on this namespace entry (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#permissions_check" class="summary-sig-name">permissions_check</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      permissions_check( (entry)arg1, (str)arg2, (int)arg3) -&gt; bool :
+    generically check a permission on this namespace entry (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#permissions_deny" class="summary-sig-name">permissions_deny</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      permissions_deny( (entry)arg1, (str)arg2, (int)arg3) -&gt; None :
+    generically disable a permission on this namespace entry (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#read_link" class="summary-sig-name">read_link</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      read_link( (entry)arg1) -&gt; url :
+    returns the name of the item this entry is linked to (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#remove" class="summary-sig-name">remove</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      remove( (entry)arg1) -&gt; None :
+    removes this entry (plain)
+      <em>(Inherited from <a href="saga.name_space._name_space.entry-class.html">saga.name_space._name_space.entry</a>)</em></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>.instance</code></b>:
@@ -119,442 +571,6 @@
       </p>
     </td>
   </tr>
-<tr bgcolor="#e8f0f8" >
-  <th colspan="2" class="group-header"
-    >&nbsp;&nbsp;&nbsp;&nbsp;Inherited from <a href="saga.name_space._name_space.entry-class.html">_name_space.entry</a></th></tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      __init__( (object)arg1, (url)arg2) -&gt; None :</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#close" class="summary-sig-name">close</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      close( (entry)arg1) -&gt; None :
-    closes this entry (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#copy" class="summary-sig-name">copy</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      copy( (entry)arg1, (url)arg2 [, (int)arg3]) -&gt; None :
-    copies this item to the given name (url) (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_cwd" class="summary-sig-name">get_cwd</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      get_cwd( (entry)arg1) -&gt; url :
-    returns the directory name this item is located in (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_group" class="summary-sig-name">get_group</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      get_group( (entry)arg1) -&gt; str :
-    returns the group of the owner of this object instance (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_name" class="summary-sig-name">get_name</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      get_name( (entry)arg1) -&gt; url :
-    returns the name of this item (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_owner" class="summary-sig-name">get_owner</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      get_owner( (entry)arg1) -&gt; str :
-    returns the owner of this object instance (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#get_url" class="summary-sig-name">get_url</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      get_url( (entry)arg1) -&gt; url :
-    returns the full url of this item (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#is_dir" class="summary-sig-name">is_dir</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      is_dir( (entry)arg1) -&gt; bool :
-    returns, whether this item refers to a directory (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#is_entry" class="summary-sig-name">is_entry</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      is_entry( (entry)arg1) -&gt; bool :
-    returns, whether this item refers to a simple entry (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#is_link" class="summary-sig-name">is_link</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      is_link( (entry)arg1) -&gt; bool :
-    returns, whether this item is a link to another entry (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#link" class="summary-sig-name">link</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      link( (entry)arg1, (url)arg2 [, (int)arg3]) -&gt; None :
-    links this item to the given item (url) (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#move" class="summary-sig-name">move</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      move( (entry)arg1, (url)arg2 [, (int)arg3]) -&gt; None :
-    moves this item to the given name (url) (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#permissions_allow" class="summary-sig-name">permissions_allow</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      permissions_allow( (entry)arg1, (str)arg2, (int)arg3) -&gt; None :
-    generically enable a permission on this namespace entry (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#permissions_check" class="summary-sig-name">permissions_check</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      permissions_check( (entry)arg1, (str)arg2, (int)arg3) -&gt; bool :
-    generically check a permission on this namespace entry (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#permissions_deny" class="summary-sig-name">permissions_deny</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      permissions_deny( (entry)arg1, (str)arg2, (int)arg3) -&gt; None :
-    generically disable a permission on this namespace entry (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#read_link" class="summary-sig-name">read_link</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      read_link( (entry)arg1) -&gt; url :
-    returns the name of the item this entry is linked to (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga.name_space._name_space.entry-class.html#remove" class="summary-sig-name">remove</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      remove( (entry)arg1) -&gt; None :
-    removes this entry (plain)</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr bgcolor="#e8f0f8" >
-  <th colspan="2" class="group-header"
-    >&nbsp;&nbsp;&nbsp;&nbsp;Inherited from <a href="saga._engine.object-class.html">_engine.object</a></th></tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga._engine.object-class.html#__reduce__" class="summary-sig-name">__reduce__</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      helper for pickle</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga._engine.object-class.html#clone" class="summary-sig-name">clone</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      clone( (object)arg1) -&gt; object :
-    create a deep copy of the object</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga._engine.object-class.html#get_id" class="summary-sig-name">get_id</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      get_id( (object)arg1) -&gt; uuid :
-    returns the id of this instance</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga._engine.object-class.html#get_object_type_name" class="summary-sig-name">get_object_type_name</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      get_object_type_name( (object_type)arg1) -&gt; str :
-    return the name of a given object type</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga._engine.object-class.html#get_session" class="summary-sig-name">get_session</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      get_session( (object)arg1) -&gt; session :
-    return the session associated with this object instance</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="saga._engine.object-class.html#get_type" class="summary-sig-name">get_type</a>(<span class="summary-sig-arg">...</span>)</span><br />
-      get_type( (object)arg1) -&gt; object_type :
-    returns the type of this instance</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -564,14 +580,12 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Class Variables</span></td>
 </tr>
-<tr bgcolor="#e8f0f8" >
-  <th colspan="2" class="group-header"
-    >&nbsp;&nbsp;&nbsp;&nbsp;Inherited from <a href="saga._engine.object-class.html">_engine.object</a></th></tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Advert"></a><span class="summary-name">Advert</span> = <code title="saga._engine.object_type.Advert">saga._engine.object_type.Advert</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -579,6 +593,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="AdvertDirectory"></a><span class="summary-name">AdvertDirectory</span> = <code title="saga._engine.object_type.AdvertDirectory">saga._engine.object_type.AdvertDirectory</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -586,6 +601,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Buffer"></a><span class="summary-name">Buffer</span> = <code title="saga._engine.object_type.Buffer">saga._engine.object_type.Buffer</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -593,6 +609,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="CPRCheckpoint"></a><span class="summary-name">CPRCheckpoint</span> = <code title="saga._engine.object_type.CPRCheckpoint">saga._engine.object_type.CPRCheckpoint</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -600,6 +617,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="CPRDirectory"></a><span class="summary-name">CPRDirectory</span> = <code title="saga._engine.object_type.CPRDirectory">saga._engine.object_type.CPRDirectory</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -607,6 +625,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="CPRJob"></a><span class="summary-name">CPRJob</span> = <code title="saga._engine.object_type.CPRJob">saga._engine.object_type.CPRJob</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -614,6 +633,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="CPRJobDescription"></a><span class="summary-name">CPRJobDescription</span> = <code title="saga._engine.object_type.CPRJobDescription">saga._engine.object_type.CPRJobDescription</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -621,6 +641,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="CPRJobSelf"></a><span class="summary-name">CPRJobSelf</span> = <code title="saga._engine.object_type.CPRJobSelf">saga._engine.object_type.CPRJobSelf</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -628,6 +649,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="CPRJobService"></a><span class="summary-name">CPRJobService</span> = <code title="saga._engine.object_type.CPRJobService">saga._engine.object_type.CPRJobService</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -635,6 +657,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Context"></a><span class="summary-name">Context</span> = <code title="saga._engine.object_type.Context">saga._engine.object_type.Context</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -642,6 +665,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Directory"></a><span class="summary-name">Directory</span> = <code title="saga._engine.object_type.Directory">saga._engine.object_type.Directory</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -649,6 +673,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Endpoint"></a><span class="summary-name">Endpoint</span> = <code title="saga._engine.object_type.Endpoint">saga._engine.object_type.Endpoint</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -656,6 +681,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="EntityData"></a><span class="summary-name">EntityData</span> = <code title="saga._engine.object_type.EntityData">saga._engine.object_type.EntityData</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -663,6 +689,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="EntityDataSet"></a><span class="summary-name">EntityDataSet</span> = <code title="saga._engine.object_type.EntityDataSet">saga._engine.object_type.EntityDataSet</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -670,6 +697,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="EntityNavigator"></a><span class="summary-name">EntityNavigator</span> = <code title="saga._engine.object_type.EntityNavigator">saga._engine.object_type.EntityNavigator</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -677,6 +705,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Exception"></a><span class="summary-name">Exception</span> = <code title="saga._engine.object_type.Exception">saga._engine.object_type.Exception</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -684,6 +713,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="File"></a><span class="summary-name">File</span> = <code title="saga._engine.object_type.File">saga._engine.object_type.File</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -691,6 +721,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="IOVec"></a><span class="summary-name">IOVec</span> = <code title="saga._engine.object_type.IOVec">saga._engine.object_type.IOVec</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -698,6 +729,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Job"></a><span class="summary-name">Job</span> = <code title="saga._engine.object_type.Job">saga._engine.object_type.Job</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -705,6 +737,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="JobDescription"></a><span class="summary-name">JobDescription</span> = <code title="saga._engine.object_type.JobDescription">saga._engine.object_type.JobDescription</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -712,6 +745,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="JobSelf"></a><span class="summary-name">JobSelf</span> = <code title="saga._engine.object_type.JobSelf">saga._engine.object_type.JobSelf</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -719,6 +753,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="JobService"></a><span class="summary-name">JobService</span> = <code title="saga._engine.object_type.JobService">saga._engine.object_type.JobService</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -726,6 +761,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="LogicalDirectory"></a><span class="summary-name">LogicalDirectory</span> = <code title="saga._engine.object_type.LogicalDirectory">saga._engine.object_type.LogicalDirectory</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -733,6 +769,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="LogicalFile"></a><span class="summary-name">LogicalFile</span> = <code title="saga._engine.object_type.LogicalFile">saga._engine.object_type.LogicalFile</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -740,6 +777,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Metric"></a><span class="summary-name">Metric</span> = <code title="saga._engine.object_type.Metric">saga._engine.object_type.Metric</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -747,6 +785,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Msg"></a><span class="summary-name">Msg</span> = <code title="saga._engine.object_type.Msg">saga._engine.object_type.Msg</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -754,6 +793,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="NSDirectory"></a><span class="summary-name">NSDirectory</span> = <code title="saga._engine.object_type.NSDirectory">saga._engine.object_type.NSDirectory</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -761,6 +801,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="NSEntry"></a><span class="summary-name">NSEntry</span> = <code title="saga._engine.object_type.NSEntry">saga._engine.object_type.NSEntry</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -768,6 +809,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Parameter"></a><span class="summary-name">Parameter</span> = <code title="saga._engine.object_type.Parameter">saga._engine.object_type.Parameter</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -775,6 +817,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="RPC"></a><span class="summary-name">RPC</span> = <code title="saga._engine.object_type.RPC">saga._engine.object_type.RPC</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -782,6 +825,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="ServiceData"></a><span class="summary-name">ServiceData</span> = <code title="saga._engine.object_type.ServiceData">saga._engine.object_type.ServiceData</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -789,6 +833,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="ServiceDescription"></a><span class="summary-name">ServiceDescription</span> = <code title="saga._engine.object_type.ServiceDescription">saga._engine.object_type.ServiceDescription</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -796,6 +841,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="ServiceDiscoverer"></a><span class="summary-name">ServiceDiscoverer</span> = <code title="saga._engine.object_type.ServiceDiscoverer">saga._engine.object_type.ServiceDiscoverer</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -803,6 +849,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Session"></a><span class="summary-name">Session</span> = <code title="saga._engine.object_type.Session">saga._engine.object_type.Session</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -810,6 +857,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Stream"></a><span class="summary-name">Stream</span> = <code title="saga._engine.object_type.Stream">saga._engine.object_type.Stream</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -817,6 +865,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="StreamServer"></a><span class="summary-name">StreamServer</span> = <code title="saga._engine.object_type.StreamServer">saga._engine.object_type.StreamServer</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -824,6 +873,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="Task"></a><span class="summary-name">Task</span> = <code title="saga._engine.object_type.Task">saga._engine.object_type.Task</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -831,6 +881,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="TaskContainer"></a><span class="summary-name">TaskContainer</span> = <code title="saga._engine.object_type.TaskContainer">saga._engine.object_type.TaskContainer</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -838,6 +889,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="URL"></a><span class="summary-name">URL</span> = <code title="saga._engine.object_type.URL">saga._engine.object_type.URL</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -845,6 +897,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="__instance_size__"></a><span class="summary-name">__instance_size__</span> = <code title="32">32</code>
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 </table>
@@ -856,22 +909,13 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Properties</span></td>
 </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
-      <code>__class__</code>
-      </p>
-    </td>
-  </tr>
-<tr bgcolor="#e8f0f8" >
-  <th colspan="2" class="group-header"
-    >&nbsp;&nbsp;&nbsp;&nbsp;Inherited from <a href="saga._engine.object-class.html">_engine.object</a></th></tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="saga._engine.object-class.html#id" class="summary-name">id</a><br />
       returns the id of this instance
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -880,6 +924,7 @@
     </td><td class="summary">
         <a href="saga._engine.object-class.html#session" class="summary-name">session</a><br />
       return the session associated with this object instance
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
     </td>
   </tr>
 <tr>
@@ -888,6 +933,14 @@
     </td><td class="summary">
         <a href="saga._engine.object-class.html#type" class="summary-name">type</a><br />
       returns the type of this instance
+      <em>(Inherited from <a href="saga._engine.object-class.html">saga._engine.object</a>)</em>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -915,7 +968,7 @@
       <th class="navbar" align="right" width="100%">
         <table border="0" cellpadding="0" cellspacing="0">
           <tr><th class="navbar" align="center"
-            ><a class="navbar" target="_top" href="http://saga.cct.lsu.edu/">SAGA Python Bindings 1.6-pre1</a></th>
+            ><a class="navbar" target="_top" href="http://saga.cct.lsu.edu/">SAGA Python Bindings 1.0-pre1</a></th>
           </tr></table></th>
   </tr>
 </table>
@@ -923,7 +976,7 @@
   <tr>
     <td align="left" class="footer">
     <a href="epydoc-log.html">Generated by Epydoc
-    3.0.1 on Thu Jul 14 10:57:57 2011</a>
+    3.0.1 on Thu Jul 14 11:03:25 2011</a>
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
