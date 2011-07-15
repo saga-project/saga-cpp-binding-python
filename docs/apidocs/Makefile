@@ -46,9 +46,9 @@ endif
 
 .PHONY: install
 install::
-	@if test -d python/ ; \
+	@if test -d html/ ; \
 	then $(ECHO) "      installing Python API documentation"; \
-	$(INSTALL) -d python share/saga/doc/html/; \
+	$(INSTALL) -d html share/saga/doc/python/; \
 	else $(ECHO) "      Cannot find Python API documentation - call 'make apidoc' to generate it"; fi
 	
 
