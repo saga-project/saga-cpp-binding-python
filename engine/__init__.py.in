@@ -6,6 +6,25 @@
 # This file must be located inside a directory named SAGA which in turn should 
 # be located in a directory listed in your PYTHON_PATH
 
+import sys
+
+required_ver_maj = str(@PYTHON_VERSION_MAJ@)
+required_ver_min = str(@PYTHON_VERSION_MIN@)
+required_ver_sub = str(@PYTHON_VERSION_SUB@)
+
+python_version = str(sys.version[0:5])
+python_ver_maj = str(sys.version[0:1])
+python_ver_min = str(sys.version[2:3])
+python_ver_sub = str(sys.version[4:5])
+
+if (python_ver_maj != required_ver_maj or 
+    python_ver_min != required_ver_min or
+    python_ver_sub != required_ver_sub):
+    sys.stderr.write("ERROR: The SAGA Python modules were compiled for "
+                     "Python "+required_ver_maj+"."+required_ver_min+"."+required_ver_sub+
+                     " but you are using them with Python "+python_version+".\n")
+    exit(1)
+
 from _engine import *         # import all classes from SAGA.engine
 
 ###############################################################################

@@ -680,6 +680,9 @@ OBJEXT
 HAVE_PYTHON
 PYTHON
 PYTHON_VERSION
+PYTHON_VERSION_MAJ
+PYTHON_VERSION_MIN
+PYTHON_VERSION_SUB
 PYTHON_CPPFLAGS
 PYTHON_LDFLAGS
 PYTHON_SAGA_MODULE_BASE
@@ -2783,6 +2786,10 @@ fi
     PYTHON_SAGA_MODULE_BASE=$python_module_base
 
   fi
+
+
+
+
 
 
 
@@ -4921,6 +4928,9 @@ OBJEXT!$OBJEXT$ac_delim
 HAVE_PYTHON!$HAVE_PYTHON$ac_delim
 PYTHON!$PYTHON$ac_delim
 PYTHON_VERSION!$PYTHON_VERSION$ac_delim
+PYTHON_VERSION_MAJ!$PYTHON_VERSION_MAJ$ac_delim
+PYTHON_VERSION_MIN!$PYTHON_VERSION_MIN$ac_delim
+PYTHON_VERSION_SUB!$PYTHON_VERSION_SUB$ac_delim
 PYTHON_CPPFLAGS!$PYTHON_CPPFLAGS$ac_delim
 PYTHON_LDFLAGS!$PYTHON_LDFLAGS$ac_delim
 PYTHON_SAGA_MODULE_BASE!$PYTHON_SAGA_MODULE_BASE$ac_delim
@@ -4941,7 +4951,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 86; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 89; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
