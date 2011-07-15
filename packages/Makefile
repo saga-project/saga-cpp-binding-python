@@ -39,6 +39,9 @@ ifeq "x$(SAGA_HAVE_PACKAGE_CPR)" "xyes"
   SAGA_SUBDIRS += cpr
 endif
 
+ifeq "x$(SAGA_HAVE_PACKAGE_ISN)" "xyes"
+  SAGA_SUBDIRS += isn
+endif
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 
