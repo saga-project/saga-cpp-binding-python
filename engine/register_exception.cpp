@@ -6,9 +6,10 @@
 #include <stdexcept>
 #include <iostream>
 
+#include <saga/saga.hpp>
 #include <boost/function.hpp>
 #include <boost/python.hpp>
-#include <saga/saga.hpp>
+
 
 #include "register_types.hpp"
 #include "container_mappings.hpp"
