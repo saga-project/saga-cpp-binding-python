@@ -7,10 +7,10 @@
 #include <map>
 #include <string>
 
+#include <saga/saga.hpp>
 #include <boost/function.hpp>
 #include <boost/python.hpp>
 
-#include <saga/saga.hpp>
 #if defined(SAGA_WINDOWS)
 #include <windows.h>    // for CloseHandle
 #include <io.h>
