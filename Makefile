@@ -34,6 +34,7 @@ config/make.cfg:
 
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
+-include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
 
 
 distclean::
@@ -41,6 +42,7 @@ distclean::
 	@$(RM) config.log
 	@$(RM) config.status
 	@$(RM) config.summary
+	@$(RM) saga-bindings-python.deb.ctrl
 	@$(RM) -r tmp_install/
 
 

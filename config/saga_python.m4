@@ -136,6 +136,8 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
           python_ldlibrary=`${PYTHON} -c "import distutils.sysconfig,string; print(' '.join(filter(None,distutils.sysconfig.get_config_vars('LDLIBRARY'))))"`
           python_so=`${PYTHON} -c "import distutils.sysconfig,string; print(' '.join(filter(None,distutils.sysconfig.get_config_vars('SO'))))"`
           ldlibrary=`echo "${python_ldlibrary}" | sed "s/${python_so}$//"`
+
+          python_configh=`${PYTHON} -c "import distutils.sysconfig; print('-I'+distutils.sysconfig.get_config_h_filename())"`
           
           if test x"${python_libdir}" != x"" -a x"${python_ldlibrary}" != x"" -a x"${python_ldlibrary}" != x"${ldlibrary}"
           then
@@ -182,6 +184,8 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
             PYTHON_LOCATION=$tmp_path
             HAVE_PYTHON=yes
 
+            tmp_len=`expr length "$PYTHON_CPPFLAGS"`
+            SAGA_PYTHON_DEP_FILES="`expr substr "$PYTHON_CPPFLAGS" 3 $tmp_len`/Python.h"
             PYTHON_PACKAGE_PATH="lib/python$PYTHON_VERSION/site-packages"
 
             if test "$tmp_location" != "" && \

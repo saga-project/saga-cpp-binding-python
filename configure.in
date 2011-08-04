@@ -16,11 +16,15 @@ AC_INIT()
 
 AX_SAGA_CONFIG()
 
+SAGA_DEP_FILES="$SAGA_LOCATION/include/saga/saga.hpp"
+
 pwd=`pwd`
 EXTDIR=$pwd/external
 AC_SUBST(EXTDIR)
 
 AX_SAGA_CHECK_PYTHON(2.2)
+
+SAGA_DEP_FILES="$SAGA_DEP_FILES $SAGA_PYTHON_DEP_FILES"
 
 if test "x$HAVE_PYTHON" == "xyes"; then
   old_ldflags=$LDFLAGS
@@ -35,9 +39,20 @@ if test "x$HAVE_PYTHON" == "xyes"; then
     AC_MSG_ERROR([abort])
   fi
 
+  SAGA_DEP_FILES="$SAGA_DEP_FILES $BOOST_HEADER_PYTHON"
+
   LDFLAGS=$old_ldflags
   CPPFLAGS=$old_cppflags
 fi
+
+
+###########################################################
+#
+# debian package support
+#
+AX_SAGA_CHECK_DEBDEPS([$SAGA_DEP_FILES])
+#
+###########################################################
 
 
 AC_CONFIG_FILES([config/saga.python.mk])
@@ -59,37 +74,39 @@ AC_OUTPUT()
 OUT=config.summary
 rm -f $OUT
 TEE="tee -a"
-
-echo "                                                                 " | $TEE $OUT
-echo " ========================================================        " | $TEE $OUT
-echo " SAGA Python Bindings - Configuration Summary                    " | $TEE $OUT
-echo " ========================================================        " | $TEE $OUT
-echo "                                                                 " | $TEE $OUT
-echo " Python Bindings Version : $SAGA_LIB_VERSION                     " | $TEE $OUT
-echo "                                                                 " | $TEE $OUT
-echo " Using SAGA Version      : $SAGA_VERSION                         " | $TEE $OUT
-echo " Using SAGA Location     : $SAGA_LOCATION                        " | $TEE $OUT
-echo "                                                                 " | $TEE $OUT
-echo " --------------------------------------------------------        " | $TEE $OUT
-echo " SAGA Python Modules                                             " | $TEE $OUT
-echo " --------------------------------------------------------        " | $TEE $OUT
-echo "                                                                 " | $TEE $OUT
-echo " Build saga.advert       : $SAGA_HAVE_PACKAGE_ADVERT             " | $TEE $OUT
-echo " Build saga.cpr          : $SAGA_HAVE_PACKAGE_CPR                " | $TEE $OUT
-echo " Build saga.filesystem   : $SAGA_HAVE_PACKAGE_FILESYSTEM         " | $TEE $OUT
-echo " Build saga.job          : $SAGA_HAVE_PACKAGE_JOB                " | $TEE $OUT
-echo " Build saga.namespace    : $SAGA_HAVE_PACKAGE_NAMESPACE          " | $TEE $OUT
-echo " Build saga.replica      : $SAGA_HAVE_PACKAGE_REPLICA            " | $TEE $OUT
-echo " Build saga.sd           : $SAGA_HAVE_PACKAGE_SD                 " | $TEE $OUT
-echo " Build saga.stream       : $SAGA_HAVE_PACKAGE_STREAM             " | $TEE $OUT
-echo " Build saga.rpc          : $SAGA_HAVE_PACKAGE_RPC                " | $TEE $OUT
-echo " Build saga.messages     : $SAGA_HAVE_PACKAGE_MESSAGES           " | $TEE $OUT
-echo " Build saga.isn          : $SAGA_HAVE_PACKAGE_ISN                " | $TEE $OUT
-echo "                                                                 " | $TEE $OUT
-echo " --------------------------------------------------------        " | $TEE $OUT
-echo " External Dependencies                                           " | $TEE $OUT
-echo " --------------------------------------------------------        " | $TEE $OUT
-echo "                                                                 " | $TEE $OUT
+                                                                        
+echo "                                                                         " | $TEE $OUT
+echo " ========================================================                " | $TEE $OUT
+echo " SAGA Python Bindings - Configuration Summary                            " | $TEE $OUT
+echo " ========================================================                " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " Python Bindings Version : $SAGA_LIB_VERSION                             " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " Using SAGA Version      : $SAGA_VERSION                                 " | $TEE $OUT
+echo " Using SAGA Location     : $SAGA_LOCATION                                " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " Debian Package File     : $SAGA_DEB_CONTROL                             " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " --------------------------------------------------------                " | $TEE $OUT
+echo " SAGA Python Modules                                                     " | $TEE $OUT
+echo " --------------------------------------------------------                " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " Build saga.advert       : $SAGA_HAVE_PACKAGE_ADVERT                     " | $TEE $OUT
+echo " Build saga.cpr          : $SAGA_HAVE_PACKAGE_CPR                        " | $TEE $OUT
+echo " Build saga.filesystem   : $SAGA_HAVE_PACKAGE_FILESYSTEM                 " | $TEE $OUT
+echo " Build saga.job          : $SAGA_HAVE_PACKAGE_JOB                        " | $TEE $OUT
+echo " Build saga.namespace    : $SAGA_HAVE_PACKAGE_NAMESPACE                  " | $TEE $OUT
+echo " Build saga.replica      : $SAGA_HAVE_PACKAGE_REPLICA                    " | $TEE $OUT
+echo " Build saga.sd           : $SAGA_HAVE_PACKAGE_SD                         " | $TEE $OUT
+echo " Build saga.stream       : $SAGA_HAVE_PACKAGE_STREAM                     " | $TEE $OUT
+echo " Build saga.rpc          : $SAGA_HAVE_PACKAGE_RPC                        " | $TEE $OUT
+echo " Build saga.messages     : $SAGA_HAVE_PACKAGE_MESSAGES                   " | $TEE $OUT
+echo " Build saga.isn          : $SAGA_HAVE_PACKAGE_ISN                        " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " --------------------------------------------------------                " | $TEE $OUT
+echo " External Dependencies                                                   " | $TEE $OUT
+echo " --------------------------------------------------------                " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
 echo " Python Found            : $HAVE_PYTHON                                  " | $TEE $OUT
 echo " Python Version          : $PYTHON_VERSION                               " | $TEE $OUT
 echo " Python Location         : $PYTHON_LOCATION                              " | $TEE $OUT
@@ -102,5 +119,5 @@ echo " Boost Python Libdir     : $BOOST_PYTHON_LDFLAGS                         "
 echo " Boost Python Libs       : $BOOST_PYTHON_LIBS                            " | $TEE $OUT
 echo "                                                                         " | $TEE $OUT
 echo " ========================================================                " | $TEE $OUT
-echo "                                                                      " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
 
