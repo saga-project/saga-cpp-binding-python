@@ -10,7 +10,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 void register_isn_version();
-//void register_job();            
+void register_isn_entity_data();            
 //void register_job_self();       
 //void register_job_service();    
 //void register_job_description();
