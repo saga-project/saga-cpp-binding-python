@@ -3956,7 +3956,6 @@ fi
 #
 # debian package support
 #
-echo " ============== $SAGA_DEP_FILES"
 
   headers=$SAGA_DEP_FILES
 
@@ -4010,7 +4009,12 @@ $as_echo "Cannot find debian package version for $header" >&6; }
       SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES, "
     fi
 
-    SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES$package (>= $vmin), $package (<< $vmax)"
+    SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES$package (>= $vmin)"
+
+    if ! test "." = `expr substr $vmax 1 1`; then
+      SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES, $package (<< $vmax)"
+    fi
+
     first=no
     oldpackage=$package
   done
