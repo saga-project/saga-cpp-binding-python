@@ -50,3 +50,5 @@ packages: external
 test:     engine
 test:     packages
 
+# support out-of-the-box 'make srcdist'
+-include $(SAGA_LOCATION)/share/saga/make/saga.dist.mk
