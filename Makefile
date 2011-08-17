@@ -4,6 +4,10 @@
 #  License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 #  http://www.boost.org/LICENSE_1_0.txt)
 
+# support out-of-the-box 'make srcdist'
+-include $(SAGA_LOCATION)/share/saga/make/saga.dist.mk
+
+# normal make includes
 -include config/make.cfg
 -include config/saga.config.python.c.mk
 
@@ -22,6 +26,7 @@ endif
 
 all:: config/make.cfg
 
+ifndef SAGA_IS_PACKAGING
 config/make.cfg: 
 	@echo ""
 	@echo " ================================= "
@@ -29,6 +34,7 @@ config/make.cfg:
 	@echo " ================================= "
 	@echo ""
 	@false
+endif
 
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
@@ -50,5 +56,3 @@ packages: external
 test:     engine
 test:     packages
 
-# support out-of-the-box 'make srcdist'
--include $(SAGA_LOCATION)/share/saga/make/saga.dist.mk
