@@ -81,6 +81,7 @@ echo " SAGA Python Bindings - Configuration Summary                            "
 echo " ========================================================                " | $TEE $OUT
 echo "                                                                         " | $TEE $OUT
 echo " Python Bindings Version : $SAGA_LIB_VERSION                             " | $TEE $OUT
+echo " SVN Revision            : $SAGA_PACKAGE_REVISION                        " | $TEE $OUT
 echo "                                                                         " | $TEE $OUT
 echo " Using SAGA Version      : $SAGA_VERSION                                 " | $TEE $OUT
 echo " Using SAGA Location     : $SAGA_LOCATION                                " | $TEE $OUT
