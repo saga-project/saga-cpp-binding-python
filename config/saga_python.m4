@@ -182,6 +182,7 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
             PYTHON_LOCATION=$tmp_path
             HAVE_PYTHON=yes
 
+            SAGA_PYTHON_DEP_FILES="`echo $PYTHON_CPPFLAGS | sed -e 's/^..//'`/Python.h"
             PYTHON_PACKAGE_PATH="lib/python$PYTHON_VERSION/site-packages"
 
             if test "$tmp_location" != "" && \
