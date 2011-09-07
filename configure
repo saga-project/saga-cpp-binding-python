@@ -2227,7 +2227,6 @@ $as_echo "$SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&6; }
     as_fn_error $? "SAGA tree at $SAGA_LOCATION seems invalid: no $SAGA_CONF found." "$LINENO" 5
   fi
 
-
   # be backward compatible to old versions of saga.m4
   TMP_SAGA_LOCATION=$SAGA_LOCATION
   export TMP_SAGA_LOCATION
@@ -3821,7 +3820,6 @@ for boost_ver_   in -$boost_cv_lib_version ''; do
 for boost_tag_   in -$boost_cv_lib_tag ''; do
 for boost_mt_    in $boost_mt -mt ''; do
 for boost_rtopt_ in $boost_rtopt '' -d; do
-  # AC_MSG_NOTICE([trying $boost_ver_ $boost_tag_ $boost_mt_ $boost_rtopt_])
 
   for boost_lib in \
     "$boost_ldpath/libboost_python$boost_tag_$boost_mt_$boost_rtopt_$boost_ver_$boost_lext_$boost_vsuff_" \
@@ -3848,9 +3846,9 @@ for boost_rtopt_ in $boost_rtopt '' -d; do
         echo "trying   $boost_lib"
       fi
     else
-#     if test "x$DEBUG_BOOST_CONFIGURE" != "x"; then
-#       echo "skipping $boost_lib"
-#     fi
+      if test "x$DEBUG_BOOST_CONFIGURE" != "x"; then
+        echo "skipping $boost_lib"
+      fi
       continue
     fi
 
