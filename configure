@@ -593,6 +593,13 @@ ac_includes_default="\
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 SAGA_CONFIGURE_OK
+SAGA_DEB_CONTROL
+SAGA_DEB_PACKAGE
+SAGA_DEB_VERSION
+SAGA_DEB_ARCH
+SAGA_DEB_DEPENDENCIES
+SAGA_DPKG
+BOOST_HEADER_PYTHON
 BOOST_PYTHON_S_LIBS
 BOOST_PYTHON_LIBS
 BOOST_PYTHON_LDFLAGS
@@ -600,6 +607,8 @@ BOOST_HAVE_LIB_PYTHON
 EGREP
 GREP
 CXXCPP
+BOOST_INCPATH
+BOOST_HEADER_VERSION
 BOOST_VERSION_HPP
 BOOST_CPPFLAGS
 BOOST_LOCATION
@@ -608,6 +617,9 @@ PYTHON_PACKAGE_PATH
 PYTHON_SAGA_MODULE_BASE
 PYTHON_LDFLAGS
 PYTHON_CPPFLAGS
+PYTHON_VERSION_SUB
+PYTHON_VERSION_MIN
+PYTHON_VERSION_MAJ
 PYTHON_VERSION
 PYTHON
 HAVE_PYTHON
@@ -633,6 +645,7 @@ SAGA_INC_DIR
 SAGA_CONF_DIR
 SAGA_MAKE_DIR
 HAVE_SAGA
+SAGA_PACKAGE_REVISION
 SAGA_PACKAGE_VERSION
 SAGA_VERSION_SUBMINOR
 SAGA_VERSION_MINOR
@@ -2075,7 +2088,7 @@ fi
   # try to find a valid SAGA_LOCATION amongst the possible candidates
 
   packages=`ls /usr/local/saga* /usr/local/package/saga* 2>>/dev/null`
-  which_saga=`which saga-config | sed -e 's/\/bin\/saga-config//'`
+  which_saga=`which saga-config 2>/dev/null | sed -e 's/\/bin\/saga-config//'`
 
   if test "$tmp_location-$SAGA_LOCATION" = "-"; then
     paths="$which_saga /usr /usr/local /opt /opt/local $packages"
@@ -2121,9 +2134,9 @@ $as_echo "no" >&6; }
 $as_echo_n "checking saga version... " >&6; }
     SAGA_VERSION=`$SAGA_CONFIG --version`
 
-    SAGA_VERSION_MAJOR=`echo $SAGA_VERSION    | cut -f 1 -d .`
-    SAGA_VERSION_MINOR=`echo $SAGA_VERSION    | cut -f 2 -d .`
-    SAGA_VERSION_SUBMINOR=`echo $SAGA_VERSION | cut -f 3 -d .`
+    SAGA_VERSION_MAJOR=`echo $SAGA_VERSION    | cut -f 1 -d . | cut -f 1 -d '-'`
+    SAGA_VERSION_MINOR=`echo $SAGA_VERSION    | cut -f 2 -d . | cut -f 1 -d '-'`
+    SAGA_VERSION_SUBMINOR=`echo $SAGA_VERSION | cut -f 3 -d . | cut -f 1 -d '-'`
 
     if test "$SAGA_VERSION_SUBMINOR" == ""; then
       SAGA_VERSION_SUBMINOR=0
@@ -2144,18 +2157,28 @@ $as_echo "$SAGA_VERSION_MAJOR.$SAGA_VERSION_MINOR.$SAGA_VERSION_SUBMINOR" >&6; }
   fi
 
 
-  # We set SAGA_LIB_VERSION to SAGA_VERSION by default.  If a local PACKAGE file is
-  # present though. for example for an adaptor, we use its version info instead.
-  # A configure is of course still able to overrule that,
+  # We set SAGA_PACKAGE_VERSION to SAGA_VERSION by default.  If a local PACKAGE file is
+  # present though, for example for an adaptor, we use its version info instead.
 
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking saga package version" >&5
 $as_echo_n "checking saga package version... " >&6; }
   SAGA_PACKAGE_VERSION=$SAGA_VERSION
-  test -f PACKAGE && SAGA_PACKAGE_VERSION=`grep -e '^VERSION:' PACKAGE | cut -f 2 -d ' '`
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_VERSION" >&5
-$as_echo "$SAGA_PACKAGE_VERSION" >&6; }
+  test -f PACKAGE && SAGA_PACKAGE_VERSION=` grep -e '^VERSION:'  PACKAGE | sed -e 's/^VERSION: *//'`
+  test -f PACKAGE && SAGA_PACKAGE_REVISION=`grep -e '^REVISION:' PACKAGE | cut -f 2 -d '$' | cut -f 2 -d ' '`
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&5
+$as_echo "$SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&6; }
+
+  # svn info supercedes the revision info from the PACKAGE file
+  svnrevision=`svn info 2>&1 | grep Revision | cut -f 2 -d ' '`
+
+  if ! test "$svnrevision" = ""; then
+    SAGA_PACKAGE_REVISION=$svnrevision
+  fi
+
 
   export  SAGA_PACKAGE_VERSION
+
+  export  SAGA_PACKAGE_REVISION
 
 
 
@@ -2169,6 +2192,8 @@ $as_echo "$SAGA_PACKAGE_VERSION" >&6; }
   SAGA_INI_DIR=$SAGA_LOCATION/share/saga/
   SAGA_CONFIG=$SAGA_BIN_DIR/saga-config
   SAGA_VERSION=`$SAGA_CONFIG --version`
+
+  SAGA_CORE_DEP_FILES="$SAGA_INC_DIR/saga/saga.hpp"
 
   export SAGA_LOCATION
   export SAGA_MAKE_DIR
@@ -2202,7 +2227,6 @@ $as_echo "$SAGA_PACKAGE_VERSION" >&6; }
     as_fn_error $? "SAGA tree at $SAGA_LOCATION seems invalid: no $SAGA_CONF found." "$LINENO" 5
   fi
 
-
   # be backward compatible to old versions of saga.m4
   TMP_SAGA_LOCATION=$SAGA_LOCATION
   export TMP_SAGA_LOCATION
@@ -2226,6 +2250,8 @@ $as_echo "$SAGA_PACKAGE_VERSION" >&6; }
   export CONFDIR
 
 
+
+SAGA_DEP_FILES="$SAGA_LOCATION/include/saga/saga.hpp"
 
 pwd=`pwd`
 EXTDIR=$pwd/external
@@ -2844,6 +2870,8 @@ $as_echo "ok ($PYTHON_VERSION)" >&6; }
           python_so=`${PYTHON} -c "import distutils.sysconfig,string; print(' '.join(filter(None,distutils.sysconfig.get_config_vars('SO'))))"`
           ldlibrary=`echo "${python_ldlibrary}" | sed "s/${python_so}$//"`
 
+          python_configh=`${PYTHON} -c "import distutils.sysconfig; print('-I'+distutils.sysconfig.get_config_h_filename())"`
+
           if test x"${python_libdir}" != x"" -a x"${python_ldlibrary}" != x"" -a x"${python_ldlibrary}" != x"${ldlibrary}"
           then
           	# New way: use the official shared library
@@ -2907,6 +2935,7 @@ $as_echo "ok" >&6; }
             PYTHON_LOCATION=$tmp_path
             HAVE_PYTHON=yes
 
+            SAGA_PYTHON_DEP_FILES="`echo $PYTHON_CPPFLAGS | sed -e 's/^..//'`/Python.h"
             PYTHON_PACKAGE_PATH="lib/python$PYTHON_VERSION/site-packages"
 
             if test "$tmp_location" != "" && \
@@ -2981,6 +3010,12 @@ fi
 
 
 
+
+
+
+
+
+SAGA_DEP_FILES="$SAGA_DEP_FILES $SAGA_PYTHON_DEP_FILES"
 
 if test "x$HAVE_PYTHON" == "xyes"; then
   old_ldflags=$LDFLAGS
@@ -3075,7 +3110,7 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $boost_cv_lib_tag" >&5
 $as_echo "$boost_cv_lib_tag" >&6; }
-  case $boost_cv_lib_tag in #(
+  case $boost_cv_lib_tag in
     # Some newer (>= 1.35?) versions of Boost seem to only use "gcc" as opposed
     # to "gcc41" for instance.  Also, boost 1.36 started t add an x before gcc,
     # for whatever reason.
@@ -3083,9 +3118,9 @@ $as_echo "$boost_cv_lib_tag" >&6; }
       # We can specify multiple tags in this variable because it's used by
       # BOOST_FIND_LIB that does a `for tag in -$boost_cv_lib_tag' ...
       boost_cv_lib_tag="$boost_cv_lib_tag -gcc -x$boost_cv_lib_tag"
-      ;; #(
+      ;;
     unknown)
-      case $CXX in #(
+      case $CXX in
         como*)
           boost_cv_lib_tag=como
           ;;
@@ -3219,18 +3254,20 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $boost_cv_inc_path" >&5
 $as_echo "$boost_cv_inc_path" >&6; }
-    case $boost_cv_inc_path in #(
+    case $boost_cv_inc_path in
       no)
         as_fn_error $? "Could not find Boost headers" "$LINENO" 5
-        ;;#(
+        ;;
       yes)
         BOOST_CPPFLAGS=
         BOOST_LOCATION=$boost_base_dir
-        ;;#(
+        ;;
       *)
         BOOST_LOCATION=$boost_base_dir
         BOOST_VERSION_HPP=$boost_inc/boost/version.hpp
+        BOOST_HEADER_VERSION=$boost_inc/boost/version.hpp
         BOOST_CPPFLAGS="-I$boost_cv_inc_path"
+        BOOST_INCPATH="$boost_cv_inc_path"
         ;;
     esac
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for BOOST_LOCATION" >&5
@@ -3238,7 +3275,7 @@ $as_echo_n "checking for BOOST_LOCATION... " >&6; }
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $BOOST_LOCATION" >&5
 $as_echo "$BOOST_LOCATION" >&6; }
 
-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Boost's header version" >&5
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Boost's header version" >&5
 $as_echo_n "checking for Boost's header version... " >&6; }
 if test "${boost_cv_lib_version+set}" = set; then :
   $as_echo_n "(cached) " >&6
@@ -3717,13 +3754,13 @@ if test "${boost_cv_lib_python+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
   boost_cv_lib_python=no
-  case "" in #(
-    mt | mt-) boost_mt=-mt; boost_rtopt=;; #(
-    mt* | mt-*) boost_mt=-mt; boost_rtopt=`expr "X" : 'Xmt-*\(.*\)'`;; #(
+  case "" in
+    mt | mt-) boost_mt=-mt; boost_rtopt=;;
+    mt* | mt-*) boost_mt=-mt; boost_rtopt=`expr "X" : 'Xmt-*\(.*\)'`;;
     *) boost_mt=; boost_rtopt=;;
   esac
   # If the PREFERRED-RT-OPT are not empty, prepend a `-'.
-  case $boost_rtopt in #(
+  case $boost_rtopt in
     *[a-z0-9A-Z]*) boost_rtopt="-$boost_rtopt";;
   esac
   $boost_guess_use_mt && boost_mt=-mt
@@ -3757,69 +3794,79 @@ if test "x$success" = "xyes"; then
   boost_failed_libs=
 # Don't bother to ident the 6 nested for loops, only the 2 innermost ones
 # matter.
+#
+# AM: yeah, sure....
+
+# AM: linux uses a different version scheme than 'native' boost.  We dig out the
+# maj/min/sub versions, to allow testing for those (see $boost_vsuff)
+vmaj=`echo "$boost_cv_lib_version""_0_0" | cut -f 1 -d '_'`
+vmin=`echo "$boost_cv_lib_version""_0_0" | cut -f 2 -d '_'`
+vsub=`echo "$boost_cv_lib_version""_0_0" | cut -f 3 -d '_'`
+
 test x"$with_boost" = x && boost_tmp_lib=${boost_cv_inc_path%/include}
-for boost_ldpath in "$BOOST_LOCATION/lib" \
-                    "$boost_tmp_lib/lib" '' \
+for boost_ldpath in "$BOOST_LOCATION/" \
+                    "$boost_tmp_lib/" '' \
                     "$with_boost" \
-                    /opt/local/lib \
-                    /usr/local/lib \
-                    /opt/lib /usr/lib \
+                    /usr/ \
+                    /usr/local/ \
+                    /opt/ \
+                    /opt/local/ \
                     C:/Boost/lib \
-                    /lib \
-                    /usr/lib64 \
-                    /lib64; do
+                    / ; do
+for boost_lext_  in '.so' '.dylib' '.a' -d; do
+for boost_ldir_  in 'lib' 'lib64' -d; do
+for boost_vsuff_ in ".$vmaj.$vmin.$vsub" "$vmaj.$vmin" ".$vmaj" '' -d; do
 for boost_ver_   in -$boost_cv_lib_version ''; do
 for boost_tag_   in -$boost_cv_lib_tag ''; do
 for boost_mt_    in $boost_mt -mt ''; do
 for boost_rtopt_ in $boost_rtopt '' -d; do
-  # AC_MSG_NOTICE([trying $boost_ver_ $boost_tag_ $boost_mt_ $boost_rtopt_])
+
   for boost_lib in \
-    boost_python$boost_tag_$boost_mt_$boost_rtopt_$boost_ver_ \
-    boost_python$boost_tag_$boost_mt_$boost_ver_ \
-    boost_python$boost_tag_$boost_rtopt_$boost_ver_ \
-    boost_python$boost_tag_$boost_ver_
+    "$boost_ldpath/$boost_ldir_/libboost_python$boost_tag_$boost_mt_$boost_rtopt_$boost_ver_$boost_lext_$boost_vsuff_" \
+    "$boost_ldpath/$boost_ldir_/libboost_python$boost_tag_$boost_mt_$boost_ver_$boost_lext_$boost_vsuff_" \
+    "$boost_ldpath/$boost_ldir_/libboost_python$boost_tag_$boost_rtopt_$boost_ver_$boost_lext_$boost_vsuff_" \
+    "$boost_ldpath/$boost_ldir_/libboost_python$boost_tag_$boost_ver_$boost_lext_$boost_vsuff_" \
+    "$boost_ldpath/$boost_ldir_/libboost_python$boost_tag_$boost_mt_$boost_rtopt_$boost_ver_$boost_lext_" \
+    "$boost_ldpath/$boost_ldir_/libboost_python$boost_tag_$boost_mt_$boost_ver_$boost_lext_" \
+    "$boost_ldpath/$boost_ldir_/libboost_python$boost_tag_$boost_rtopt_$boost_ver_$boost_lext_" \
+    "$boost_ldpath/$boost_ldir_/libboost_python$boost_tag_$boost_ver_$boost_lext_"
   do
     # Avoid testing twice the same lib
-    case $boost_failed_libs in #(
+    case $boost_failed_libs in
       *@$boost_lib@*) continue;;
     esac
-    if test "x$DEBUG_BOOST_CONFIGURE" != "x"; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: trying: -L$boost_ldpath -l$boost_lib" >&5
-$as_echo "$as_me: trying: -L$boost_ldpath -l$boost_lib" >&6;}
-    fi
     # If with_boost is empty, we'll search in /lib first, which is not quite
     # right so instead we'll try to a location based on where the headers are.
     boost_tmp_lib=$with_boost
     ####################################
-    test -e "$boost_ldpath" || continue
+    test -d "$boost_ldpath" || continue
     boost_save_LDFLAGS=$LDFLAGS
-    if test -e "$boost_ldpath/lib$boost_lib.so"    \
-         -o -e "$boost_ldpath/lib$boost_lib.dylib" \
-         -o -e "$boost_ldpath/lib$boost_lib.a"     ; then
+    if test -e "$boost_lib"; then
       if test "x$DEBUG_BOOST_CONFIGURE" != "x"; then
-        echo "trying   $boost_ldpath/lib$boost_lib"
+        echo "trying   $boost_lib"
       fi
     else
       if test "x$DEBUG_BOOST_CONFIGURE" != "x"; then
-        echo "skipping $boost_ldpath/lib$boost_lib"
+        echo "skipping $boost_lib"
       fi
       continue
     fi
 
-    # Are we looking for a static library?
-    case $boost_ldpath:$boost_rtopt_ in #(
-      *?*:*s*) # Yes (Non empty boost_ldpath + s in rt opt)
-        boost_cv_lib_python_LIBS="$boost_ldpath/lib$boost_lib.$libext"
-        test -e "$boost_cv_lib_python_LIBS" || continue;; #(
-      *) # No: use -lboost_foo to find the shared library.
-        if test -e "$boost_ldpath/lib$boost_lib.$libext"; then
-          boost_cv_lib_python_S_LIBS="$boost_ldpath/lib$boost_lib.$libext"
-        fi
-        boost_cv_lib_python_LIBS="-l$boost_lib";;
-    esac
+#   # Are we looking for a static library?
+#   case $boost_ldpath:$boost_rtopt_ in
+#     *?*:*s*) # Yes (Non empty boost_ldpath + s in rt opt)
+#       Boost_lib_LIBS="$boost_ldpath/$boost_ldir_/lib$boost_lib.$libext"
+#       test -e "$Boost_lib_LIBS" || continue;;
+#     *) # No: use -lboost_foo to find the shared library.
+#       if test -e "$boost_ldpath/$boost_ldir_/lib$boost_lib.$libext"; then
+#         Boost_lib_S_LIBS="$boost_ldpath/$boost_ldir_/lib$boost_lib.$libext"
+#       fi
+#       Boost_lib_LIBS="boost_ldpath/$boost_ldir_$boost_lib";;
+#   esac
+    boost_cv_lib_python_LIBS="$boost_lib"
     boost_save_LIBS=$LIBS
     LIBS="$boost_cv_lib_python_LIBS $LIBS"
-    test x"$boost_ldpath" != x && LDFLAGS="$LDFLAGS -L$boost_ldpath -l$boost_lib $LDFLAGS"
+    test x"$boost_ldpath/$boost_ldir_" != x && LDFLAGS="$LDFLAGS $boost_lib $LDFLAGS"
     rm -f conftest$ac_exeext
 boost_ac_ext_save=$ac_ext
 boost_use_source=:
@@ -3864,12 +3911,12 @@ rm -f core conftest.err conftest_ipa8_conftest.oo \
     LDFLAGS=$boost_save_LDFLAGS
     LIBS=$boost_save_LIBS
     if test x"$boost_cv_lib_python" = xyes; then
-          boost_cv_lib_python_LDFLAGS="-L$boost_ldpath"
+          boost_cv_lib_python_LDFLAGS="-L$boost_ldpath/$boost_ldir_"
       if test "x$DEBUG_BOOST_CONFIGURE" != "x"; then
         { $as_echo "$as_me:${as_lineno-$LINENO}: ok" >&5
 $as_echo "$as_me: ok" >&6;}
       fi
-      break 6
+      break 9
     else
       boost_failed_libs="$boost_failed_libs@$boost_lib@"
       if test "x$DEBUG_BOOST_CONFIGURE" != "x"; then
@@ -3878,6 +3925,9 @@ $as_echo "$as_me: ! ok" >&6;}
       fi
     fi
   done
+done
+done
+done
 done
 done
 done
@@ -3903,6 +3953,8 @@ else
 
   BOOST_HAVE_LIB_PYTHON=yes
 
+  BOOST_HEADER_PYTHON=$BOOST_INCPATH/boost/python.hpp
+
 fi
 CPPFLAGS=$boost_save_CPPFLAGS
 ac_ext=cpp
@@ -3917,9 +3969,206 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
     as_fn_error $? "abort" "$LINENO" 5
   fi
 
+  SAGA_DEP_FILES="$SAGA_DEP_FILES $BOOST_HEADER_PYTHON"
+
   LDFLAGS=$old_ldflags
   CPPFLAGS=$old_cppflags
 fi
+
+
+###########################################################
+#
+# debian package support
+#
+
+  depfiles=$SAGA_DEP_FILES
+
+  # Extract the first word of "dpkg", so it can be a program name with args.
+set dummy dpkg; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if test "${ac_cv_path_SAGA_DPKG+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $SAGA_DPKG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_SAGA_DPKG="$SAGA_DPKG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_SAGA_DPKG="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+SAGA_DPKG=$ac_cv_path_SAGA_DPKG
+if test -n "$SAGA_DPKG"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DPKG" >&5
+$as_echo "$SAGA_DPKG" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package dependencies - $SAGA_DPKG" >&5
+$as_echo_n "checking debian package dependencies - $SAGA_DPKG... " >&6; }
+
+  if test "$SAGA_DPKG" = ""; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DPKG not found - not a debian system?" >&5
+$as_echo "DPKG not found - not a debian system?" >&6; }
+  else
+
+    SAGA_DEB_DEPENDENCIES=""
+    first=yes
+    oldpackage="NONE"
+
+    for  depfile in $depfiles;
+    do
+
+      depfile=`echo $depfile | sed -e 's|//|/|g'`
+      package=`$SAGA_DPKG -S $depfile 2>>/dev/null | cut -f 1 -d ':'`
+
+      if test "" = "$package"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package for $depfile" >&5
+$as_echo "Cannot find debian package for $depfile" >&6; }
+        continue
+      fi
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: $depfile: $package" >&5
+$as_echo "$as_me: $depfile: $package" >&6;}
+
+      if test "$oldpackage" = "$package"; then
+        # avoid repetetetive entries, to some extend
+        continue;
+      fi
+
+      version=`$SAGA_DPKG -p $package 2>>/dev/null | grep -e '^Version:' | cut -f 2 -d ' '`
+
+      if test "" = "$version"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package version for $depfile" >&5
+$as_echo "Cannot find debian package version for $depfile" >&6; }
+        continue
+      fi
+
+      # this is what, for example, ubuntu 11.x reposrt for the package
+      # openssh-client: 1:5.8p1-1ubuntu3
+      # Google tells me that this contains version 5.8.x of the ssh tools,
+      # so we strip whatever is before the colon, and hope that scheme is
+      # universally valid.  haha.
+      version=`echo $version | sed -e "s/^.*\://g"`
+
+      vmajor=`echo $version | cut -f 1 -d '.'`
+      vminor=`echo $version | cut -f 2 -d '.'`
+      vmin="$vmajor.$vminor"
+
+      # boost version can only differ by sub-minor version, other packages can
+      # differ by minor versions...
+      boostmatch=`expr "$package" ":" ".*boost.*"`
+
+      if test "0" = "$boostmatch"; then
+        vmax="`expr 1 + $vmajor`.0"
+      else
+        vmax="$vmajor.`expr 1 + $vminor`"
+      fi
+
+      if ! test "$first" == "yes"; then
+        SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES, "
+      fi
+
+      SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES$package (>= $vmin)"
+
+      if ! test "." = `expr substr $vmax 1 1`; then
+        SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES, $package (<< $vmax)"
+      fi
+
+      first=no
+      oldpackage=$package
+    done
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_DEPENDENCIES" >&5
+$as_echo "$SAGA_DEB_DEPENDENCIES" >&6; }
+
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian architecture" >&5
+$as_echo_n "checking debian architecture... " >&6; }
+    arch=`uname -m`
+    debarch=`$SAGA_DPKG --print-architecture`
+    if test "$deb_arch" == ""; then
+      SAGA_DEB_ARCH=$arch
+    else
+      SAGA_DEB_ARCH=$debarch
+    fi
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_ARCH" >&5
+$as_echo "$SAGA_DEB_ARCH" >&6; }
+
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package version" >&5
+$as_echo_n "checking debian package version... " >&6; }
+    SAGA_DEB_VERSION=$SAGA_VERSION
+    test -f PACKAGE && SAGA_DEB_VERSION=`grep '^VERSION:' PACKAGE | sed -e 's/^VERSION: *//'`
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_VERSION" >&5
+$as_echo "$SAGA_DEB_VERSION" >&6; }
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package name" >&5
+$as_echo_n "checking debian package name... " >&6; }
+    SAGA_DEB_PACKAGE="NONE"
+    test -f PACKAGE && SAGA_DEB_PACKAGE=`grep '^PACKAGE:' PACKAGE | sed -e 's/^PACKAGE: *//'`
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_PACKAGE" >&5
+$as_echo "$SAGA_DEB_PACKAGE" >&6; }
+
+    ###########################################################
+    #
+    # with the thus gathered information, we can actually
+    # create a debian control file
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package control file" >&5
+$as_echo_n "checking debian package control file... " >&6; }
+    SAGA_DEB_CONTROL=$SAGA_DEB_PACKAGE.deb.ctrl
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: creating $SAGA_DEB_CONTROL" >&5
+$as_echo "creating $SAGA_DEB_CONTROL" >&6; }
+
+    echo "Package:        $SAGA_DEB_PACKAGE"                       >  $SAGA_DEB_CONTROL
+    echo "Version:        $SAGA_DEB_VERSION"                       >> $SAGA_DEB_CONTROL
+    echo "Section:        devel"                                   >> $SAGA_DEB_CONTROL
+    echo "Priority:       optional"                                >> $SAGA_DEB_CONTROL
+    echo "Architecture:   $SAGA_DEB_ARCH"                          >> $SAGA_DEB_CONTROL
+    echo "Essential:      no"                                      >> $SAGA_DEB_CONTROL
+    echo "Depends:        $SAGA_DEB_DEPENDENCIES"                  >> $SAGA_DEB_CONTROL
+    echo "Pre-Depends: "                                           >> $SAGA_DEB_CONTROL
+    echo "Recommends: "                                            >> $SAGA_DEB_CONTROL
+    echo "Suggests: "                                              >> $SAGA_DEB_CONTROL
+    echo "Installed-Size: ###SIZE###"                              >> $SAGA_DEB_CONTROL
+    echo "Maintainer:     Andre Merzky [andre--saga@merzky.net]" >> $SAGA_DEB_CONTROL
+    echo "Conflicts: "                                             >> $SAGA_DEB_CONTROL
+    echo "Replaces: "                                              >> $SAGA_DEB_CONTROL
+    echo "Provides: "                                              >> $SAGA_DEB_CONTROL
+    echo "Description:    http://www.saga-project.org/"            >> $SAGA_DEB_CONTROL
+    echo ""                                                        >> $SAGA_DEB_CONTROL
+    #
+    ###########################################################
+  fi # SAGA_DPKG != ""
+
+
+
+
+
+
+
+#
+###########################################################
 
 
 ac_config_files="$ac_config_files config/saga.python.mk"
@@ -5102,13 +5351,36 @@ TEE="tee -a"
 
 echo "                                                                         " | $TEE $OUT
 echo " ========================================================                " | $TEE $OUT
-echo " SAGA Python BINDINGS - Configuration Summary                            " | $TEE $OUT
+echo " SAGA Python Bindings - Configuration Summary                            " | $TEE $OUT
 echo " ========================================================                " | $TEE $OUT
 echo "                                                                         " | $TEE $OUT
-echo " Using SAGA from         : $SAGA_LOCATION                                " | $TEE $OUT
-echo "       SAGA version      : $SAGA_VERSION                                 " | $TEE $OUT
-echo "                                                                         " | $TEE $OUT
 echo " Python Bindings Version : $SAGA_LIB_VERSION                             " | $TEE $OUT
+echo " SVN Revision            : $SAGA_PACKAGE_REVISION                        " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " Using SAGA Version      : $SAGA_VERSION                                 " | $TEE $OUT
+echo " Using SAGA Location     : $SAGA_LOCATION                                " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " Debian Package File     : $SAGA_DEB_CONTROL                             " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " --------------------------------------------------------                " | $TEE $OUT
+echo " SAGA Python Modules                                                     " | $TEE $OUT
+echo " --------------------------------------------------------                " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " Build saga.advert       : $SAGA_HAVE_PACKAGE_ADVERT                     " | $TEE $OUT
+echo " Build saga.cpr          : $SAGA_HAVE_PACKAGE_CPR                        " | $TEE $OUT
+echo " Build saga.filesystem   : $SAGA_HAVE_PACKAGE_FILESYSTEM                 " | $TEE $OUT
+echo " Build saga.job          : $SAGA_HAVE_PACKAGE_JOB                        " | $TEE $OUT
+echo " Build saga.namespace    : $SAGA_HAVE_PACKAGE_NAMESPACE                  " | $TEE $OUT
+echo " Build saga.replica      : $SAGA_HAVE_PACKAGE_REPLICA                    " | $TEE $OUT
+echo " Build saga.sd           : $SAGA_HAVE_PACKAGE_SD                         " | $TEE $OUT
+echo " Build saga.stream       : $SAGA_HAVE_PACKAGE_STREAM                     " | $TEE $OUT
+echo " Build saga.rpc          : $SAGA_HAVE_PACKAGE_RPC                        " | $TEE $OUT
+echo " Build saga.messages     : $SAGA_HAVE_PACKAGE_MESSAGES                   " | $TEE $OUT
+echo " Build saga.isn          : $SAGA_HAVE_PACKAGE_ISN                        " | $TEE $OUT
+echo "                                                                         " | $TEE $OUT
+echo " --------------------------------------------------------                " | $TEE $OUT
+echo " External Dependencies                                                   " | $TEE $OUT
+echo " --------------------------------------------------------                " | $TEE $OUT
 echo "                                                                         " | $TEE $OUT
 echo " Python Found            : $HAVE_PYTHON                                  " | $TEE $OUT
 echo " Python Version          : $PYTHON_VERSION                               " | $TEE $OUT

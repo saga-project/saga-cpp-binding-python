@@ -5,12 +5,13 @@
 
 #include <vector>
 
+#include <saga/saga.hpp>
 #include <boost/function.hpp>
 #include <boost/python.hpp>
 #include <boost/python/copy_const_reference.hpp>
 #include <boost/python/return_value_policy.hpp>
 
-#include <saga/saga.hpp>
+
 
 #include "register_types.hpp"
 #include "container_mappings.hpp"

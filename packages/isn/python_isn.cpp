@@ -1,4 +1,4 @@
-//  Copyright (c) 2005-2009 Hartmut Kaiser
+//  Copyright (c) 2011 Ole Weidner
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -14,10 +14,9 @@ using namespace boost::python;
 
 BOOST_PYTHON_MODULE(_job)
 {
-    register_job_version();
-    register_job();               // saga::job
-    register_job_self();          // saga::job_self
-    register_job_service();       // saga::job_service
-    register_job_description();   // saga::job_description
+    register_isn_version();
+    register_isn_entity_data();     // saga::isn::entity_data
+    //register_job_self();          // saga::job_self
+    //register_job_service();       // saga::job_service
+    //register_job_description();   // saga::job_description
 }
-
