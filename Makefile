@@ -8,7 +8,8 @@
 -include $(SAGA_LOCATION)/share/saga/make/saga.dist.mk
 
 # normal make includes
--include config/make.cfg
+include config/make.cfg
+
 -include config/saga.config.python.c.mk
 
 SAGA_SUBDIRS     = config docs
