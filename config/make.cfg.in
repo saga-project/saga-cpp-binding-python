@@ -18,6 +18,7 @@ SAGA_HAVE_BOOST_PYTHON = @BOOST_HAVE_LIB_PYTHON@
 
 include $(SAGA_LOCATION)/share/saga/make/saga.util.mk
 
+SAGA_DEB_CONTROL       = @SAGA_DEB_CONTROL@
 
 endif # guard
 

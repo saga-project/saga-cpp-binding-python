@@ -35,9 +35,9 @@ ifeq "x$(SAGA_HAVE_PACKAGE_SD)" "xyes"
   SAGA_SUBDIRS += sd
 endif
 
-#ifeq "x$(SAGA_HAVE_PACKAGE_CPR)" "xyes"
-#  SAGA_SUBDIRS += cpr
-#endif
+ifeq "x$(SAGA_HAVE_PACKAGE_CPR)" "xyes"
+  SAGA_SUBDIRS += cpr
+endif
 
 ifeq "x$(SAGA_HAVE_PACKAGE_ISN)" "xyes"
   SAGA_SUBDIRS += isn

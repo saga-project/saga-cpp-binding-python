@@ -8,7 +8,8 @@
 -include $(SAGA_LOCATION)/share/saga/make/saga.dist.mk
 
 # normal make includes
--include config/make.cfg
+include config/make.cfg
+
 -include config/saga.config.python.c.mk
 
 SAGA_SUBDIRS     = config docs
@@ -38,6 +39,7 @@ endif
 
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
+-include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
 
 
 distclean::
@@ -45,6 +47,7 @@ distclean::
 	@$(RM) config.log
 	@$(RM) config.status
 	@$(RM) config.summary
+	@$(RM) saga-bindings-python.deb.ctrl
 	@$(RM) -r tmp_install/
 
 

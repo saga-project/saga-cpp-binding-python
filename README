@@ -61,6 +61,28 @@
     boskop
 
 
+  KNOWN PROBLEMS
+
+  On OSX, the python bindings seem to compile and link fine against MacPort
+  installations of boost and python.  At runtime, however, the dynamic loader
+  seems to somtimes prefer the systems python libraries.  That may cause the
+  following error:
+
+    $ python
+      # import saga
+      # saga.url('bla')
+      Traceback (most recent call last):
+          File "<stdin>", line 1, in <module>
+          TypeError: __init__() should return None, not 'NoneType'
+
+  This can be manually fixed by 
+
+    $ install_name_tool -change
+      /System/Library/Frameworks/Python.framework/Versions/2.7/Python \
+      /opt/local/Library/Frameworks/Python.framework/Versions/2.7/Python \
+      _engine.so
+
+
   LICENSING
 
   The Pyton Bindings are released under the Boost Software License 1.0.
