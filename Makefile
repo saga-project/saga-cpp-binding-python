@@ -41,7 +41,7 @@ endif
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
 
 
-distclean::
+distclean:: config/make.cfg
 	@$(FIND) . -name \*.pyc -exec $(RM) {} \;
 	@$(RM) config.log
 	@$(RM) config.status
