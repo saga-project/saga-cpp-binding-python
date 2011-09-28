@@ -128,12 +128,19 @@ class FilePackageTests(unittest.TestCase):
         http://saga.cct.lsu.edu/python/apidoc/saga.filesystem._file.html#file-copy
         """
         try:
+            print "-- 1 "
+            print "-- 2 "
             source_url = saga.url("file:///"+self.filename_a)
+            print "-- 3 "
             target_url = saga.url("file:///"+self.filename_b)
+            print "-- 4 "
 
             my_file = saga.filesystem.file(source_url)
+            print "-- 5 "
             my_file.copy(target_url)
+            print "-- 6 "
             my_file.close()
+            print "-- 7 "
 
         except saga.exception, e: 
             self.fail(e.get_full_message())
