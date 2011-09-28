@@ -41,3 +41,5 @@ $(SCRIPT).run: $(SCRIPT)
 clean::
 	@$(RM) $(SCRIPT).run
 
+checkclean:: clean
+
