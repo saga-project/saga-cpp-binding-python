@@ -6,6 +6,50 @@
 # This file must be located inside a directory named SAGA which in turn should 
 # be located in a directory listed in your PYTHON_PATH
 
+"""  
+This is the documentation for the Python API bindings for the SAGA C++ 
+reference implementation (U{http://www.saga-project.org}). They provide a thin 
+Python wrapper on top of the native SAGA C++ API. This allows you to use SAGA 
+and all of its middleware adaptors from within your Python code. 
+ 
+B{Here's a simple example how to submit a job using SAGA and Python}:: 
+  import saga 
+   
+  try: 
+    # create an "echo 'hello, world' job" 
+    jd = saga.job.description() 
+    jd.set_attribute("Executable", "/bin/echo") 
+    jd.set_vector_attribute("Arguments", ["Hello, World!"]) 
+    jd.set_attribute("Interactive", "True") 
+   
+    # connect to the local job service 
+    js = saga.job.service("fork://localhost"); 
+   
+    # submit the job 
+    job = js.create_job(jd) 
+    job.run() 
+   
+    # wait for the job to complete 
+    job.wait(-1) 
+     
+    # print the job's output 
+    output = job.get_stdout() 
+    print output.read() 
+     
+  except saga.exception, e: 
+    print "ERROR: "  
+    for err in e.get_all_messages(): 
+      print err 
+ 
+ 
+Unfortunately, the bindings are mostly auto-generated from the C++ code, that's 
+why the documentation is rather minimalistic. If you're looking for more 
+details on a specific class or method, you should refer to the C++ API 
+documentation which can be found here: 
+U{http://www.saga-project.org/documentation/python} 
+""" 
+
+
 import sys
 
 required_ver_maj = str(@PYTHON_VERSION_MAJ@)

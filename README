@@ -1,6 +1,6 @@
-                         SAGA C++ Python Bindings
+                            SAGA Python Bindings
                   - The Simple API for Grid Applications -
-                 <http://saga.cct.lsu.edu/software/python> 
+                    <http://www.saga-project.org/python> 
 
 
   WHAT IS THIS?
@@ -15,7 +15,7 @@
 
   Details of the latest version can be found on the project page:
 
-  http://saga.cct.lsu.edu/software/python
+  http://www.saga-project.org/python
 
 
   INSTALLATION - Read the INSTALL file
@@ -27,7 +27,7 @@
   in HTML format in the docs/apidoc directory. The most up-to-date
   documentation for the current release can be found on the project page:
 
-  http://saga.cct.lsu.edu/software/python
+  http://www.saga-project.org/documentation/python/
 
 
   QUICKSTART
@@ -93,5 +93,5 @@
 
   If you want to be informed about new code releases, bug fixes,
   security fixes, general news and information about SAGA, subscribe 
-  to the saga-users mailing list at http://saga.cct.lsu.edu/software/cpp/.
+  to the saga-users mailing list at http://www.saga-project.org/mailinglists.
 
