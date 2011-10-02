@@ -1,6 +1,13 @@
                            SAGA Python Bindings
-                 <http://saga.cct.lsu.edu/software/python>
+                    <http://www.saga-project.org/python>
                            - Release Changelog -
+
+
+  Changes with SAGA Python Bindings Version 1.0              01. October 2011
+  ---------------------------------------------------------------------------
+
+  o Complete list of tickets: http://bit.ly/nBMtep
+
 
   Changes with SAGA Python Bindings Version 0.9.0             06. August 2010
   ---------------------------------------------------------------------------
