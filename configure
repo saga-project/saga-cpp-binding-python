@@ -593,6 +593,15 @@ ac_includes_default="\
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 SAGA_CONFIGURE_OK
+SAGA_RPM_CONTROL
+SAGA_RPM_PACKAGE
+SAGA_RPM_LICENSE
+SAGA_RPM_RELEASE
+SAGA_RPM_VERSION
+SAGA_RPM_ARCH
+SAGA_RPM_DEPENDENCIES
+SAGA_RPMBUILD
+SAGA_RPM
 SAGA_DEB_CONTROL
 SAGA_DEB_PACKAGE
 SAGA_DEB_VERSION
@@ -2134,9 +2143,9 @@ $as_echo "no" >&6; }
 $as_echo_n "checking saga version... " >&6; }
     SAGA_VERSION=`$SAGA_CONFIG --version`
 
-    SAGA_VERSION_MAJOR=`echo $SAGA_VERSION    | cut -f 1 -d . | cut -f 1 -d '-'`
-    SAGA_VERSION_MINOR=`echo $SAGA_VERSION    | cut -f 2 -d . | cut -f 1 -d '-'`
-    SAGA_VERSION_SUBMINOR=`echo $SAGA_VERSION | cut -f 3 -d . | cut -f 1 -d '-'`
+    SAGA_VERSION_MAJOR=`echo $SAGA_VERSION    | cut -sf 1 -d . | cut -sf 1 -d '-'`
+    SAGA_VERSION_MINOR=`echo $SAGA_VERSION    | cut -sf 2 -d . | cut -sf 1 -d '-'`
+    SAGA_VERSION_SUBMINOR=`echo $SAGA_VERSION | cut -sf 3 -d . | cut -sf 1 -d '-'`
 
     if test "$SAGA_VERSION_SUBMINOR" == ""; then
       SAGA_VERSION_SUBMINOR=0
@@ -2164,12 +2173,12 @@ $as_echo "$SAGA_VERSION_MAJOR.$SAGA_VERSION_MINOR.$SAGA_VERSION_SUBMINOR" >&6; }
 $as_echo_n "checking saga package version... " >&6; }
   SAGA_PACKAGE_VERSION=$SAGA_VERSION
   test -f PACKAGE && SAGA_PACKAGE_VERSION=` grep -e '^VERSION:'  PACKAGE | sed -e 's/^VERSION: *//'`
-  test -f PACKAGE && SAGA_PACKAGE_REVISION=`grep -e '^REVISION:' PACKAGE | cut -f 2 -d '$' | cut -f 2 -d ' '`
+  test -f PACKAGE && SAGA_PACKAGE_REVISION=`grep -e '^REVISION:' PACKAGE | cut -sf 2 -d '$' | cut -sf 2 -d ' '`
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&5
 $as_echo "$SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&6; }
 
   # svn info supercedes the revision info from the PACKAGE file
-  svnrevision=`svn info 2>&1 | grep Revision | cut -f 2 -d ' '`
+  svnrevision=`svn info 2>&1 | grep Revision | cut -sf 2 -d ' '`
 
   if ! test "$svnrevision" = ""; then
     SAGA_PACKAGE_REVISION=$svnrevision
@@ -3978,7 +3987,7 @@ fi
 
 ###########################################################
 #
-# debian package support
+# binary package support
 #
 
   depfiles=$SAGA_DEP_FILES
@@ -4023,8 +4032,6 @@ $as_echo "no" >&6; }
 fi
 
 
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package dependencies - $SAGA_DPKG" >&5
-$as_echo_n "checking debian package dependencies - $SAGA_DPKG... " >&6; }
 
   if test "$SAGA_DPKG" = ""; then
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: DPKG not found - not a debian system?" >&5
@@ -4039,7 +4046,7 @@ $as_echo "DPKG not found - not a debian system?" >&6; }
     do
 
       depfile=`echo $depfile | sed -e 's|//|/|g'`
-      package=`$SAGA_DPKG -S $depfile 2>>/dev/null | cut -f 1 -d ':'`
+      package=`$SAGA_DPKG -S $depfile 2>>/dev/null | cut -sf 1 -d ':'`
 
       if test "" = "$package"; then
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package for $depfile" >&5
@@ -4047,15 +4054,14 @@ $as_echo "Cannot find debian package for $depfile" >&6; }
         continue
       fi
 
-      { $as_echo "$as_me:${as_lineno-$LINENO}: $depfile: $package" >&5
-$as_echo "$as_me: $depfile: $package" >&6;}
+      # AC_MSG_NOTICE([$depfile: $package])
 
       if test "$oldpackage" = "$package"; then
         # avoid repetetetive entries, to some extend
         continue;
       fi
 
-      version=`$SAGA_DPKG -p $package 2>>/dev/null | grep -e '^Version:' | cut -f 2 -d ' '`
+      version=`$SAGA_DPKG -p $package 2>>/dev/null | grep -e '^Version:' | cut -sf 2 -d ' '`
 
       if test "" = "$version"; then
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package version for $depfile" >&5
@@ -4070,8 +4076,8 @@ $as_echo "Cannot find debian package version for $depfile" >&6; }
       # universally valid.  haha.
       version=`echo $version | sed -e "s/^.*\://g"`
 
-      vmajor=`echo $version | cut -f 1 -d '.'`
-      vminor=`echo $version | cut -f 2 -d '.'`
+      vmajor=`echo $version | cut -sf 1 -d '.'`
+      vminor=`echo $version | cut -sf 2 -d '.'`
       vmin="$vmajor.$vminor"
 
       # boost version can only differ by sub-minor version, other packages can
@@ -4104,12 +4110,11 @@ $as_echo "$SAGA_DEB_DEPENDENCIES" >&6; }
 
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian architecture" >&5
 $as_echo_n "checking debian architecture... " >&6; }
-    arch=`uname -m`
-    debarch=`$SAGA_DPKG --print-architecture`
+    deb_arch=`$SAGA_DPKG --print-architecture`
     if test "$deb_arch" == ""; then
-      SAGA_DEB_ARCH=$arch
+      SAGA_DEB_ARCH=$SAGA_ARCH
     else
-      SAGA_DEB_ARCH=$debarch
+      SAGA_DEB_ARCH=$deb_arch
     fi
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_ARCH" >&5
 $as_echo "$SAGA_DEB_ARCH" >&6; }
@@ -4140,31 +4145,380 @@ $as_echo_n "checking debian package control file... " >&6; }
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: creating $SAGA_DEB_CONTROL" >&5
 $as_echo "creating $SAGA_DEB_CONTROL" >&6; }
 
-    echo "Package:        $SAGA_DEB_PACKAGE"                       >  $SAGA_DEB_CONTROL
-    echo "Version:        $SAGA_DEB_VERSION"                       >> $SAGA_DEB_CONTROL
-    echo "Section:        devel"                                   >> $SAGA_DEB_CONTROL
-    echo "Priority:       optional"                                >> $SAGA_DEB_CONTROL
-    echo "Architecture:   $SAGA_DEB_ARCH"                          >> $SAGA_DEB_CONTROL
-    echo "Essential:      no"                                      >> $SAGA_DEB_CONTROL
-    echo "Depends:        $SAGA_DEB_DEPENDENCIES"                  >> $SAGA_DEB_CONTROL
-    echo "Pre-Depends: "                                           >> $SAGA_DEB_CONTROL
-    echo "Recommends: "                                            >> $SAGA_DEB_CONTROL
-    echo "Suggests: "                                              >> $SAGA_DEB_CONTROL
-    echo "Installed-Size: ###SIZE###"                              >> $SAGA_DEB_CONTROL
-    echo "Maintainer:     Andre Merzky [andre--saga@merzky.net]" >> $SAGA_DEB_CONTROL
-    echo "Conflicts: "                                             >> $SAGA_DEB_CONTROL
-    echo "Replaces: "                                              >> $SAGA_DEB_CONTROL
-    echo "Provides: "                                              >> $SAGA_DEB_CONTROL
-    echo "Description:    http://www.saga-project.org/"            >> $SAGA_DEB_CONTROL
-    echo ""                                                        >> $SAGA_DEB_CONTROL
+    cat <<EOT >$SAGA_DEB_CONTROL
+
+Package:        $SAGA_DEB_PACKAGE
+Version:        $SAGA_DEB_VERSION
+Section:        devel
+Priority:       optional
+Architecture:   $SAGA_DEB_ARCH
+Essential:      no
+Depends:        $SAGA_DEB_DEPENDENCIES
+Pre-Depends:
+Recommends:
+Suggests:
+Installed-Size: ###SIZE###
+Maintainer:     Andre Merzky [andre--saga@merzky.net]
+Conflicts:
+Replaces:
+Provides:
+Description:    http://www.saga-project.org/
+EOT
     #
     ###########################################################
-  fi # SAGA_DPKG != ""
 
 
 
 
 
+
+
+  fi # !DPKG
+
+
+
+  depfiles=$SAGA_DEP_FILES
+
+  # Extract the first word of "rpm", so it can be a program name with args.
+set dummy rpm; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if test "${ac_cv_path_SAGA_RPM+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $SAGA_RPM in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_SAGA_RPM="$SAGA_RPM" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_SAGA_RPM="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+SAGA_RPM=$ac_cv_path_SAGA_RPM
+if test -n "$SAGA_RPM"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_RPM" >&5
+$as_echo "$SAGA_RPM" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  # Extract the first word of "rpmbuild", so it can be a program name with args.
+set dummy rpmbuild; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if test "${ac_cv_path_SAGA_RPMBUILD+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $SAGA_RPMBUILD in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_SAGA_RPMBUILD="$SAGA_RPMBUILD" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_SAGA_RPMBUILD="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+SAGA_RPMBUILD=$ac_cv_path_SAGA_RPMBUILD
+if test -n "$SAGA_RPMBUILD"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_RPMBUILD" >&5
+$as_echo "$SAGA_RPMBUILD" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking redhat package dependencies" >&5
+$as_echo_n "checking redhat package dependencies... " >&6; }
+
+  if test "$SAGA_RPM" = ""; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: RPM not found - not a redhat system?" >&5
+$as_echo "RPM not found - not a redhat system?" >&6; }
+  elif test "$SAGA_RPMBUILD" = ""; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: RPMBUILD not found - not a redhat system?" >&5
+$as_echo "RPMBUILD not found - not a redhat system?" >&6; }
+  else
+    SAGA_DEB_DEPENDENCIES=""
+    first=yes
+    oldpackage="NONE"
+
+    for  depfile in $depfiles;
+    do
+
+      depfile=`echo $depfile | sed -e 's|//|/|g'`
+      package=`$SAGA_RPM -qf $depfile 2>>/dev/null`
+      check=`echo "$package" | grep ' '`
+
+      if test "$check" = "$package"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find redhat package for $depfile" >&5
+$as_echo "Cannot find redhat package for $depfile" >&6; }
+        continue
+      fi
+
+      package=`rpm -qi $package | grep Name | head -1 | cut -sf 2 -d ':' | cut -sf 2 -d ' '`
+
+      # AC_MSG_NOTICE([$depfile: $package])
+
+      if test "$oldpackage" = "$package"; then
+        # avoid repetetetive entries, to some extend
+        continue;
+      fi
+
+      version=`$SAGA_RPM -qi $package 2>>/dev/null | grep Version | cut -sf 2 -d ':'  | cut -sf 2 -d ' '`
+
+      if test "" = "$version"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find redhat package version for $depfile" >&5
+$as_echo "Cannot find redhat package version for $depfile" >&6; }
+        continue
+      fi
+
+      # this is what, for example, ubuntu 11.x reposrt for the package
+      # openssh-client: 1:5.8p1-1ubuntu3
+      # Google tells me that this contains version 5.8.x of the ssh tools,
+      # so we strip whatever is before the colon, and hope that scheme is
+      # universally valid.  haha.
+      version=`echo $version | sed -e "s/^.*\://g"`
+
+      vmajor=`echo $version | cut -sf 1 -d '.'`
+      vminor=`echo $version | cut -sf 2 -d '.'`
+      vmin="$vmajor.$vminor"
+
+      # boost version can only differ by sub-minor version, other packages can
+      # differ by minor versions...
+      boostmatch=`expr "$package" ":" ".*boost.*"`
+
+      if test "0" = "$boostmatch"; then
+        vmax="`expr 1 + $vmajor`.0"
+      else
+        vmax="$vmajor.`expr 1 + $vminor`"
+      fi
+
+      if ! test "$first" == "yes"; then
+        SAGA_RPM_DEPENDENCIES="$SAGA_RPM_DEPENDENCIES, "
+      fi
+
+      SAGA_RPM_DEPENDENCIES="$SAGA_RPM_DEPENDENCIES$package >= $vmin"
+
+      if ! test "." = `expr substr $vmax 1 1`; then
+        SAGA_RPM_DEPENDENCIES="$SAGA_RPM_DEPENDENCIES, $package << $vmax"
+      fi
+
+      first=no
+      oldpackage=$package
+    done
+
+    if test "$SAGA_RPM_DEPENDENCIES" = ""; then
+      all_deps=""
+    else
+      all_deps="Requires:  '$SAGA_RPM_DEPENDENCIES'"
+    fi
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_RPM_DEPENDENCIES" >&5
+$as_echo "$SAGA_RPM_DEPENDENCIES" >&6; }
+
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking redhat architecture" >&5
+$as_echo_n "checking redhat architecture... " >&6; }
+    rpmarch=`$SAGA_DPKG --print-architecture`
+    if test "$rpm_arch" == ""; then
+      SAGA_RPM_ARCH=$SAGA_ARCH
+    else
+      SAGA_RPM_ARCH=$rpmarch
+    fi
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_RPM_ARCH" >&5
+$as_echo "$SAGA_RPM_ARCH" >&6; }
+
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking redhat package version" >&5
+$as_echo_n "checking redhat package version... " >&6; }
+    SAGA_RPM_VERSION=$SAGA_VERSION
+    SAGA_RPM_RELEASE=""
+    test -f PACKAGE && SAGA_RPM_VERSION=`grep '^VERSION:' PACKAGE | sed -e 's/^VERSION: *//' | cut -f 1 -d '-'`
+    test -f PACKAGE && SAGA_RPM_RELEASE=`grep '^VERSION:' PACKAGE | sed -e 's/^VERSION: *//' | cut -sf 2 -d '-'`
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_RPM_VERSION - $SAGA_RPM_RELEASE" >&5
+$as_echo "$SAGA_RPM_VERSION - $SAGA_RPM_RELEASE" >&6; }
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking redhat package license" >&5
+$as_echo_n "checking redhat package license... " >&6; }
+    test -f PACKAGE && SAGA_RPM_LICENSE=`grep '^LICENSE:' PACKAGE | sed -e 's/^LICENSE: *//'`
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_RPM_LICENSE" >&5
+$as_echo "$SAGA_RPM_LICENSE" >&6; }
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking redhat package name" >&5
+$as_echo_n "checking redhat package name... " >&6; }
+    SAGA_RPM_PACKAGE="NONE"
+    test -f PACKAGE && SAGA_RPM_PACKAGE=`grep '^PACKAGE:' PACKAGE | sed -e 's/^PACKAGE: *//'`
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_RPM_PACKAGE" >&5
+$as_echo "$SAGA_RPM_PACKAGE" >&6; }
+
+    ###########################################################
+    #
+    # with the thus gathered information, we can actually
+    # create a redhat control file
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking redhat package control file" >&5
+$as_echo_n "checking redhat package control file... " >&6; }
+    SAGA_RPM_CONTROL=$SAGA_RPM_PACKAGE.rpm.ctrl
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: creating $SAGA_RPM_CONTROL" >&5
+$as_echo "creating $SAGA_RPM_CONTROL" >&6; }
+
+    SAGA_RPM_FULLNAME="$SAGA_RPM_PACKAGE-$SAGA_RPM_VERSION-$SAGA_RPM_RELEASE"
+
+    if test "$SAGA_RPM_RELEASE" = ""; then
+      SAGA_RPM_RELEASE=0
+      SAGA_RPM_FULLNAME="$SAGA_RPM_PACKAGE-$SAGA_RPM_VERSION"
+    fi
+
+    cat <<EOT >$SAGA_RPM_CONTROL
+
+########################################################################
+#
+# Header section
+#
+
+Summary:   http://www.saga-project.org/
+Name:      $SAGA_RPM_PACKAGE
+Version:   $SAGA_RPM_VERSION
+Release:   $SAGA_RPM_RELEASE
+License:   '$SAGA_RPM_LICENSE'
+Group:     Applications/Devel
+Source:    $SAGA_RPM_FULLNAME.tgz
+URL:       http://www.saga-project.org/release/
+
+# temporary dir where the software should be compiled
+Buildroot: %{_tmppath}/%{name}-root
+
+# non-obvious software required to build the software
+$all_deps
+
+%description
+http://www.saga-project.org/
+
+
+########################################################################
+#
+# Prep section
+#
+
+%prep
+
+# unpack the source and cd into the source directory
+%setup -q -n $SAGA_RPM_FULLNAME
+
+########################################################################
+#
+# Build section
+#
+
+%build
+
+# less uses autoconf, so ./configure it w/ appropriate options
+%configure
+# compile the software
+make
+
+
+########################################################################
+#
+# Install section
+#
+
+%install
+
+# as sanity protection, make sure the Buildroot is empty
+rm -rf \$RPM_BUILD_ROOT
+# install software into the Buildroot
+make DESTDIR=\$RPM_BUILD_ROOT install
+
+
+########################################################################
+#
+# Files section
+#
+
+%files
+
+# set perms and ownerships of packaged files
+# the - indicates that the current permissions on the files should be used
+%defattr(-,root,root)
+
+# package all files within the \$RPM_BUILD_ROOT/ directory
+/*
+
+
+########################################################################
+#
+# define a clean-up script to run after the software in Buildroot is pkg'ed
+#
+
+%clean
+
+# just delete all files within the Buildroot
+rm -rf \$RPM_BUILD_ROOT
+
+
+########################################################################
+#
+# Scripts section begin here
+#
+# No Scripts in this RPM
+
+########################################################################
+#
+# Changelog
+#
+
+%changelog
+
+* Mon Sep 12 2011 Andre Merzky <andre@merzky.net>
+- Initial RPM packaging
+
+EOT
+    #
+    ###########################################################
+
+
+
+
+
+
+
+
+
+
+  fi # SAGA_RPM != ""
 
 
 #
