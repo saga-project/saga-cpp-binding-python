@@ -13,8 +13,14 @@ ifndef SAGA_MK_INC_PYTHON
 # make configuration for python builds
 # 
 
-include $(SAGA_MAKE_INCLUDE_ROOT)/saga.util.mk
-include @CONFDIR@/saga.config.python.c.mk
+include  $(SAGA_MAKE_INCLUDE_ROOT)/saga.util.mk
+-include $(SAGA_MAKE_INCLUDE_ROOT)/saga.config.python.c.mk
+-include @CONFDIR@/saga.config.python.c.mk
+
+ifndef SAGA_MK_INC_CONF_PYTHON
+ $(error Could not find SAGA python make config saga.config.python.c.mk)
+endif
+
 
 SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.package.*.mk)
 SAGA_TMP_MINCS += $(wildcard $(SAGA_MAKE_INCLUDE_ROOT)/saga.core.mk)
