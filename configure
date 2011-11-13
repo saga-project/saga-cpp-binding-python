@@ -629,6 +629,7 @@ PYTHON_CPPFLAGS
 PYTHON_VERSION_SUB
 PYTHON_VERSION_MIN
 PYTHON_VERSION_MAJ
+PYTHON_SVERSION
 PYTHON_VERSION
 PYTHON
 HAVE_PYTHON
@@ -2834,14 +2835,16 @@ $as_echo_n "checking for Python version >= 2.2... " >&6; }
         PYTHON_VERSION_NEED_MIN=`echo 2.2 | cut -f 2 -d '.'`
         PYTHON_VERSION_NEED_SUB=`echo 2.2 | cut -f 3 -d '.'`
 
-        PYTHON_VERSION=`$PYTHON -c "import sys; print(sys.version[0:5])"`
+        PYTHON_VERSION=` $PYTHON -c "import sys; print(sys.version[0:5])"`
+        PYTHON_SVERSION=`$PYTHON -c "import sys; print(sys.version[0:3])"`
         PYTHON_VERSION_MAJ=`$PYTHON -c "import sys; print(sys.version[0:1])"`
         PYTHON_VERSION_MIN=`$PYTHON -c "import sys; print(sys.version[2:3])"`
         PYTHON_VERSION_SUB=`$PYTHON -c "import sys; print(sys.version[4:5])"`
 
         # catch versions w/o minor or subminor version number
         if test "$PYTHON_VERSION_MIN" = "("; then
-          PYTHON_VERSION=`$PYTHON -c "import sys; print(sys.version[0:1])"`
+          PYTHON_VERSION=` $PYTHON -c "import sys; print(sys.version[0:1])"`
+          PYTHON_SVERSION=`$PYTHON -c "import sys; print(sys.version[0:1])"`
         fi
         if test "$PYTHON_VERSION_SUB" = "("; then
           PYTHON_VERSION=`$PYTHON -c "import sys; print(sys.version[0:3])"`
@@ -2853,6 +2856,7 @@ $as_echo_n "checking for Python version >= 2.2... " >&6; }
         # AC_MSG_NOTICE([PYTHON_VERSION_NEED_SUB: $PYTHON_VERSION_NEED_SUB])
         #
         # AC_MSG_NOTICE([PYTHON_VERSION         : $PYTHON_VERSION         ])
+        # AC_MSG_NOTICE([PYTHON_SVERSION        : $PYTHON_SVERSION        ])
         # AC_MSG_NOTICE([PYTHON_VERSION_MAJ     : $PYTHON_VERSION_MAJ     ])
         # AC_MSG_NOTICE([PYTHON_VERSION_MIN     : $PYTHON_VERSION_MIN     ])
         # AC_MSG_NOTICE([PYTHON_VERSION_SUB     : $PYTHON_VERSION_SUB     ])
@@ -2945,7 +2949,7 @@ $as_echo "ok" >&6; }
             HAVE_PYTHON=yes
 
             SAGA_PYTHON_DEP_FILES="`echo $PYTHON_CPPFLAGS | sed -e 's/^..//'`/Python.h"
-            PYTHON_PACKAGE_PATH="lib/python$PYTHON_VERSION/site-packages"
+            PYTHON_PACKAGE_PATH="lib/python$PYTHON_SVERSION/site-packages"
 
             if test "$tmp_location" != "" && \
                test "$tmp_location" != "$tmp_path" ; then
@@ -3004,6 +3008,7 @@ fi
     PYTHON_SAGA_MODULE_BASE=$python_module_base
 
   fi
+
 
 
 
@@ -3991,6 +3996,7 @@ fi
 #
 
   depfiles=$SAGA_DEP_FILES
+  depfiles_nv=
 
   # Extract the first word of "dpkg", so it can be a program name with args.
 set dummy dpkg; ac_word=$2
@@ -4104,6 +4110,35 @@ $as_echo "Cannot find debian package version for $depfile" >&6; }
       oldpackage=$package
     done
 
+    for  depfile in $depfiles_nv;
+    do
+
+      depfile=`echo $depfile | sed -e 's|//|/|g'`
+      package=`$SAGA_DPKG -S $depfile 2>>/dev/null | cut -sf 1 -d ':'`
+
+      if test "" = "$package"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package for $depfile" >&5
+$as_echo "Cannot find debian package for $depfile" >&6; }
+        continue
+      fi
+
+      # AC_MSG_NOTICE([$depfile: $package])
+
+      if test "$oldpackage" = "$package"; then
+        # avoid repetetetive entries, to some extend
+        continue;
+      fi
+
+      if ! test "$first" == "yes"; then
+        SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES, "
+      fi
+
+      SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES$package"
+
+      first=no
+      oldpackage=$package
+    done
+
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_DEPENDENCIES" >&5
 $as_echo "$SAGA_DEB_DEPENDENCIES" >&6; }
 
@@ -4162,7 +4197,7 @@ Maintainer:     Andre Merzky [andre--saga@merzky.net]
 Conflicts:
 Replaces:
 Provides:
-Description:    http://www.saga-project.org/
+Description:    http://saga-project.org/
 EOT
     #
     ###########################################################
@@ -4178,6 +4213,7 @@ EOT
 
 
   depfiles=$SAGA_DEP_FILES
+  depfiles_nv=
 
   # Extract the first word of "rpm", so it can be a program name with args.
 set dummy rpm; ac_word=$2
@@ -4304,12 +4340,15 @@ $as_echo "Cannot find redhat package version for $depfile" >&6; }
         continue
       fi
 
-      # this is what, for example, ubuntu 11.x reposrt for the package
+      # this is what, for example, ubuntu 11.x reports for the package
       # openssh-client: 1:5.8p1-1ubuntu3
       # Google tells me that this contains version 5.8.x of the ssh tools,
       # so we strip whatever is before the colon, and hope that scheme is
       # universally valid.  haha.
-      version=`echo $version | sed -e "s/^.*\://g"`
+      #
+      # Oy, we also need to strip the patchlevel info, as some versions
+      # of rpmbuild complain about that when evaluating the control file.
+      version=`echo $version | sed -e "s/^.*\://g" | sed -e "s/p.*//g"`
 
       vmajor=`echo $version | cut -sf 1 -d '.'`
       vminor=`echo $version | cut -sf 2 -d '.'`
@@ -4334,6 +4373,38 @@ $as_echo "Cannot find redhat package version for $depfile" >&6; }
       if ! test "." = `expr substr $vmax 1 1`; then
         SAGA_RPM_DEPENDENCIES="$SAGA_RPM_DEPENDENCIES, $package < $vmax"
       fi
+
+      first=no
+      oldpackage=$package
+    done
+
+    for  depfile in $depfiles_nv;
+    do
+
+      depfile=`echo $depfile | sed -e 's|//|/|g'`
+      package=`$SAGA_RPM -qf $depfile 2>>/dev/null`
+      check=`echo "$package" | grep ' '`
+
+      if test "$check" = "$package"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find redhat package for $depfile" >&5
+$as_echo "Cannot find redhat package for $depfile" >&6; }
+        continue
+      fi
+
+      package=`rpm -qi $package | grep Name | head -1 | cut -sf 2 -d ':' | cut -sf 2 -d ' '`
+
+      # AC_MSG_NOTICE([$depfile: $package])
+
+      if test "$oldpackage" = "$package"; then
+        # avoid repetetetive entries, to some extend
+        continue;
+      fi
+
+      if ! test "$first" == "yes"; then
+        SAGA_RPM_DEPENDENCIES="$SAGA_RPM_DEPENDENCIES, "
+      fi
+
+      SAGA_RPM_DEPENDENCIES="$SAGA_RPM_DEPENDENCIES$package"
 
       first=no
       oldpackage=$package
@@ -4408,14 +4479,14 @@ $as_echo "creating $SAGA_RPM_CONTROL" >&6; }
 # Header section
 #
 
-Summary:   http://www.saga-project.org/
+Summary:   http://saga-project.org/
 Name:      $SAGA_RPM_PACKAGE
 Version:   $SAGA_RPM_VERSION
 Release:   $SAGA_RPM_RELEASE
 License:   '$SAGA_RPM_LICENSE'
 Group:     Applications/Devel
 Source:    $SAGA_RPM_FULLNAME.tgz
-URL:       http://www.saga-project.org/release/
+URL:       http://saga-project.org/release/
 
 # temporary dir where the software should be compiled
 Buildroot: %{_tmppath}/%{name}-root
@@ -4425,7 +4496,7 @@ Autoreq:   1
 $all_deps
 
 %description
-http://www.saga-project.org/
+http://saga-project.org/
 
 
 ########################################################################

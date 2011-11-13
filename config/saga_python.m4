@@ -94,14 +94,16 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
         PYTHON_VERSION_NEED_MIN=`echo $1 | cut -f 2 -d '.'`
         PYTHON_VERSION_NEED_SUB=`echo $1 | cut -f 3 -d '.'`
 
-        PYTHON_VERSION=`$PYTHON -c "import sys; print(sys.version[[0:5]])"`
+        PYTHON_VERSION=` $PYTHON -c "import sys; print(sys.version[[0:5]])"`
+        PYTHON_SVERSION=`$PYTHON -c "import sys; print(sys.version[[0:3]])"`
         PYTHON_VERSION_MAJ=`$PYTHON -c "import sys; print(sys.version[[0:1]])"`
         PYTHON_VERSION_MIN=`$PYTHON -c "import sys; print(sys.version[[2:3]])"`
         PYTHON_VERSION_SUB=`$PYTHON -c "import sys; print(sys.version[[4:5]])"`
 
         # catch versions w/o minor or subminor version number
         if test "$PYTHON_VERSION_MIN" = "("; then
-          PYTHON_VERSION=`$PYTHON -c "import sys; print(sys.version[[0:1]])"`
+          PYTHON_VERSION=` $PYTHON -c "import sys; print(sys.version[[0:1]])"`
+          PYTHON_SVERSION=`$PYTHON -c "import sys; print(sys.version[[0:1]])"`
         fi
         if test "$PYTHON_VERSION_SUB" = "("; then
           PYTHON_VERSION=`$PYTHON -c "import sys; print(sys.version[[0:3]])"`
@@ -113,6 +115,7 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
         # AC_MSG_NOTICE([PYTHON_VERSION_NEED_SUB: $PYTHON_VERSION_NEED_SUB])
         # 
         # AC_MSG_NOTICE([PYTHON_VERSION         : $PYTHON_VERSION         ])
+        # AC_MSG_NOTICE([PYTHON_SVERSION        : $PYTHON_SVERSION        ])
         # AC_MSG_NOTICE([PYTHON_VERSION_MAJ     : $PYTHON_VERSION_MAJ     ])
         # AC_MSG_NOTICE([PYTHON_VERSION_MIN     : $PYTHON_VERSION_MIN     ])
         # AC_MSG_NOTICE([PYTHON_VERSION_SUB     : $PYTHON_VERSION_SUB     ])
@@ -185,7 +188,7 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
             HAVE_PYTHON=yes
 
             SAGA_PYTHON_DEP_FILES="`echo $PYTHON_CPPFLAGS | sed -e 's/^..//'`/Python.h"
-            PYTHON_PACKAGE_PATH="lib/python$PYTHON_VERSION/site-packages"
+            PYTHON_PACKAGE_PATH="lib/python$PYTHON_SVERSION/site-packages"
 
             if test "$tmp_location" != "" && \
                test "$tmp_location" != "$tmp_path" ; then
@@ -243,6 +246,7 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
 
   AC_SUBST(PYTHON)
   AC_SUBST(PYTHON_VERSION)
+  AC_SUBST(PYTHON_SVERSION)
   AC_SUBST(PYTHON_LOCATION)
   
   AC_SUBST(PYTHON_VERSION_MAJ)
@@ -295,6 +299,7 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
 #     AC_MSG_NOTICE([============================================])
 #     AC_MSG_NOTICE([PYTHON:             $PYTHON])
 #     AC_MSG_NOTICE([PYTHON_VERSION:     $PYTHON_VERSION])
+#     AC_MSG_NOTICE([PYTHON_SVERSION:    $PYTHON_SVERSION])
 #     AC_MSG_NOTICE([PYTHON_PREFIX:      $PYTHON_PREFIX])
 #     AC_MSG_NOTICE([PYTHON_EXEC_PREFIX: $PYTHO_EXEC_PREFIXN])
 #     AC_MSG_NOTICE([PYTHON_PLATFORM:    $PYTHON_PLATFORM])
@@ -311,6 +316,7 @@ AC_DEFUN([AX_SAGA_CHECK_PYTHON],
 # 
 #     AC_SUBST(PYTHON)
 #     AC_SUBST(PYTHON_VERSION)
+#     AC_SUBST(PYTHON_SVERSION)
 #     AC_SUBST(PYTHON_LOCATION)
 # 
 #     AC_SUBST(PYTHON_CPPFLAGS)
