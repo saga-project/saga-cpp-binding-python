@@ -647,6 +647,8 @@ TMP_SAGA_INSTTYPE
 SAGA_LIB_VERSION
 SAGA_MAKE_INCLUDE_DIR
 TMP_SAGA_LOCATION
+SAGA_PACKAGE_REVISION
+SAGA_PACKAGE_VERSION
 SAGA_CONFIG
 SAGA_INI_DIR
 SAGA_BIN_DIR
@@ -655,8 +657,6 @@ SAGA_INC_DIR
 SAGA_CONF_DIR
 SAGA_MAKE_DIR
 HAVE_SAGA
-SAGA_PACKAGE_REVISION
-SAGA_PACKAGE_VERSION
 SAGA_VERSION_SUBMINOR
 SAGA_VERSION_MINOR
 SAGA_VERSION_MAJOR
@@ -2167,16 +2167,22 @@ $as_echo "$SAGA_VERSION_MAJOR.$SAGA_VERSION_MINOR.$SAGA_VERSION_SUBMINOR" >&6; }
   fi
 
 
-  # We set SAGA_PACKAGE_VERSION to SAGA_VERSION by default.  If a local PACKAGE file is
-  # present though, for example for an adaptor, we use its version info instead.
+  # We set SAGA_PACKAGE_NAME, SAGA_PACKAGE_VERSION to SAGA_VERSION by default.  If a
+  # local PACKAGE file is present though, for example for an adaptor, we use its
+  # version info instead.
 
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking saga package version" >&5
-$as_echo_n "checking saga package version... " >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking saga package name and version" >&5
+$as_echo_n "checking saga package name and version... " >&6; }
+  SAGA_PACKAGE_NAME=saga
+  test -f PACKAGE && SAGA_PACKAGE_NAME=` grep -e '^PACKAGE:'  PACKAGE | sed -e 's/^PACKAGE: *//'`
+
   SAGA_PACKAGE_VERSION=$SAGA_VERSION
   test -f PACKAGE && SAGA_PACKAGE_VERSION=` grep -e '^VERSION:'  PACKAGE | sed -e 's/^VERSION: *//'`
   test -f PACKAGE && SAGA_PACKAGE_REVISION=`grep -e '^REVISION:' PACKAGE | cut -sf 2 -d '$' | cut -sf 2 -d ' '`
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&5
-$as_echo "$SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_NAME($SAGA_PACKAGE_VERSION / r$SAGA_PACKAGE_REVISION)" >&5
+$as_echo "$SAGA_PACKAGE_NAME($SAGA_PACKAGE_VERSION / r$SAGA_PACKAGE_REVISION)" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_VERSION ()" >&5
+$as_echo "$SAGA_PACKAGE_VERSION ()" >&6; }
 
   # svn info supercedes the revision info from the PACKAGE file
   svnrevision=`svn info 2>&1 | grep Revision | cut -sf 2 -d ' '`
@@ -2184,12 +2190,6 @@ $as_echo "$SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&6; }
   if ! test "$svnrevision" = ""; then
     SAGA_PACKAGE_REVISION=$svnrevision
   fi
-
-
-  export  SAGA_PACKAGE_VERSION
-
-  export  SAGA_PACKAGE_REVISION
-
 
 
   # we set SAGA_LOCATION, and a couple of other vars
@@ -2214,6 +2214,10 @@ $as_echo "$SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&6; }
   export SAGA_INI_DIR
   export SAGA_CONFIG
   export SAGA_VERSION
+  export SAGA_PACKAGE_VERSION
+  export SAGA_PACKAGE_REVISION
+
+
 
 
 
@@ -3828,7 +3832,7 @@ for boost_ldpath in "$BOOST_LOCATION/" \
                     C:/Boost/lib \
                     / ; do
 for boost_lext_  in '.so' '.dylib' '.a' -d; do
-for boost_ldir_  in 'lib' 'lib64' -d; do
+for boost_ldir_  in "lib$CC_BIT" 'lib' 'lib64' -d; do
 for boost_vsuff_ in ".$vmaj.$vmin.$vsub" "$vmaj.$vmin" ".$vmaj" '' -d; do
 for boost_ver_   in -$boost_cv_lib_version ''; do
 for boost_tag_   in -$boost_cv_lib_tag ''; do
@@ -3880,13 +3884,14 @@ for boost_rtopt_ in $boost_rtopt '' -d; do
     boost_cv_lib_python_LIBS="$boost_lib"
     boost_save_LIBS=$LIBS
     LIBS="$boost_cv_lib_python_LIBS $LIBS"
-    test x"$boost_ldpath/$boost_ldir_" != x && LDFLAGS="$LDFLAGS $boost_lib $LDFLAGS"
+    test x"$boost_ldpath/$boost_ldir_" != x && LDFLAGS="$boost_lib $LDFLAGS"
     rm -f conftest$ac_exeext
 boost_ac_ext_save=$ac_ext
 boost_use_source=:
 # If we already have a .o, re-use it.  We change $ac_ext so that $ac_link
 # tries to link the existing object file instead of compiling from source.
 test -f conftest.$ac_objext && ac_ext=$ac_objext && boost_use_source=false &&
+ac_link="$ac_link $LDFLAGS"
   $as_echo "$as_me:${as_lineno-$LINENO}: re-using the existing conftest.$ac_objext" >&5
 if { { ac_try="$ac_link"
 case "(($ac_try" in
@@ -3925,8 +3930,7 @@ rm -f core conftest.err conftest_ipa8_conftest.oo \
     LDFLAGS=$boost_save_LDFLAGS
     LIBS=$boost_save_LIBS
     if test x"$boost_cv_lib_python" = xyes; then
-          boost_cv_lib_python_LDFLAGS="-L$boost_ldpath/$boost_ldir_"
-      if test "x$DEBUG_BOOST_CONFIGURE" != "x"; then
+                  if test "x$DEBUG_BOOST_CONFIGURE" != "x"; then
         { $as_echo "$as_me:${as_lineno-$LINENO}: ok" >&5
 $as_echo "$as_me: ok" >&6;}
       fi
@@ -4370,9 +4374,12 @@ $as_echo "Cannot find redhat package version for $depfile" >&6; }
 
       SAGA_RPM_DEPENDENCIES="$SAGA_RPM_DEPENDENCIES$package >= $vmin"
 
-      if ! test "." = `expr substr $vmax 1 1`; then
-        SAGA_RPM_DEPENDENCIES="$SAGA_RPM_DEPENDENCIES, $package < $vmax"
-      fi
+      # we trust RPM's autoreq utilities to do the right thing, and do not
+      # specify upper version bounds
+      #
+      # if ! test "." = `expr substr $vmax 1 1`; then
+      #   SAGA_RPM_DEPENDENCIES="$SAGA_RPM_DEPENDENCIES, $package < $vmax"
+      # fi
 
       first=no
       oldpackage=$package
